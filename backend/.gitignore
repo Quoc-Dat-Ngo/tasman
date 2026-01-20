@@ -42,6 +42,3 @@ Thumbs.db
 
 # Optional: test results
 jest-results.json
-
-# For TypeScript later on 
-*.tsbuildinfo
