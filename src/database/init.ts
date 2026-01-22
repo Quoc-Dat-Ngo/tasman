@@ -1,4 +1,4 @@
-import { pool } from './pool';
+import { pool } from "./pool";
 
 // Set up database schema
 // Link to ER Diagram - https://lucid.app/lucidchart/58de6dd1-7030-4c6c-abe0-e53aaa9c1b43/edit?viewport_loc=-1235%2C-456%2C2175%2C1041%2C0_0&invitationId=inv_39190bf5-33fd-4512-80eb-05ed6e48241a
@@ -85,7 +85,6 @@ export const initDb = async (): Promise<void> | never => {
         UNIQUE(course_id, instructor_id)
       );  
     `);
-    console.log('Initialise new tables and establish relationships');
   } catch (e) {
     throw e;
   }

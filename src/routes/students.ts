@@ -1,5 +1,5 @@
-import express from 'express';
-import type { Router } from 'express';
+import express from "express";
+import type { Router } from "express";
 export const studentsRouter: Router = express.Router();
 
 import {
@@ -10,13 +10,13 @@ import {
   deleteStudent,
   getAllStudentCourse,
   getAllStudentMajor,
-} from '../controllers/studentsController';
+} from "../controllers/studentsController";
 
-studentsRouter.route('/').get(getAllStudent).post(createNewStudent);
+studentsRouter.route("/").get(getAllStudent).post(createNewStudent);
 studentsRouter
-  .route('/:id')
+  .route("/:id")
   .get(getSingleStudent)
   .patch(updateStudent)
   .delete(deleteStudent);
-studentsRouter.route('/:id/courses').get(getAllStudentCourse);
-studentsRouter.route('/:id/majors').get(getAllStudentMajor);
+studentsRouter.route("/:id/courses").get(getAllStudentCourse);
+studentsRouter.route("/:id/majors").get(getAllStudentMajor);
