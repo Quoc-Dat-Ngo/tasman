@@ -1,13 +1,12 @@
-import type { Response, Request, NextFunction } from "express";
+import type { Response, Request } from "express";
 import AppError from "../utils/AppError";
 
 export const globalErrorHandler = (
   err: AppError,
   req: Request,
   res: Response,
-  next: NextFunction,
 ): void => {
-  console.log(err);
+  // console.log(err);
   if (err instanceof AppError && err.isOperational) {
     // Safe to send to client
     res.status(err.statusCode).json({
