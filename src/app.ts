@@ -5,6 +5,7 @@ import { coursesRouter } from "./routes/courses";
 import { instructorsRouter } from "./routes/instructors";
 import { majorsRouter } from "./routes/majors";
 import { departmentsRouter } from "./routes/deparments";
+import { globalErrorHandler } from "./middlewares/errorHandler";
 
 const app = express();
 
@@ -23,5 +24,8 @@ app.use("/api/v1/courses", coursesRouter);
 app.use("/api/v1/instructors", instructorsRouter);
 app.use("/api/v1/majors", majorsRouter);
 app.use("/api/v1/departments", departmentsRouter);
+
+// Global error handler
+app.use(globalErrorHandler);
 
 export default app;
