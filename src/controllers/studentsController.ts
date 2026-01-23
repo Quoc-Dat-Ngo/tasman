@@ -1,5 +1,4 @@
 import type { Request, Response, NextFunction } from "express";
-import type { Student } from "../types/";
 import {
   studentList,
   addStudent,
