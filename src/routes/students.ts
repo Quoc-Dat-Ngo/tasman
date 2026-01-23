@@ -8,6 +8,7 @@ import {
   getSingleStudent,
   updateStudent,
   deleteStudent,
+  enrollCourse,
   getAllStudentCourse,
   getAllStudentMajor,
 } from "../controllers/studentsController";
@@ -18,5 +19,6 @@ studentsRouter
   .get(getSingleStudent)
   .patch(updateStudent)
   .delete(deleteStudent);
+studentsRouter.route("/:id/enrollments").post(enrollCourse);
 studentsRouter.route("/:id/courses").get(getAllStudentCourse);
 studentsRouter.route("/:id/majors").get(getAllStudentMajor);
