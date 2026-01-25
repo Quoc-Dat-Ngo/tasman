@@ -5,4 +5,7 @@ export type {
   CreateDepartmentDTO,
   UpdateDepartmentDTO,
 } from "./department";
+export type { Major, CreateMajorDTO, UpdateMajorDTO } from "./major";
+export type { Enrollment } from "./enrollments";
+export type { StudentMajor } from "./studentMajor";
 export type IDType = string | string[] | undefined;
