@@ -8,7 +8,16 @@ import {
   registerCourse,
   getCourse,
   getMajor,
+  majorRegistration,
 } from "../services/studentsService";
+import { notFoundCheck } from "../utils/NotFoundErrorCheck";
+import type {
+  Student,
+  Enrollment,
+  StudentMajor,
+  Course,
+  Major,
+} from "../types";
 
 const getAllStudent = async (
   req: Request,
@@ -16,10 +25,8 @@ const getAllStudent = async (
   next: NextFunction,
 ): Promise<void> => {
   try {
-    const students = await studentList();
-    res
-      .status(200)
-      .json({ message: "Successfully retrieve all students", data: students });
+    const students: Student[] = await studentList();
+    res.status(200).json({ success: true, data: students });
   } catch (e) {
     next(e);
   }
@@ -30,10 +37,8 @@ const createNewStudent = async (
   next: NextFunction,
 ): Promise<void> => {
   try {
-    const student = await addStudent(req.body);
-    res
-      .status(201)
-      .json({ message: "Successfully created new student", data: student });
+    const student: Student[] = await addStudent(req.body);
+    res.status(201).json({ success: true, data: student });
   } catch (e) {
     next(e);
   }
@@ -45,9 +50,13 @@ const getSingleStudent = async (
 ): Promise<void> => {
   const { id } = req.params;
   try {
-    const info = await studentInfo(id);
+    const info: Student[] = await studentInfo(id);
+
+    // Error check for 404 - Not Found
+    notFoundCheck(info);
+
     res.status(200).json({
-      message: `Successfully get info of student with id #${id}`,
+      success: true,
       data: info,
     });
   } catch (e) {
@@ -61,9 +70,11 @@ const updateStudent = async (
 ): Promise<void> => {
   const { id } = req.params;
   try {
-    const student = await updateInfo(req.body, id);
+    const student: Student[] = await updateInfo(req.body, id);
+    // Error check for 404 - Not Found
+    notFoundCheck(student);
     res.status(200).json({
-      message: `Successfully update info of student with id #${id}`,
+      success: true,
       data: student,
     });
   } catch (e) {
@@ -77,9 +88,11 @@ const deleteStudent = async (
 ): Promise<void> => {
   const { id } = req.params;
   try {
-    const student = await removeInfo(id);
+    const student: Student[] = await removeInfo(id);
+    // Error check for 404 - Not Found
+    notFoundCheck(student);
     res.status(200).json({
-      message: `Successfully remove info of student with id #${id}`,
+      success: true,
       data: student,
     });
   } catch (e) {
@@ -94,9 +107,11 @@ const enrollCourse = async (
   const { id } = req.params;
   const { course_id } = req.body;
   try {
-    const enrollment = await registerCourse(id, course_id);
+    const enrollment: Enrollment[] = await registerCourse(id, course_id);
+    // Error check for 404 - Not Found
+    notFoundCheck(enrollment);
     res.status(201).json({
-      message: `Successfully enrolled student with id #${id} into course with id #${course_id}`,
+      success: true,
       data: enrollment,
     });
   } catch (e) {
@@ -110,9 +125,11 @@ const getAllStudentCourse = async (
 ): Promise<void> => {
   const { id } = req.params;
   try {
-    const course = await getCourse(id);
+    const course: Course[] = await getCourse(id);
+    // Error check for 404 - Not Found
+    notFoundCheck(course);
     res.status(200).json({
-      message: `Successfully get all courses that student with id #${id} enrolled`,
+      success: true,
       data: course,
     });
   } catch (e) {
@@ -123,7 +140,40 @@ const getAllStudentMajor = async (
   req: Request,
   res: Response,
   next: NextFunction,
-): Promise<void> => {};
+): Promise<void> => {
+  const { id } = req.params;
+  try {
+    const major: Major[] = await getMajor(id);
+    // Error check for 404 - Not Found
+    notFoundCheck(major);
+    res.status(200).json({
+      success: true,
+      data: major,
+    });
+  } catch (e) {
+    next(e);
+  }
+};
+
+const registerMajor = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
+  const { id } = req.params;
+  const { major_id } = req.body;
+  try {
+    const major: StudentMajor[] = await majorRegistration(id, major_id);
+    // Error check for 404 - Not Found
+    notFoundCheck(major);
+    res.status(201).json({
+      success: true,
+      data: major,
+    });
+  } catch (e) {
+    next(e);
+  }
+};
 
 export {
   getAllStudent,
@@ -134,4 +184,5 @@ export {
   enrollCourse,
   getAllStudentCourse,
   getAllStudentMajor,
+  registerMajor,
 };

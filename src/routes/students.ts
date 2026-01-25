@@ -11,6 +11,7 @@ import {
   enrollCourse,
   getAllStudentCourse,
   getAllStudentMajor,
+  registerMajor,
 } from "../controllers/studentsController";
 
 studentsRouter.route("/").get(getAllStudent).post(createNewStudent);
@@ -21,4 +22,4 @@ studentsRouter
   .delete(deleteStudent);
 studentsRouter.route("/:id/enrollments").post(enrollCourse);
 studentsRouter.route("/:id/courses").get(getAllStudentCourse);
-studentsRouter.route("/:id/majors").get(getAllStudentMajor);
+studentsRouter.route("/:id/majors").get(getAllStudentMajor).post(registerMajor);
