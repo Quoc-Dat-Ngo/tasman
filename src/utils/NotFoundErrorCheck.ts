@@ -1,8 +1,23 @@
+import type {
+  Course,
+  Department,
+  Enrollment,
+  Major,
+  Student,
+  StudentMajor,
+} from "../types";
 import AppError from "./AppError";
-import type { Student } from "../types";
 
-export const notFoundCheck = (result: Student[]): void => {
+type NotFoundReturnType =
+  | Student[]
+  | Course[]
+  | Department[]
+  | Enrollment[]
+  | Major[]
+  | StudentMajor[];
+
+export const notFoundCheck = (result: NotFoundReturnType): void => {
   if (result.length === 0) {
-    throw new AppError(`Cannot find resources`, 404);
+    throw new AppError(`Cannot Find Resources`, 404);
   }
 };
