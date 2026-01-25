@@ -2,7 +2,7 @@ import { pool } from "../database/pool";
 import type { Course, CreateCourseDTO, UpdateCourseDTO } from "../types";
 
 const getAllCourse = async () => {};
-const createNewCourse = async (body: CreateCourseDTO): Promise<Course> => {
+const createNewCourse = async (body: CreateCourseDTO): Promise<Course[]> => {
   const result = await pool.query(
     `
     INSERT INTO courses (course_title, course_code, fee, department_id)
@@ -12,7 +12,7 @@ const createNewCourse = async (body: CreateCourseDTO): Promise<Course> => {
     [body.course_title, body.course_code, body.fee, body.department_id],
   );
 
-  return result.rows[0];
+  return result.rows;
 };
 const getSingleCourse = async () => {};
 const updateCourse = async () => {};
