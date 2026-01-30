@@ -1,17 +1,27 @@
 import type { Request, Response, NextFunction } from "express";
-import type { Major } from "../types";
+import type { Department, Major, Student } from "../types";
 import {
   allMajor,
   newMajor,
   singleMajor,
   modifyMajor,
   removeMajor,
-  getCourse,
   getDeparment,
   getStudent,
 } from "../services/majorsService";
 
-const getAllMajor = async () => {};
+const getAllMajor = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
+  try {
+    const major: Major[] = await allMajor();
+    res.status(200).json({ success: true, data: major });
+  } catch (e) {
+    next(e);
+  }
+};
 const createNewMajor = async (
   req: Request,
   res: Response,
@@ -24,12 +34,66 @@ const createNewMajor = async (
     next(e);
   }
 };
-const getSingleMajor = async () => {};
-const updateMajor = async () => {};
-const deleteMajor = async () => {};
-const getAllMajorCourse = async () => {};
-const getAllMajorStudent = async () => {};
-const getMajorDepartment = async () => {};
+const getSingleMajor = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
+  try {
+    const major: Major[] = await singleMajor(req.params.id);
+    res.status(200).json({ success: true, data: major });
+  } catch (e) {
+    next(e);
+  }
+};
+const updateMajor = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
+  try {
+    const major: Major[] = await modifyMajor(req.params.id, req.body);
+    res.status(200).json({ success: true, data: major });
+  } catch (e) {
+    next(e);
+  }
+};
+const deleteMajor = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
+  try {
+    const major: Major[] = await removeMajor(req.params.id);
+    res.status(200).json({ success: true, data: major });
+  } catch (e) {
+    next(e);
+  }
+};
+const getAllMajorStudent = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
+  try {
+    const students: Student[] = await getStudent(req.params.id);
+    res.status(200).json({ success: true, data: students });
+  } catch (e) {
+    next(e);
+  }
+};
+const getMajorDepartment = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+): Promise<void> => {
+  try {
+    const department: Department[] = await getDeparment(req.params.id);
+    res.status(200).json({ success: true, data: department });
+  } catch (e) {
+    next(e);
+  }
+};
 
 export {
   getAllMajor,
@@ -37,7 +101,6 @@ export {
   getSingleMajor,
   updateMajor,
   deleteMajor,
-  getAllMajorCourse,
   getAllMajorStudent,
   getMajorDepartment,
 };
