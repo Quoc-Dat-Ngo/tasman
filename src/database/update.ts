@@ -8,4 +8,5 @@ export const updateDb = async (): Promise<void> => {
   // await pool.query(
   //   "ALTER TABLE courses ALTER COLUMN course_code TYPE VARCHAR(16);",
   // );
+  await pool.query("DROP TABLE course_major");
 };

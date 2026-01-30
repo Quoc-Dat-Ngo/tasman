@@ -57,15 +57,6 @@ export const initDb = async (): Promise<void> => {
         UNIQUE(student_id, course_id)
       );  
     `);
-  // Create junction table for courses-majors
-  await pool.query(`
-      CREATE TABLE IF NOT EXISTS course_major (
-        course_major_id SERIAL PRIMARY KEY,
-        course_id INTEGER NOT NULL REFERENCES courses(course_id) ON DELETE CASCADE,
-        major_id INTEGER NOT NULL REFERENCES majors(major_id) ON DELETE CASCADE,
-        UNIQUE(course_id, major_id)
-      );  
-    `);
   // Create junction table for students-majors
   await pool.query(`
       CREATE TABLE IF NOT EXISTS student_major (
