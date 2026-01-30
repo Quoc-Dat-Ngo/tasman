@@ -10,7 +10,7 @@ import type {
 } from "../types/";
 
 import { pool } from "../database/pool";
-import { updateTable } from "../utils/updateTable";
+import { updateStudentTable } from "../utils/updateTable";
 
 const getAllStudent = async (): Promise<Student[]> => {
   const result = await pool.query<Student>(
@@ -45,7 +45,7 @@ const updateStudent = async (
   id: IDType,
 ): Promise<Student[]> => {
   // Using helper function to enhance redability and maintainability
-  const { fields, values, index } = updateTable(body, id);
+  const { fields, values, index } = updateStudentTable(body, id);
   const result = await pool.query<Student>(
     `
       UPDATE students

@@ -9,7 +9,6 @@ import {
   updateCourse,
   deleteCourse,
   getAllCourseStudent,
-  getAllCourseMajor,
   getAllCourseInstructor,
   getCourseDepartment,
 } from "../controllers/coursesController";
@@ -21,6 +20,5 @@ coursesRouter
   .patch(updateCourse)
   .delete(deleteCourse);
 coursesRouter.route("/:id/students").get(getAllCourseStudent);
-coursesRouter.route("/:id/instructors").get(getAllCourseInstructor);
-coursesRouter.route("/:id/majors").get(getAllCourseMajor);
+coursesRouter.route("/:id/instructors").get(getAllCourseInstructor); // TODO: TEST LATER WHEN IMPLEMENTING INSTRUCTOR
 coursesRouter.route("/:id/department").get(getCourseDepartment);
