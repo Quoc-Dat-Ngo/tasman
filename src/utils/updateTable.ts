@@ -1,4 +1,8 @@
-import type { UpdateCourseDTO, UpdateStudentDTO } from "../types";
+import type {
+  UpdateCourseDTO,
+  UpdateMajorDTO,
+  UpdateStudentDTO,
+} from "../types";
 
 interface updateStudentTableReturnType {
   fields: string[];
@@ -7,6 +11,12 @@ interface updateStudentTableReturnType {
 }
 
 interface updateCourseTableReturnType {
+  fields: string[];
+  values: (string | number | string[] | undefined)[];
+  index: number;
+}
+
+interface updateMajorTableReturnType {
   fields: string[];
   values: (string | number | string[] | undefined)[];
   index: number;
@@ -61,6 +71,28 @@ export const updateCourseTable = (
   if (body.fee !== undefined) {
     fields.push(`fee = $${index++}`);
     values.push(body.fee);
+  }
+  if (body.department_id !== undefined) {
+    fields.push(`department_id = $${index++}`);
+    values.push(body.department_id);
+  }
+
+  values.push(id);
+
+  return { fields, values, index };
+};
+
+export const updateMajorTable = (
+  id: string | string[] | undefined,
+  body: UpdateMajorDTO,
+): updateMajorTableReturnType => {
+  const fields: string[] = [];
+  const values: (string | number | string[] | undefined)[] = [];
+  let index: number = 1;
+
+  if (body.major_name !== undefined) {
+    fields.push(`major_name = $${index++}`);
+    values.push(body.major_name);
   }
   if (body.department_id !== undefined) {
     fields.push(`department_id = $${index++}`);
