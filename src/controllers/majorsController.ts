@@ -16,7 +16,7 @@ const getAllMajor = async (
   next: NextFunction,
 ): Promise<void> => {
   try {
-    const major: Major[] = await allMajor();
+    const major: Major[] = await allMajor(req.query);
     res.status(200).json({ success: true, data: major });
   } catch (e) {
     next(e);

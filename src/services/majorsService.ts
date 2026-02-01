@@ -6,15 +6,19 @@ import type {
   Department,
   StudentMajor,
   Student,
+  PaginationQuery,
 } from "../types";
 import { pool } from "../database/pool";
 import { updateMajorTable } from "../utils/updateTable";
 
-const getAllMajor = async () => {
+const getAllMajor = async (query: PaginationQuery) => {
   const result = await pool.query<Major>(
     `
     SELECT * 
-    FROM majors;
+    FROM majors
+    LIMIT ${query.limit !== undefined ? query.limit : 20}
+    OFFSET ${query.offset !== undefined ? query.offset : 0};
+    ;
     `,
   );
   return result.rows;

@@ -9,7 +9,6 @@ import {
   updateMajor,
   deleteMajor,
   getAllMajorStudent,
-  getAllMajorCourse,
   getMajorDepartment,
 } from "../controllers/majorsController";
 
@@ -19,6 +18,5 @@ majorsRouter
   .get(getSingleMajor)
   .patch(updateMajor)
   .delete(deleteMajor);
-majorsRouter.route("/:id/courses").get(getAllMajorStudent);
-majorsRouter.route("/:id/majors").get(getAllMajorCourse);
+majorsRouter.route("/:id/students").get(getAllMajorStudent);
 majorsRouter.route("/:id/department").get(getMajorDepartment);
