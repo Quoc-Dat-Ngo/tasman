@@ -4,17 +4,19 @@ import type {
   CreateCourseDTO,
   Department,
   IDType,
-  Major,
+  PaginationQuery,
   Student,
   UpdateCourseDTO,
 } from "../types";
 import { updateCourseTable } from "../utils/updateTable";
 
-const getAllCourse = async (): Promise<Course[]> => {
+const getAllCourse = async (query: PaginationQuery): Promise<Course[]> => {
   const result = await pool.query<Course>(
     `
     SELECT * 
-    FROM courses;
+    FROM courses
+    LIMIT ${query.limit !== undefined ? query.limit : 10}
+    OFFSET ${query.offset !== undefined ? query.offset : 0};
     `,
   );
   return result.rows;

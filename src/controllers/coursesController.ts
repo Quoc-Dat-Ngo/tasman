@@ -19,7 +19,7 @@ const getAllCourse = async (
   next: NextFunction,
 ): Promise<void> => {
   try {
-    const courses: Course[] = await allCourse();
+    const courses: Course[] = await allCourse(req.query);
     res.status(200).json({
       status: "success",
       data: courses,
