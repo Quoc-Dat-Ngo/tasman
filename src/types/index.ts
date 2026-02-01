@@ -10,3 +10,7 @@ export type { Enrollment } from "./enrollments";
 export type { StudentMajor } from "./studentMajor";
 export type { Instructor, CreateInstructorDTO } from "./instructor";
 export type IDType = string | string[] | undefined;
+export interface PaginationQuery {
+  limit?: string;
+  offset?: string;
+}
