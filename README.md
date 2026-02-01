@@ -61,7 +61,7 @@ and promotes maintainability:
 ## Database Integration
 
 ### ER Diagram
-[Entity-Realtionship Diagram](https://lucid.app/lucidchart/58de6dd1-7030-4c6c-abe0-e53aaa9c1b43/edit?viewport_loc=-1235%2C-456%2C2175%2C1041%2C0_0&invitationId=inv_39190bf5-33fd-4512-80eb-05ed6e48241a)
+[Entity-Realtionship Diagram](https://lucid.app/lucidchart/58de6dd1-7030-4c6c-abe0-e53aaa9c1b43/edit?viewport_loc=-1491%2C-606%2C2932%2C1465%2C0_0&invitationId=inv_39190bf5-33fd-4512-80eb-05ed6e48241a)
 
 ### Neon PostgreSQL Setup
 
