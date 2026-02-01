@@ -7,16 +7,19 @@ import type {
   StudentMajor,
   Course,
   Major,
+  PaginationQuery,
 } from "../types/";
 
 import { pool } from "../database/pool";
 import { updateStudentTable } from "../utils/updateTable";
 
-const getAllStudent = async (): Promise<Student[]> => {
+const getAllStudent = async (query: PaginationQuery): Promise<Student[]> => {
   const result = await pool.query<Student>(
     `
       SELECT * 
-      FROM students;`,
+      FROM students
+      LIMIT ${query.limit === undefined ? 10 : query.limit}
+      OFFSET ${query.offset === undefined ? 0 : query.offset};`,
   );
   return result.rows;
 };
