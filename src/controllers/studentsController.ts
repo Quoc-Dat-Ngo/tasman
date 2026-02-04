@@ -17,6 +17,7 @@ import type {
   StudentMajor,
   Course,
   Major,
+  GetStudentMetadata,
 } from "../types";
 
 const getAllStudent = async (
@@ -25,8 +26,8 @@ const getAllStudent = async (
   next: NextFunction,
 ): Promise<void> => {
   try {
-    const students: Student[] = await studentList(req.query);
-    res.status(200).json({ success: true, data: students });
+    const students: GetStudentMetadata = await studentList(req.query);
+    res.status(200).json({ success: true, students });
   } catch (e) {
     next(e);
   }
