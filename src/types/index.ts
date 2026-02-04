@@ -1,4 +1,10 @@
-export type { Student, CreateStudentDTO, UpdateStudentDTO } from "./student";
+export type {
+  Student,
+  CreateStudentDTO,
+  UpdateStudentDTO,
+  FilteringByStudent,
+  GetStudentMetadata,
+} from "./student";
 export type { Course, CreateCourseDTO, UpdateCourseDTO } from "./course";
 export type {
   Department,
