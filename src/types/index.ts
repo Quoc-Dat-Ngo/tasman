@@ -19,4 +19,5 @@ export type IDType = string | string[] | undefined;
 export interface PaginationQuery {
   limit?: string;
   offset?: string;
+  sort?: string;
 }
