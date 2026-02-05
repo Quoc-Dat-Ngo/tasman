@@ -17,9 +17,11 @@ import { updateStudentTable } from "../utils/updateTable";
 const getAllStudent = async (
   query: FilteringByStudent,
 ): Promise<GetStudentMetadata> => {
-  const { limit = 10, offset = 0, ...filters } = query;
+  const { limit = 10, offset = 0, sort, ...filters } = query;
   const whereClauses: string[] = [];
   const values: (string | undefined)[] = [];
+
+  const orderByClauses: string[] = [];
   let index = 1;
 
   // Allow-list for valid filterable columns
@@ -40,13 +42,20 @@ const getAllStudent = async (
     }
   });
 
-  console.log(whereClauses);
-
   const whereString =
     whereClauses.length > 0 ? `WHERE ${whereClauses.join(" AND ")}` : "";
 
-  console.log(whereString);
-  console.log(values);
+  sort?.split(",").forEach((field) => {
+    if (!field.startsWith("-")) {
+      orderByClauses.push(`${field} ASC`);
+    } else {
+      orderByClauses.push(`${field.slice(1)} DESC`);
+    }
+  });
+
+  const orderByString = orderByClauses.length
+    ? `ORDER BY ${orderByClauses.join(", ")}`
+    : "";
 
   /** This is to specify dob to show only the date not the timezone
     * 
@@ -64,6 +73,7 @@ const getAllStudent = async (
     SELECT *
     FROM students
     ${whereString}
+    ${orderByString}
     LIMIT $${index++}
     OFFSET $${index};
     `,
