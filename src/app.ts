@@ -1,11 +1,13 @@
 import express from "express";
 import morgan from "morgan";
-import { studentsRouter } from "./routes/students";
-import { coursesRouter } from "./routes/courses";
-import { instructorsRouter } from "./routes/instructors";
-import { majorsRouter } from "./routes/majors";
-import { departmentsRouter } from "./routes/deparments";
+import { studentsRouter } from "./routes/students.routes";
+import { coursesRouter } from "./routes/courses.routes";
+import { instructorsRouter } from "./routes/instructors.routes";
+import { majorsRouter } from "./routes/majors.routes";
+import { departmentsRouter } from "./routes/deparments.routes";
 import { globalErrorHandler } from "./middlewares/errorHandler";
+import { enrollmentRouter } from "./routes/enrollments.routes";
+import { studentMajorsRouter } from "./routes/studentMajors.routes";
 
 const app = express();
 
@@ -18,11 +20,21 @@ app.get("/", (req, res) => {
 app.use(express.json());
 app.use(morgan("dev"));
 
-// Routing
+// Student-related routing
 app.use("/api/v1/students", studentsRouter);
+app.use("api/v1/enrollments", enrollmentRouter);
+app.use("api/v1/student-majors", studentMajorsRouter);
+
+// Course-related routing
 app.use("/api/v1/courses", coursesRouter);
+
+// Instructor-related routing
 app.use("/api/v1/instructors", instructorsRouter);
+
+// Major-related routing
 app.use("/api/v1/majors", majorsRouter);
+
+// Department routing
 app.use("/api/v1/departments", departmentsRouter);
 
 // Global error handler
