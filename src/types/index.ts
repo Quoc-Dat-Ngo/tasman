@@ -2,8 +2,8 @@ export type {
   Student,
   CreateStudentDTO,
   UpdateStudentDTO,
-  FilteringByStudent,
-  GetStudentMetadata,
+  StudentQueryDTO,
+  StudentMetadata,
 } from "./student";
 export type { Course, CreateCourseDTO, UpdateCourseDTO } from "./course";
 export type {
@@ -15,8 +15,8 @@ export type { Major, CreateMajorDTO, UpdateMajorDTO } from "./major";
 export type { Enrollment } from "./enrollments";
 export type { StudentMajor } from "./studentMajor";
 export type { Instructor, CreateInstructorDTO } from "./instructor";
-export type IDType = string | string[] | undefined;
-export interface PaginationQuery {
+export type ExpressParamID = string | string[] | undefined;
+export interface BaseQuery {
   limit?: string;
   offset?: string;
   sort?: string;

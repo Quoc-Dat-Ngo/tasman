@@ -1,4 +1,4 @@
-import type { PaginationQuery } from ".";
+import type { BaseQuery } from ".";
 
 export interface Student {
   student_id: number;
@@ -8,7 +8,7 @@ export interface Student {
   gender: "M" | "F";
 }
 
-export interface GetStudentMetadata {
+export interface StudentMetadata {
   data: Student[];
   metadata: {
     total_page: number;
@@ -31,7 +31,7 @@ export interface UpdateStudentDTO {
   gender?: "M" | "F";
 }
 
-export interface FilteringByStudent extends PaginationQuery {
+export interface StudentQueryDTO extends BaseQuery {
   first_name?: string;
   last_name?: string;
   dob?: string;
