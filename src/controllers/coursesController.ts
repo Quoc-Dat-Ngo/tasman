@@ -11,7 +11,6 @@ import {
   getInstructor,
   getDepartment,
 } from "../services/coursesService";
-import { notFoundCheck } from "../utils/NotFoundErrorCheck";
 
 const getAllCourse = async (
   req: Request,
@@ -51,7 +50,7 @@ const getSingleCourse = async (
   try {
     const { id } = req.params;
     const course = await getCourse(id);
-    notFoundCheck(course); // 404 check
+    // notFoundCheck(course); // 404 check
     res.status(200).json({
       status: "success",
       data: course,
@@ -68,7 +67,7 @@ const updateCourse = async (
   try {
     const { id } = req.params;
     const course = await modifyCourse(id, req.body);
-    notFoundCheck(course); // 404 check
+    // notFoundCheck(course); // 404 check
     res.status(200).json({
       status: "success",
       data: course,
@@ -85,7 +84,7 @@ const deleteCourse = async (
   try {
     const { id } = req.params;
     const course = await removeCourse(id);
-    notFoundCheck(course); // 404 check
+    // notFoundCheck(course); // 404 check
     res.status(200).json({
       status: "success",
       data: course,
@@ -102,7 +101,7 @@ const getAllCourseStudent = async (
   try {
     const { id } = req.params;
     const student = await getStudent(id);
-    notFoundCheck(student); // 404 check
+    // notFoundCheck(student); // 404 check
     res.status(200).json({
       status: "success",
       data: student,
@@ -119,7 +118,7 @@ const getAllCourseInstructor = async (
   try {
     const { id } = req.params;
     const instructor = await getInstructor(id);
-    notFoundCheck(instructor); // 404 check
+    // notFoundCheck(instructor); // 404 check
     res.status(200).json({
       status: "success",
       data: instructor,
@@ -136,7 +135,7 @@ const getCourseDepartment = async (
   try {
     const { id } = req.params;
     const department = await getDepartment(id);
-    notFoundCheck(department); // 404 check
+    // notFoundCheck(department); // 404 check
     res.status(200).json({
       status: "success",
       data: department,
