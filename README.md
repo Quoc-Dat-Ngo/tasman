@@ -14,6 +14,14 @@ FILTERING, SORTING and INDEXING.
 - [Technology Stack](#technology-stack)
 - [Database Integration](#database-integration)
 - [API Endpoints](#api-endpoints)
+- [Features](#features)
+- [Authentication & Authorisation](#authentication--authorization)
+- [Error Handling](#error-handling-strategy)
+- [Pagination, Filtering & Sorting](#pagination-filtering--sorting)
+- [Database Indexing](#database-indexing-strategy)
+- [Testing](#testing-strategy)
+- [Improvements](#future-improvements)
+
 
 ## Architecture Overview
 
@@ -85,11 +93,11 @@ const pool: Pool = new Pool({
 
 ### Schema Management
 
-Database schema is managed through migrations and initialization scripts:
+Database schema is managed via versioned SQL migrations and initialization scripts:
 
-- **Auto-initialization**: Database tables created on server startup
-- **Updating database**: Modify, add, update database tables using SQL feature
-  `ALTER TABLE`.
+- **Initialization**: TODO
+- **Drop/Truncate all tables**: TODO
+- **Updating database**: TODO
 
 ### Student Schema
 
@@ -134,6 +142,7 @@ CREATE TABLE IF NOT EXISTS instructors (
 CREATE TABLE IF NOT EXISTS majors (
     major_id SERIAL PRIMARY KEY,
     major_name VARCHAR(255) NOT NULL
+    department_id INTEGER REFERENCES departments(department_id) NOT NULL
 );
 ```
 
@@ -179,23 +188,13 @@ CREATE TABLE IF NOT EXISTS course_instructor (
 );
 ```
 
-### Course-Major Schema
-
-```sql
-CREATE TABLE IF NOT EXISTS course_major (
-    course_major_id SERIAL PRIMARY KEY,
-    course_id INTEGER NOT NULL REFERENCES courses(course_id) ON DELETE CASCADE,
-    major_id INTEGER NOT NULL REFERENCES majors(major_id) ON DELETE CASCADE,
-    UNIQUE(course_id, major_id)
-);
-```
 ## API Endpoints
 
 The API provides complete CRUD operations for task management:
 
 ### Base URL
 ```
-http://localhost:3000/api/v1/
+http://localhost:3004/api/v1/
 ```
 
 ### Endpoints Overview
@@ -209,7 +208,9 @@ http://localhost:3000/api/v1/
 | PATCH | `/students/:id` | Update a specific student |
 | DELETE | `/students/:id` | Delete a specific student |
 | GET | `/students/:id/courses` | Get all courses that a student enrolled in |
+| POST | `/students/:id/enrollments` | Enroll a student into a specific course |
 | GET | `/students/:id/majors` | Get all majors that a student currently takes |
+| POST | `/students/:id/majors` | Register for a student to a specific major |
 
 **Courses:**
 | Method | Endpoint | Description |
@@ -221,7 +222,6 @@ http://localhost:3000/api/v1/
 | DELETE | `/courses/:id` | Delete a specific course |
 | GET | `/courses/:id/students` | Get all students currently enroll in the course |
 | GET | `/courses/:id/instructors` | Get all instructors currently work in the course |
-| GET | `/courses/:id/majors` | Get all majors that a specific course offers |
 | GET | `/courses/:id/department` | Get the deparment of the course |
 
 **Instructors:**
@@ -244,7 +244,6 @@ http://localhost:3000/api/v1/
 | PATCH | `/majors/:id` | Update a specific major |
 | DELETE | `/majors/:id` | Delete a specific major |
 | GET | `/majors/:id/students` | Get all students enrolled in a specific major |
-| GET | `/majors/:id/courses` | Get all courses that offer a particular major |
 | GET | `/majors/:id/department` | Get the department of a particular major |
 
 **Departments:**
@@ -258,3 +257,13 @@ http://localhost:3000/api/v1/
 | GET | `/departments/:id/instructors` | Get all instructors part of the department |
 | GET | `/departments/:id/courses` | Get all courses part of the department |
 | GET | `/departments/:id/majors` | Get all majors part of the department |
+
+## Features
+## Authentication & Authorization
+## Error Handling Strategy
+## Pagination, Filtering & Sorting
+## Database Indexing Strategy
+## Environment Variables
+## Running Locally
+## Testing Strategy
+## Future Improvements
