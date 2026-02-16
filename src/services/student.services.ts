@@ -1,11 +1,7 @@
 import type {
-  Student,
   CreateStudentDTO,
   UpdateStudentDTO,
-  Course,
-  Major,
   StudentQueryDTO,
-  StudentMetadata,
   ExpressParamID,
 } from "../types";
 import AppError from "../errors/AppError";
@@ -15,20 +11,14 @@ import { parseParamID } from "../http/parseParamID";
 
 const repo = new PoolStudentRepo();
 
-const getAllStudentService = async (
-  query: StudentQueryDTO,
-): Promise<StudentMetadata> => {
+const getAllStudentService = async (query: StudentQueryDTO) => {
   return repo.getAll(query);
 };
-const createNewStudentService = async (
-  data: CreateStudentDTO,
-): Promise<Student> => {
+const createNewStudentService = async (data: CreateStudentDTO) => {
   // TODO: Perform input validation and password hashing for student account
   return repo.create(data);
 };
-const getSingleStudentService = async (
-  id: ExpressParamID,
-): Promise<Student | null> => {
+const getSingleStudentService = async (id: ExpressParamID) => {
   const student_id = parseParamID(id);
   return assertFound(
     repo.getOne(student_id),
@@ -39,7 +29,7 @@ const getSingleStudentService = async (
 const updateStudentService = async (
   id: ExpressParamID,
   body: UpdateStudentDTO,
-): Promise<Student | null> => {
+) => {
   const student_id = parseParamID(id);
   if (Object.values(body).every((v) => v === undefined)) {
     throw new AppError("No fields provided for updating", 400);
@@ -49,27 +39,21 @@ const updateStudentService = async (
     `Student with id ${student_id} not found`,
   );
 };
-const deleteStudentService = async (
-  id: ExpressParamID,
-): Promise<Student | null> => {
+const deleteStudentService = async (id: ExpressParamID) => {
   const student_id = parseParamID(id);
   return assertFound(
     repo.delete(student_id),
     `Student with id ${student_id} not found`,
   );
 };
-const getStudentCourseService = async (
-  id: ExpressParamID,
-): Promise<Course[] | null> => {
+const getStudentCourseService = async (id: ExpressParamID) => {
   const student_id = parseParamID(id);
   return assertFound(
     repo.getCourse(student_id),
     `Student with id ${student_id} not found`,
   );
 };
-const getStudentMajorService = async (
-  id: ExpressParamID,
-): Promise<Major[] | null> => {
+const getStudentMajorService = async (id: ExpressParamID) => {
   const student_id = parseParamID(id);
   return assertFound(
     repo.getMajor(student_id),
