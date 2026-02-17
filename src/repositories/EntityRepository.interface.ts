@@ -3,10 +3,10 @@ export interface EntityRepository<
   EntityMetadata,
   CreateDTO,
   UpdateDTO,
-  QueryDTO,
+  QueryDTO = unknown,
   ID = string,
 > {
-  getAll(query: QueryDTO): Promise<EntityMetadata>;
+  getAll(query?: QueryDTO): Promise<EntityMetadata>;
   getOne(id: ID): Promise<Entity | null>;
   create(data: CreateDTO): Promise<Entity>;
   update(id: ID, data: UpdateDTO): Promise<Entity | null>;
