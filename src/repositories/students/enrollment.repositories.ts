@@ -3,7 +3,7 @@ import type { Enrollment } from "../../types";
 
 interface EnrollmentRepository {
   enroll(studentId: string, courseId: string): Promise<Enrollment | null>;
-  // TODO: delete
+  delete(id: string): Promise<Enrollment | null>;
 }
 
 export class PoolEnrollmentRepo implements EnrollmentRepository {
@@ -17,6 +17,18 @@ export class PoolEnrollmentRepo implements EnrollmentRepository {
       VALUES ($1, $2)
       RETURNING *;`,
       [studentId, courseId],
+    );
+    return result.rows[0] ?? null;
+  }
+
+  async delete(id: string): Promise<Enrollment | null> {
+    const result = await pool.query<Enrollment>(
+      `
+        DELETE FROM enrollments
+        WHERE enrollment_id = $1
+        RETURNING *;
+      `,
+      [id],
     );
     return result.rows[0] ?? null;
   }

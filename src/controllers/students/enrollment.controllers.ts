@@ -1,6 +1,9 @@
 import type { Request, Response, NextFunction } from "express";
 import { controllerHandler } from "../helpers/controllerHandler";
-import { enrollCourseService } from "../../services/students/enrollment.services";
+import {
+  enrollCourseService,
+  removeEnrollCourseService,
+} from "../../services/students/enrollment.services";
 
 function enrollCourseController(
   req: Request,
@@ -15,4 +18,12 @@ function enrollCourseController(
   );
 }
 
-export { enrollCourseController };
+function removeEnrollCourseController(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
+  controllerHandler(() => removeEnrollCourseService(req.params.id), res, next);
+}
+
+export { enrollCourseController, removeEnrollCourseController };

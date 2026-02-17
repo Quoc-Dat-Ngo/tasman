@@ -14,4 +14,13 @@ function enrollCourseService(id: ExpressParamID, data: CreateEnrollmentDTO) {
   );
 }
 
-export { enrollCourseService };
+function removeEnrollCourseService(id: ExpressParamID) {
+  const enrollmentID = parseParamID(id);
+
+  return assertFound(
+    repo.delete(enrollmentID),
+    `Enrollment with id ${enrollmentID} not found`,
+  );
+}
+
+export { enrollCourseService, removeEnrollCourseService };
