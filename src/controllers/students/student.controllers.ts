@@ -7,7 +7,7 @@ import {
   getStudentCourseService,
   getStudentMajorService,
   updateStudentService,
-} from "../../services/student.services";
+} from "../../services/students/student.services";
 import { controllerHandler } from "../helpers/controllerHandler";
 
 const getAllStudentController = (
