@@ -3,3 +3,7 @@ export interface StudentMajor {
   student_id: number;
   major_id: number;
 }
+
+export interface CreateStudentMajorDTO {
+  major_id: string;
+}

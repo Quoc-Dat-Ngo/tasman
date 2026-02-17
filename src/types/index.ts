@@ -12,8 +12,8 @@ export type {
   UpdateDepartmentDTO,
 } from "./department";
 export type { Major, CreateMajorDTO, UpdateMajorDTO } from "./major";
-export type { Enrollment } from "./enrollments";
-export type { StudentMajor } from "./studentMajor";
+export type { Enrollment, CreateEnrollmentDTO } from "./enrollments";
+export type { StudentMajor, CreateStudentMajorDTO } from "./studentMajor";
 export type { Instructor, CreateInstructorDTO } from "./instructor";
 export type ExpressParamID = string | string[] | undefined;
 export interface BaseQuery {

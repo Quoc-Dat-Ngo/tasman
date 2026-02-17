@@ -3,3 +3,7 @@ export interface Enrollment {
   student_id: number;
   course_id: number;
 }
+
+export interface CreateEnrollmentDTO {
+  course_id: string;
+}
