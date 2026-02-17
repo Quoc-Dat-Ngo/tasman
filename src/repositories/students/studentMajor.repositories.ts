@@ -2,12 +2,15 @@ import { pool } from "../../database/pool";
 import type { StudentMajor } from "../../types";
 
 interface StudentMajorRepository {
-  register(studentId: string, majorId: string): Promise<StudentMajor[] | null>;
+  register(studentId: string, majorId: string): Promise<StudentMajor | null>;
   // TODO: delete
 }
 
-class PoolStudentMajorRepo implements StudentMajorRepository {
-  async register(studentId: string, majorId: string): Promise<StudentMajor[]> {
+export class PoolStudentMajorRepo implements StudentMajorRepository {
+  async register(
+    studentId: string,
+    majorId: string,
+  ): Promise<StudentMajor | null> {
     const result = await pool.query<StudentMajor>(
       `
     INSERT INTO student_major (student_id, major_id)
@@ -16,6 +19,6 @@ class PoolStudentMajorRepo implements StudentMajorRepository {
     `,
       [studentId, majorId],
     );
-    return result.rows;
+    return result.rows[0] ?? null;
   }
 }

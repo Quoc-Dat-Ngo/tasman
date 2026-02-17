@@ -2,12 +2,15 @@ import { pool } from "../../database/pool";
 import type { Enrollment } from "../../types";
 
 interface EnrollmentRepository {
-  enroll(studentId: string, courseId: string): Promise<Enrollment[] | null>;
+  enroll(studentId: string, courseId: string): Promise<Enrollment | null>;
   // TODO: delete
 }
 
-class PoolEnrollmentRepo implements EnrollmentRepository {
-  async enroll(studentId: string, courseId: string): Promise<Enrollment[]> {
+export class PoolEnrollmentRepo implements EnrollmentRepository {
+  async enroll(
+    studentId: string,
+    courseId: string,
+  ): Promise<Enrollment | null> {
     const result = await pool.query<Enrollment>(
       `
       INSERT INTO enrollments (student_id, course_id)
@@ -15,6 +18,6 @@ class PoolEnrollmentRepo implements EnrollmentRepository {
       RETURNING *;`,
       [studentId, courseId],
     );
-    return result.rows ?? null;
+    return result.rows[0] ?? null;
   }
 }
