@@ -1,6 +1,9 @@
 import type { Request, Response, NextFunction } from "express";
 import { controllerHandler } from "../helpers/controllerHandler";
-import { registerMajorService } from "../../services/students/studentMajor.services";
+import {
+  registerMajorService,
+  removeRegisterMajorService,
+} from "../../services/students/studentMajor.services";
 
 function registerMajorController(
   req: Request,
@@ -15,4 +18,12 @@ function registerMajorController(
   );
 }
 
-export { registerMajorController };
+function removeRegisterMajorController(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
+  controllerHandler(() => removeRegisterMajorService(req.params.id), res, next);
+}
+
+export { registerMajorController, removeRegisterMajorController };

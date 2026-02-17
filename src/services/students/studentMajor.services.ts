@@ -14,4 +14,13 @@ function registerMajorService(id: ExpressParamID, data: CreateStudentMajorDTO) {
   );
 }
 
-export { registerMajorService };
+function removeRegisterMajorService(id: ExpressParamID) {
+  const registerMajorID = parseParamID(id);
+
+  return assertFound(
+    repo.delete(registerMajorID),
+    `Register Major with id ${registerMajorID} not found`,
+  );
+}
+
+export { registerMajorService, removeRegisterMajorService };
