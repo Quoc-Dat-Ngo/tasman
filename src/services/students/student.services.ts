@@ -3,11 +3,11 @@ import type {
   UpdateStudentDTO,
   StudentQueryDTO,
   ExpressParamID,
-} from "../types";
-import AppError from "../errors/AppError";
-import { PoolStudentRepo } from "../repositories/students/student.repositories";
-import { assertFound } from "../errors/assertFound";
-import { parseParamID } from "../http/parseParamID";
+} from "../../types";
+import AppError from "../../errors/AppError";
+import { PoolStudentRepo } from "../../repositories/students/student.repositories";
+import { assertFound } from "../../errors/assertFound";
+import { parseParamID } from "../../http/parseParamID";
 
 const repo = new PoolStudentRepo();
 
