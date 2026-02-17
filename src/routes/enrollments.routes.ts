@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { enrollCourse } from "../controllers/students/student.controllers";
+import { enrollCourseController } from "../controllers/students/enrollment.controllers";
 export const enrollmentRouter = Router();
 
-enrollmentRouter.route("/").post(enrollCourse);
+enrollmentRouter.route("/").post(enrollCourseController);
 enrollmentRouter.route("/:id").delete(); // TODO
