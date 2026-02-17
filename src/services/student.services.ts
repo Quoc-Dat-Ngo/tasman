@@ -28,14 +28,14 @@ const getSingleStudentService = async (id: ExpressParamID) => {
 
 const updateStudentService = async (
   id: ExpressParamID,
-  body: UpdateStudentDTO,
+  data: UpdateStudentDTO,
 ) => {
   const student_id = parseParamID(id);
-  if (Object.values(body).every((v) => v === undefined)) {
+  if (Object.values(data).every((v) => v === undefined)) {
     throw new AppError("No fields provided for updating", 400);
   }
   return assertFound(
-    repo.update(student_id, body),
+    repo.update(student_id, data),
     `Student with id ${student_id} not found`,
   );
 };
@@ -50,14 +50,14 @@ const getStudentCourseService = async (id: ExpressParamID) => {
   const student_id = parseParamID(id);
   return assertFound(
     repo.getCourse(student_id),
-    `Student with id ${student_id} not found`,
+    `Student with id ${student_id} not found OR student hasn't applied for any courses yet`,
   );
 };
 const getStudentMajorService = async (id: ExpressParamID) => {
   const student_id = parseParamID(id);
   return assertFound(
     repo.getMajor(student_id),
-    `Student with id ${student_id} not found`,
+    `Student with id ${student_id} not found OR student hasn't applied for any courses yet`,
   );
 };
 // const enrollCourse = async (
