@@ -160,7 +160,7 @@ export class PoolStudentRepo implements StudentRepository {
     return result.rows[0] ?? null;
   }
 
-  async getCourse(id: string): Promise<Course[]> {
+  async getCourse(id: string): Promise<Course[] | null> {
     // Nested queries (multiple subqueries)
     // const result = await pool.query<Student>(
     //   `
@@ -187,10 +187,10 @@ export class PoolStudentRepo implements StudentRepository {
       [id],
     );
 
-    return result.rows ?? null;
+    return result.rows.length ? result.rows : null;
   }
 
-  async getMajor(id: string): Promise<Major[]> {
+  async getMajor(id: string): Promise<Major[] | null> {
     const result = await pool.query<Major>(
       `
         SELECT m.major_name
@@ -202,6 +202,6 @@ export class PoolStudentRepo implements StudentRepository {
       [id],
     );
 
-    return result.rows ?? null;
+    return result.rows.length ? result.rows : null;
   }
 }

@@ -108,7 +108,7 @@ export class PoolCourseRepo implements CourseRepository {
       `,
       [id],
     );
-    return result.rows ?? null;
+    return result.rows.length ? result.rows : null;
   }
 
   async getInstructor(id: string): Promise<Instructor[] | null> {
@@ -122,7 +122,7 @@ export class PoolCourseRepo implements CourseRepository {
       `,
       [id],
     );
-    return result.rows ?? null;
+    return result.rows.length ? result.rows : null;
   }
 
   async getDepartment(id: string): Promise<Department | null> {
