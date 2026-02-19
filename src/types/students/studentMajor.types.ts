@@ -5,5 +5,6 @@ export interface StudentMajor {
 }
 
 export interface CreateStudentMajorDTO {
+  student_id: string;
   major_id: string;
 }

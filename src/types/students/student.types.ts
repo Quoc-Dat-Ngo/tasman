@@ -1,4 +1,4 @@
-import type { BaseQuery } from ".";
+import type { BaseQuery } from "../index.types";
 
 export interface Student {
   student_id: number;

@@ -5,5 +5,6 @@ export interface Enrollment {
 }
 
 export interface CreateEnrollmentDTO {
+  student_id: string;
   course_id: string;
 }
