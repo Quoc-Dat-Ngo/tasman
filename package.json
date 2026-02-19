@@ -10,7 +10,8 @@
     "build": "tsc",
     "start": "node dist/server.js",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "migrate": "tsx database/migrate.ts"
   },
   "repository": {
     "type": "git",
