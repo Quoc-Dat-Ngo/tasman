@@ -1,4 +1,4 @@
-import { pool } from "../../database/pool";
+import { pool } from "../../pool";
 import type { InstructorCourse } from "../../types/index.types";
 
 interface InstructorCourseRepository {

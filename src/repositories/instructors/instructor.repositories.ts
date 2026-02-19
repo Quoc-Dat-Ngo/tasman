@@ -1,4 +1,4 @@
-import { pool } from "../../database/pool";
+import { pool } from "../../pool";
 import type {
   BaseQuery,
   Course,
