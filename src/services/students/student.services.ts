@@ -3,7 +3,7 @@ import type {
   UpdateStudentDTO,
   StudentQueryDTO,
   ExpressParamID,
-} from "../../types";
+} from "../../types/index.types";
 import AppError from "../../errors/AppError";
 import { PoolStudentRepo } from "../../repositories/students/student.repositories";
 import { assertFound } from "../../errors/assertFound";

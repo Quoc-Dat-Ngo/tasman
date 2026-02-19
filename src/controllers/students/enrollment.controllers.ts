@@ -10,12 +10,7 @@ function enrollCourseController(
   res: Response,
   next: NextFunction,
 ) {
-  controllerHandler(
-    () => enrollCourseService(req.params.id, req.body),
-    res,
-    next,
-    201,
-  );
+  controllerHandler(() => enrollCourseService(req.body), res, next, 201);
 }
 
 function removeEnrollCourseController(

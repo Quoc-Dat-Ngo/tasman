@@ -7,7 +7,7 @@ import type {
   BaseQuery,
   UpdateCourseDTO,
   ExpressParamID,
-} from "../types";
+} from "../types/index.types";
 
 const repo = new PoolCourseRepo();
 

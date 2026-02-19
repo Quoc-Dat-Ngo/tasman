@@ -6,7 +6,7 @@ import type {
   CreateDepartmentDTO,
   UpdateDepartmentDTO,
   ExpressParamID,
-} from "../types";
+} from "../types/index.types";
 
 const repo = new PoolDeparmentRepo();
 

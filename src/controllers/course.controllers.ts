@@ -1,5 +1,5 @@
 import type { Request, Response, NextFunction } from "express";
-import type { Course } from "../types";
+import type { Course } from "../types/index.types";
 
 import {
   getAllCourseService,

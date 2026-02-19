@@ -1,4 +1,4 @@
-import type { ExpressParamID } from "../types";
+import type { ExpressParamID } from "../types/index.types";
 import AppError from "../errors/AppError";
 
 export function parseParamID(id: ExpressParamID): string {

@@ -7,7 +7,7 @@ import type {
   Instructor,
   Major,
   UpdateDepartmentDTO,
-} from "../types";
+} from "../types/index.types";
 import type { EntityRepository } from "./EntityRepository.interface";
 import { updateQueryBuilder } from "./helpers/updateQueryBuilder";
 

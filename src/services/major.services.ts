@@ -4,7 +4,7 @@ import type {
   UpdateMajorDTO,
   BaseQuery,
   ExpressParamID,
-} from "../types";
+} from "../types/index.types";
 import AppError from "../errors/AppError";
 import { PoolMajorRepo } from "../repositories/major.repositories";
 import { parseParamID } from "../http/parseParamID";

@@ -10,12 +10,7 @@ function registerMajorController(
   res: Response,
   next: NextFunction,
 ) {
-  controllerHandler(
-    () => registerMajorService(req.params.id, req.body),
-    res,
-    next,
-    201,
-  );
+  controllerHandler(() => registerMajorService(req.body), res, next, 201);
 }
 
 function removeRegisterMajorController(

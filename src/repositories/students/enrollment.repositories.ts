@@ -1,5 +1,5 @@
 import { pool } from "../../database/pool";
-import type { Enrollment } from "../../types";
+import type { Enrollment } from "../../types/index.types";
 
 interface EnrollmentRepository {
   enroll(studentId: string, courseId: string): Promise<Enrollment | null>;

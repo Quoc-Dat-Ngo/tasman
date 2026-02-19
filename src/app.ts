@@ -1,13 +1,17 @@
 import express from "express";
 import morgan from "morgan";
-import { studentsRouter } from "./routes/students.routes";
+import { globalErrorHandler } from "./middlewares/errorHandler";
+
+import { studentsRouter } from "./routes/students/students.routes";
+import { enrollmentRouter } from "./routes/students/enrollments.routes";
+import { studentMajorsRouter } from "./routes/students/studentMajors.routes";
+
+import { instructorsRouter } from "./routes/instructors/instructors.routes";
+import { instructorCourseRouter } from "./routes/instructors/instructorCourse.routes";
+
 import { coursesRouter } from "./routes/courses.routes";
-import { instructorsRouter } from "./routes/instructors.routes";
 import { majorsRouter } from "./routes/majors.routes";
 import { departmentsRouter } from "./routes/deparments.routes";
-import { globalErrorHandler } from "./middlewares/errorHandler";
-import { enrollmentRouter } from "./routes/enrollments.routes";
-import { studentMajorsRouter } from "./routes/studentMajors.routes";
 
 const app = express();
 
@@ -30,6 +34,7 @@ app.use("/api/v1/courses", coursesRouter);
 
 // Instructor-related routing
 app.use("/api/v1/instructors", instructorsRouter);
+app.use("/api/v1/instructor-courses", instructorCourseRouter);
 
 // Major-related routing
 app.use("/api/v1/majors", majorsRouter);

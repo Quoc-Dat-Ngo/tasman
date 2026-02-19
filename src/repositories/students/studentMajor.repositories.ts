@@ -1,5 +1,5 @@
 import { pool } from "../../database/pool";
-import type { StudentMajor } from "../../types";
+import type { StudentMajor } from "../../types/index.types";
 
 interface StudentMajorRepository {
   register(studentId: string, majorId: string): Promise<StudentMajor | null>;
