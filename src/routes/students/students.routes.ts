@@ -10,7 +10,7 @@ import {
   deleteStudentController,
   getStudentCourseController,
   getStudentMajorController,
-} from "../controllers/students/student.controllers";
+} from "../../controllers/students/student.controllers";
 
 studentsRouter
   .route("/")
