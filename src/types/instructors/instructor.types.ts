@@ -14,3 +14,11 @@ export interface CreateInstructorDTO {
   gender: "M" | "F";
   department_id: number;
 }
+
+export interface UpdateInstructorDTO {
+  first_name?: string;
+  last_name?: string;
+  dob?: Date;
+  gender?: "M" | "F";
+  department_id?: number;
+}
