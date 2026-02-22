@@ -26,8 +26,8 @@ app.use(morgan("dev"));
 
 // Student-related routing
 app.use("/api/v1/students", studentsRouter);
-app.use("api/v1/enrollments", enrollmentRouter);
-app.use("api/v1/student-majors", studentMajorsRouter);
+app.use("/api/v1/enrollments", enrollmentRouter);
+app.use("/api/v1/student-majors", studentMajorsRouter);
 
 // Course-related routing
 app.use("/api/v1/courses", coursesRouter);

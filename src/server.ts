@@ -7,4 +7,5 @@ const server = app.listen(PORT);
 process.on("SIGINT", async () => {
   await pool.end();
   server.close(() => process.exit(0));
+  console.log("Shutting down...");
 });

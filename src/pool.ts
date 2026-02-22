@@ -5,6 +5,11 @@ import { Pool, types } from "pg";
 // This tells node-postgres to return the raw string from the DB
 types.setTypeParser(1082, (val) => val);
 
+// Keep TIMESTAMP (without zone) as a string
+// If you use this for things like "Office Hours" (9 AM everywhere),
+// you don't want JS to add a timezone to it.
+// types.setTypeParser(1114, (val) => val);
+
 export const pool: Pool = new Pool({
   connectionString: process.env.DATABASE_URL + "&sslmode=verify-full",
 });

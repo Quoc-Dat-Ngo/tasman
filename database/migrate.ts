@@ -10,7 +10,7 @@ async function ensureMigrationTable() {
       CREATE TABLE IF NOT EXISTS schema_migrations (
         id SERIAL PRIMARY KEY,
         filename VARCHAR(255) UNIQUE NOT NULL,
-        executed_at TIMESTAMP DEFAULT NOW()
+        executed_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
       );
     `,
   );
@@ -47,8 +47,8 @@ async function executeMigrationFiles() {
       await pool.query(fileContent);
       await pool.query(
         `
-          INSERT INTO schema_migrations (filename)
-          VALUES ($1);
+          INSERT INTO schema_migrations (filename, executed_at)
+          VALUES ($1, DEFAULT);
         `,
         [file],
       );
