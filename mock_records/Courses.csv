@@ -1,0 +1,346 @@
+CourseTitle,CourseCode,Fee,DepartmentID
+Programming Fundamentals,COMP1511,6432.55,1
+Software Engineering Fundamentals,COMP1531,7321.44,1
+Computer Systems Fundamentals,COMP1521,6810.22,1
+Data Structures and Algorithms,COMP2521,7453.91,1
+Object-oriented Design and Programming,COMP2511,5988.40,1
+Database Systems,COMP3311,7210.33,1
+Artificial Intelligence,COMP3411,7544.28,1
+Web Front-end Programming,COMP6080,6233.19,1
+Advanced C++ Programming,COMP6771,7022.11,1
+Machine Learning and Data Mining,COMP9417,7488.77,1
+Discrete Mathematics,MATH1081,5521.42,1
+Calculus 1,MATH1131,6399.55,1
+Calculus 2,MATH1231,5877.12,1
+Higher Mathematics 1A,MATH1141,7310.88,1
+Higher Mathematics 1B,MATH1241,6944.21,1
+Statistics for Engineers,MATH2089,5332.90,1
+Theory of Computation,COMP3121,7422.66,1
+Algorithms and Programming Techniques,COMP3821,7288.14,1
+Operating Systems,COMP3231,6110.77,1
+Computer Networks,COMP3331,7344.52,1
+Computer Security,COMP6443,7566.90,1
+Distributed Systems,COMP9242,7499.33,1
+Human Computer Interaction,COMP3511,6299.44,1
+Software Construction,COMP2041,5522.10,1
+Mobile Application Development,COMP4511,6888.55,1
+Deep Learning,COMP9444,7542.33,1
+Natural Language Processing,COMP9447,7399.12,1
+Computer Graphics,COMP3421,6221.44,1
+Embedded Systems,COMP2121,5988.77,1
+Compiler Design,COMP3131,7332.55,1
+Computer Architecture,COMP3221,7421.10,1
+Secure Coding Principles,COMP6841,7210.88,1
+Cloud Computing,COMP4336,6999.44,1
+Parallel Computing,COMP3222,7444.21,1
+Big Data Systems,COMP9313,7322.55,1
+Reinforcement Learning,COMP9445,7566.10,1
+Robotics Software Engineering,COMP3431,6455.22,1
+Software Testing & Verification,COMP4161,6888.33,1
+Blockchain Engineering,COMP4920,7344.10,1
+Computer Vision,COMP4418,7544.99,1
+Game Development,COMP3151,6222.55,1
+Functional Programming,COMP3141,5999.44,1
+Cybersecurity Engineering,COMP6843,7422.33,1
+Quantum Computing Foundations,COMP4701,7560.88,1
+IoT Systems Engineering,COMP4337,6990.44,1
+Advanced Algorithms,COMP4121,7440.55,1
+Data Mining Techniques,COMP9318,7321.10,1
+Information Retrieval,COMP6714,7544.22,1
+Software Architecture,COMP4351,6888.10,1
+DevOps Engineering,COMP3900,6455.44,1
+Capstone Project A,COMP4951,7322.33,1
+Capstone Project B,COMP4952,7444.88,1
+Electrical Circuit Fundamentals,ELEC1111,5122.55,2
+Circuits and Signals,ELEC2134,5888.44,2
+Digital Circuit Design,ELEC2141,6221.33,2
+Control Systems,ELEC3114,6999.22,2
+Electrical Energy,ELEC3105,6444.10,2
+Electronics,ELEC3106,5888.99,2
+Electromagnetic Engineering,ELEC3115,7110.44,2
+Electrical Engineering Design,ELEC3117,6555.33,2
+Analogue and Digital Communications,TELE3113,6999.88,2
+Digital Modulation and Coding,TELE4653,6222.55,2
+Power Electronics,ELEC4612,6444.77,2
+High Voltage Engineering,ELEC4622,6990.33,2
+Signal Processing,ELEC3104,5888.10,2
+Embedded Hardware Systems,ELEC2142,6221.44,2
+RF Engineering,ELEC4632,7110.22,2
+Wireless Communications,TELE3114,6999.55,2
+Optical Communications,TELE4652,6444.33,2
+Telecommunications Networks,TELE3115,6222.10,2
+Machine Learning for Signals,ELEC4123,7110.99,2
+Smart Grids,ELEC4623,6999.12,2
+Engineering Mechanics,ENGG1300,4555.44,3
+Mechanics of Solids 1,ENGG2400,4999.33,3
+Fluid Mechanics for Engineers,ENGG2500,5333.22,3
+Mechanical Design 1,MECH3110,6222.10,3
+Advanced Thermofluids,MECH3610,6555.99,3
+Mechanical Design 2,MECH4100,6888.44,3
+Vibration Analysis,MECH4305,5777.33,3
+Aerospace Structures 1,AERO3110,6444.55,3
+Linear Systems and Control,MTRN3020,5999.44,3
+Robotics,MTRN4010,6555.22,3
+Heat Transfer,MECH2700,5333.10,3
+Dynamics,MECH2400,4999.88,3
+Manufacturing Engineering,MECH2600,5777.55,3
+Aerospace Propulsion,AERO3610,6888.33,3
+Mechatronics Design,MTRN3500,6222.44,3
+Advanced Robotics,MTRN4500,6555.10,3
+Computational Fluid Dynamics,MECH4710,6888.77,3
+Finite Element Methods,MECH4720,6221.33,3
+Engineering Materials,MECH1300,5333.44,3
+Aerospace Design,AERO4500,6888.55,3
+Space Engineering Fundamentals,AERO2700,5777.22,3
+Mechanics of Solids 2,MECH3400,6222.33,3
+Advanced Dynamics,MECH3700,6555.44,3
+Thermodynamics,MECH2300,4999.55,3
+Engineering Design Practice,ENGG1000,4555.22,3
+Mechatronics Systems,MTRN2500,5777.66,3
+Aerospace Structures 2,AERO4110,6888.77,3
+Advanced Manufacturing,MECH4600,6222.88,3
+Civil Engineering Fundamentals,CVEN1300,4888.44,4
+Structural Mechanics,CVEN2303,5333.55,4
+Transport Engineering,CVEN3200,5777.33,4
+Water Engineering,CVEN3501,6222.44,4
+Geotechnical Engineering,CVEN3303,5999.22,4
+Construction Engineering,CVEN3701,6444.55,4
+Structural Analysis,CVEN2302,5333.66,4
+Hydraulics,CVEN2501,5777.44,4
+Environmental Engineering,CVEN3402,6222.55,4
+Advanced Structural Design,CVEN4304,6555.33,4
+Concrete Structures,CVEN3304,5999.88,4
+Steel Structures,CVEN3305,6222.99,4
+Traffic Engineering,CVEN3201,5777.55,4
+Coastal Engineering,CVEN4502,6444.22,4
+Sustainable Infrastructure,CVEN4702,6555.10,4
+Advanced Geotechnics,CVEN4303,6888.44,4
+Water Resources Engineering,CVEN3502,6222.77,4
+Bridge Engineering,CVEN4503,6555.88,4
+Chemical Engineering Fundamentals,CEIC1000,3999.44,5
+Process Engineering,CEIC2001,4555.33,5
+Chemical Reaction Engineering,CEIC3001,4999.22,5
+Process Control,CEIC3002,5333.11,5
+Thermodynamics for Chemical Engineers,CEIC2002,4222.55,5
+Separation Processes,CEIC3003,4888.66,5
+Biochemical Engineering,CEIC4001,5777.44,5
+Advanced Process Design,CEIC4002,6222.33,5
+Materials and Energy Balances,CEIC1001,3999.88,5
+Particle Technology,CEIC3004,4555.77,5
+Process Safety,CEIC4003,5333.22,5
+Environmental Risk Assessment,CEIC4004,5777.55,5
+Advanced Chemical Engineering,CEIC5001,6444.33,5
+Polymer Engineering,CEIC4005,5999.44,5
+Nanomaterials Engineering,CEIC4006,6222.10,5
+Biomedical Engineering Fundamentals,BMED1000,3555.44,6
+Biomechanics,BMED2001,3999.33,6
+Biomedical Signal Processing,BMED3001,4555.22,6
+Medical Imaging Systems,BMED3002,4999.11,6
+Biomaterials,BMED2002,3888.55,6
+Tissue Engineering,BMED4001,5333.44,6
+Neural Engineering,BMED4002,5777.33,6
+Rehabilitation Engineering,BMED3003,4222.66,6
+Biomedical Instrumentation,BMED2003,3888.77,6
+Advanced Biomedical Design,BMED4003,5999.22,6
+Medical Robotics,BMED5001,6222.44,6
+Cardiovascular Engineering,BMED4004,5777.88,6
+Biofluid Mechanics,BMED3004,4555.66,6
+Cellular Engineering,BMED4005,5333.55,6
+Photovoltaic Engineering Fundamentals,SOLA1001,3222.44,7
+Solar Cells and Materials,SOLA2001,3555.33,7
+Renewable Energy Systems,SOLA3001,3999.22,7
+Photovoltaic Devices,SOLA3002,4222.11,7
+Energy Storage Systems,SOLA4001,4888.55,7
+Advanced Solar Cell Engineering,SOLA4002,5333.44,7
+Grid Integration of Renewables,SOLA4003,5777.33,7
+Sustainable Energy Design,SOLA3003,3555.66,7
+Solar Thermal Engineering,SOLA3004,3999.44,7
+Photovoltaic Manufacturing,SOLA4004,4888.77,7
+Energy Policy and Economics,SOLA5001,5333.22,7
+Advanced Renewable Systems,SOLA5002,5777.10,7
+Solar Power Systems,SOLA2002,3555.88,7
+Renewable Energy Integration,SOLA3005,4222.55,7
+Advanced Energy Storage,SOLA5003,5999.33,7
+Sustainable Power Engineering,SOLA4005,5333.66,7
+Photovoltaic System Design,SOLA3006,3999.99,7
+Energy Efficiency Engineering,SOLA2003,3222.88,7
+Solar Materials Science,SOLA4006,4888.33,7
+Renewable Energy Modelling,SOLA5004,5777.44,7
+Advanced Solar Grid Systems,SOLA5005,5777.55,7
+Renewable Power Electronics,SOLA4007,5333.44,7
+Energy Systems Modelling,SOLA5006,5999.22,7
+Solar Engineering Laboratory,SOLA3007,3555.66,7
+Photovoltaic Reliability,SOLA4008,4888.55,7
+Sustainable Energy Futures,SOLA2004,3222.77,7
+Advanced Photovoltaic Physics,SOLA5007,5777.33,7
+Energy Conversion Systems,SOLA3008,3999.44,7
+Solar System Integration,SOLA4009,5333.22,7
+Renewable Energy Analytics,SOLA5008,5999.11,7
+Solar Engineering Capstone A,SOLA4100,4888.99,7
+Solar Engineering Capstone B,SOLA4200,5333.88,7
+Photovoltaic Nanotechnology,SOLA5009,5777.66,7
+Energy Storage Chemistry,SOLA3009,3555.44,7
+Advanced Renewable Integration,SOLA5010,6222.33,7
+Solar Power Electronics,SOLA3010,3999.55,7
+Energy Systems Control,SOLA4010,5333.77,7
+Sustainable Energy Materials,SOLA5011,5777.22,7
+Solar Grid Protection,SOLA4011,4888.66,7
+Renewable Energy Forecasting,SOLA5012,6222.44,7
+Advanced Solar Manufacturing,SOLA4012,5333.55,7
+Energy Markets and Trading,SOLA5013,5777.11,7
+Solar Engineering Internship,SOLA3900,3555.33,7
+Renewable Energy Project,SOLA4900,4888.22,7
+Advanced Solar Simulation,SOLA5014,6222.10,7
+Solar System Diagnostics,SOLA4013,5333.66,7
+Energy Storage Integration,SOLA5015,5777.44,7
+Solar Power Quality,SOLA4014,4888.33,7
+Renewable Energy Optimisation,SOLA5016,6222.55,7
+Solar Engineering Research,SOLA4015,5333.99,7
+Energy Systems Innovation,SOLA5017,5777.88,7
+Solar Materials Engineering,SOLA3011,3555.22,7
+Advanced Photovoltaic Devices,SOLA5018,6222.77,7
+Solar Energy Conversion,SOLA3012,3999.66,7
+Renewable Energy Infrastructure,SOLA4016,5333.10,7
+Solar Power Distribution,SOLA3013,3555.88,7
+Energy Storage Technologies,SOLA4017,4888.44,7
+Advanced Solar Analytics,SOLA5019,6222.88,7
+Solar Engineering Practicum,SOLA3020,3999.22,7
+Renewable Energy Systems Lab,SOLA4020,5333.44,7
+Solar Power Engineering,SOLA3021,3555.77,7
+Energy Systems Design,SOLA4021,4888.55,7
+Advanced Solar Integration,SOLA5020,6222.66,7
+Solar Energy Modelling,SOLA3022,3999.33,7
+Renewable Energy Conversion,SOLA4022,5333.22,7
+Solar Power Infrastructure,SOLA3023,3555.99,7
+Energy Storage Systems Lab,SOLA4023,4888.77,7
+Advanced Solar Engineering,SOLA5021,6222.44,7
+Solar Materials Laboratory,SOLA3024,3999.88,7
+Renewable Energy Systems Design,SOLA4024,5333.55,7
+Solar Power Electronics Lab,SOLA3025,3555.66,7
+Energy Systems Simulation,SOLA4025,4888.33,7
+Advanced Solar Research,SOLA5022,6222.11,7
+Solar Engineering Analysis,SOLA3026,3999.44,7
+Renewable Energy Integration Lab,SOLA4026,5333.66,7
+Solar Power Systems Engineering,SOLA3027,3555.22,7
+Energy Storage Engineering,SOLA4027,4888.99,7
+Advanced Solar Systems,SOLA5023,6222.33,7
+Solar Materials Processing,SOLA3028,3999.55,7
+Renewable Energy Technologies,SOLA4028,5333.77,7
+Solar Power Conversion,SOLA3029,3555.44,7
+Energy Systems Reliability,SOLA4029,4888.66,7
+Advanced Solar Devices,SOLA5024,6222.55,7
+Solar Engineering Modelling,SOLA3030,3999.22,7
+Renewable Energy Engineering,SOLA4030,5333.10,7
+Solar Power Integration,SOLA3031,3555.33,7
+Energy Storage Fundamentals,SOLA4031,4888.22,7
+Advanced Solar Materials,SOLA5025,6222.77,7
+Solar Energy Systems,SOLA3032,3999.66,7
+Renewable Energy Applications,SOLA4032,5333.44,7
+Solar Power Systems Lab,SOLA3033,3555.55,7
+Energy Systems Engineering,SOLA4033,4888.33,7
+Advanced Solar Technologies,SOLA5026,6222.88,7
+Solar Engineering Design,SOLA3034,3999.11,7
+Renewable Energy Modelling Lab,SOLA4034,5333.22,7
+Solar Power Engineering Lab,SOLA3035,3555.88,7
+Energy Storage Systems Design,SOLA4035,4888.77,7
+Advanced Solar Integration Lab,SOLA5027,6222.66,7
+Solar Materials Engineering Lab,SOLA3036,3999.44,7
+Renewable Energy Systems Analysis,SOLA4036,5333.55,7
+Solar Power Systems Analysis,SOLA3037,3555.22,7
+Energy Systems Control Lab,SOLA4037,4888.99,7
+Advanced Solar Engineering Lab,SOLA5028,6222.33,7
+Solar Materials Science Lab,SOLA3038,3999.55,7
+Renewable Energy Systems Simulation,SOLA4038,5333.77,7
+Solar Power Engineering Simulation,SOLA3039,3555.66,7
+Energy Storage Systems Simulation,SOLA4039,4888.44,7
+Advanced Solar Systems Simulation,SOLA5029,6222.11,7
+Solar Engineering Innovation,SOLA3040,3999.22,7
+Renewable Energy Innovation,SOLA4040,5333.44,7
+Solar Power Innovation,SOLA3041,3555.66,7
+Energy Storage Innovation,SOLA4041,4888.55,7
+Advanced Solar Innovation,SOLA5030,6222.77,7
+Solar Materials Innovation,SOLA3042,3999.33,7
+Renewable Energy Systems Innovation,SOLA4042,5333.22,7
+Solar Power Systems Innovation,SOLA3043,3555.88,7
+Energy Systems Innovation Lab,SOLA4043,4888.44,7
+Advanced Solar Innovation Lab,SOLA5031,6222.11,7
+Solar Engineering Technology,SOLA3044,3999.55,7
+Renewable Energy Technology,SOLA4044,5333.66,7
+Solar Power Technology,SOLA3045,3555.22,7
+Energy Storage Technology,SOLA4045,4888.99,7
+Advanced Solar Technology,SOLA5032,6222.33,7
+Solar Materials Technology,SOLA3046,3999.44,7
+Renewable Energy Technology Lab,SOLA4046,5333.77,7
+Solar Power Technology Lab,SOLA3047,3555.66,7
+Energy Systems Technology Lab,SOLA4047,4888.33,7
+Advanced Solar Technology Lab,SOLA5033,6222.88,7
+Solar Engineering Systems,SOLA3048,3999.11,7
+Renewable Energy Systems,SOLA4048,5333.22,7
+Solar Power Systems,SOLA3049,3555.88,7
+Energy Storage Systems,SOLA4049,4888.77,7
+Advanced Solar Systems,SOLA5034,6222.66,7
+Solar Materials Systems,SOLA3050,3999.44,7
+Renewable Energy Systems Lab,SOLA4050,5333.55,7
+Solar Power Systems Lab,SOLA3051,3555.22,7
+Energy Systems Lab,SOLA4051,4888.99,7
+Advanced Solar Systems Lab,SOLA5035,6222.33,7
+Solar Engineering Analysis,SOLA3052,3999.55,7
+Renewable Energy Analysis,SOLA4052,5333.77,7
+Solar Power Analysis,SOLA3053,3555.66,7
+Energy Storage Analysis,SOLA4053,4888.44,7
+Advanced Solar Analysis,SOLA5036,6222.11,7
+Solar Materials Analysis,SOLA3054,3999.33,7
+Renewable Energy Analysis Lab,SOLA4054,5333.66,7
+Solar Power Analysis Lab,SOLA3055,3555.22,7
+Energy Systems Analysis Lab,SOLA4055,4888.55,7
+Advanced Solar Analysis Lab,SOLA5037,6222.44,7
+Solar Engineering Research,SOLA3056,3999.88,7
+Renewable Energy Research,SOLA4056,5333.22,7
+Solar Power Research,SOLA3057,3555.99,7
+Energy Storage Research,SOLA4057,4888.33,7
+Advanced Solar Research,SOLA5038,6222.77,7
+Solar Materials Research,SOLA3058,3999.66,7
+Renewable Energy Research Lab,SOLA4058,5333.55,7
+Solar Power Research Lab,SOLA3059,3555.44,7
+Energy Systems Research Lab,SOLA4059,4888.22,7
+Advanced Solar Research Lab,SOLA5039,6222.88,7
+Solar Engineering Capstone,SOLA3060,3999.55,7
+Renewable Energy Capstone,SOLA4060,5333.44,7
+Solar Power Capstone,SOLA3061,3555.66,7
+Energy Storage Capstone,SOLA4061,4888.77,7
+Advanced Solar Capstone,SOLA5040,6222.33,7
+Solar Materials Capstone,SOLA3062,3999.22,7
+Renewable Energy Capstone Lab,SOLA4062,5333.66,7
+Solar Power Capstone Lab,SOLA3063,3555.88,7
+Energy Systems Capstone Lab,SOLA4063,4888.55,7
+Advanced Solar Capstone Lab,SOLA5041,6222.44,7
+Solar Engineering Practicum,SOLA3064,3999.33,7
+Renewable Energy Practicum,SOLA4064,5333.22,7
+Solar Power Practicum,SOLA3065,3555.77,7
+Energy Storage Practicum,SOLA4065,4888.66,7
+Advanced Solar Practicum,SOLA5042,6222.55,7
+Solar Materials Practicum,SOLA3066,3999.44,7
+Renewable Energy Practicum Lab,SOLA4066,5333.77,7
+Solar Power Practicum Lab,SOLA3067,3555.66,7
+Energy Systems Practicum Lab,SOLA4067,4888.33,7
+Advanced Solar Practicum Lab,SOLA5043,6222.11,7
+Solar Engineering Workshop,SOLA3068,3999.22,7
+Renewable Energy Workshop,SOLA4068,5333.44,7
+Solar Power Workshop,SOLA3069,3555.55,7
+Energy Storage Workshop,SOLA4069,4888.77,7
+Advanced Solar Workshop,SOLA5044,6222.66,7
+Solar Materials Workshop,SOLA3070,3999.33,7
+Renewable Energy Workshop Lab,SOLA4070,5333.55,7
+Solar Power Workshop Lab,SOLA3071,3555.22,7
+Energy Systems Workshop Lab,SOLA4071,4888.99,7
+Advanced Solar Workshop Lab,SOLA5045,6222.33,7
+Solar Engineering Studio,SOLA3072,3999.44,7
+Renewable Energy Studio,SOLA4072,5333.66,7
+Solar Power Studio,SOLA3073,3555.88,7
+Energy Storage Studio,SOLA4073,4888.55,7
+Advanced Solar Studio,SOLA5046,6222.77,7
+Solar Materials Studio,SOLA3074,3999.22,7
+Renewable Energy Studio Lab,SOLA4074,5333.44,7
+Solar Power Studio Lab,SOLA3075,3555.66,7
+Energy Systems Studio Lab,SOLA4075,4888.33,7
+Advanced Solar Studio Lab,SOLA5047,6222.11,7
