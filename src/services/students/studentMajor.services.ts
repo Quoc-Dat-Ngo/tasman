@@ -8,19 +8,19 @@ import { PoolStudentMajorRepo } from "../../repositories/students/studentMajor.r
 
 const repo = new PoolStudentMajorRepo();
 
-function registerMajorService(data: CreateStudentMajorDTO) {
+async function registerMajorService(data: CreateStudentMajorDTO) {
   const { student_id, major_id } = data;
   return assertFound(
-    repo.register(student_id, major_id),
+    await repo.register(student_id, major_id),
     `Student with id ${student_id} and/or major with id ${major_id} not found`,
   );
 }
 
-function removeRegisterMajorService(id: ExpressParamID) {
+async function removeRegisterMajorService(id: ExpressParamID) {
   const registerMajorID = parseParamID(id);
 
   return assertFound(
-    repo.delete(registerMajorID),
+    await repo.delete(registerMajorID),
     `Register Major with id ${registerMajorID} not found`,
   );
 }

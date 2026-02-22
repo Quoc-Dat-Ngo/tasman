@@ -8,19 +8,19 @@ import { assertFound } from "../../errors/assertFound";
 
 const repo = new PoolEnrollmentRepo();
 
-function enrollCourseService(data: CreateEnrollmentDTO) {
+async function enrollCourseService(data: CreateEnrollmentDTO) {
   const { student_id, course_id } = data;
   return assertFound(
-    repo.enroll(student_id, course_id),
+    await repo.enroll(student_id, course_id),
     `Student with id ${student_id} and/or course with id ${course_id} not found`,
   );
 }
 
-function removeEnrollCourseService(id: ExpressParamID) {
+async function removeEnrollCourseService(id: ExpressParamID) {
   const enrollmentID = parseParamID(id);
 
   return assertFound(
-    repo.delete(enrollmentID),
+    await repo.delete(enrollmentID),
     `Enrollment with id ${enrollmentID} not found`,
   );
 }

@@ -18,42 +18,42 @@ const getAllMajorService = (query: BaseQuery) => {
 const createNewMajorService = (data: CreateMajorDTO) => {
   return repo.create(data);
 };
-const getSingleMajorService = (id: ExpressParamID) => {
+const getSingleMajorService = async (id: ExpressParamID) => {
   const majorID = parseParamID(id);
   return assertFound(
-    repo.getOne(majorID),
+    await repo.getOne(majorID),
     `Major with id ${majorID} not found`,
   );
 };
-const updateMajorService = (id: ExpressParamID, data: UpdateMajorDTO) => {
+const updateMajorService = async (id: ExpressParamID, data: UpdateMajorDTO) => {
   const majorID = parseParamID(id);
 
   if (Object.values(data).every((v) => v === undefined)) {
     throw new AppError("No fields provided for updating", 400);
   }
   return assertFound(
-    repo.update(majorID, data),
+    await repo.update(majorID, data),
     `Major with id ${majorID} not found`,
   );
 };
-const deleteMajorService = (id: ExpressParamID) => {
+const deleteMajorService = async (id: ExpressParamID) => {
   const majorID = parseParamID(id);
   return assertFound(
-    repo.delete(majorID),
+    await repo.delete(majorID),
     `Major with id ${majorID} not found`,
   );
 };
-const getMajorStudentService = (id: ExpressParamID) => {
+const getMajorStudentService = async (id: ExpressParamID) => {
   const majorID = parseParamID(id);
   return assertFound(
-    repo.getStudent(majorID),
+    await repo.getStudent(majorID),
     `Major with id ${majorID} not found OR no students have registered for this major`,
   );
 };
-const getMajorDepartmentService = (id: ExpressParamID) => {
+const getMajorDepartmentService = async (id: ExpressParamID) => {
   const majorID = parseParamID(id);
   return assertFound(
-    repo.getDepartment(majorID),
+    await repo.getDepartment(majorID),
     `Major with id ${majorID} not found`,
   );
 };

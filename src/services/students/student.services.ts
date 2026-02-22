@@ -11,17 +11,17 @@ import { parseParamID } from "../../http/parseParamID";
 
 const repo = new PoolStudentRepo();
 
-const getAllStudentService = async (query: StudentQueryDTO) => {
+const getAllStudentService = (query: StudentQueryDTO) => {
   return repo.getAll(query);
 };
-const createNewStudentService = async (data: CreateStudentDTO) => {
+const createNewStudentService = (data: CreateStudentDTO) => {
   // TODO: Perform input validation and password hashing for student account
   return repo.create(data);
 };
 const getSingleStudentService = async (id: ExpressParamID) => {
   const student_id = parseParamID(id);
   return assertFound(
-    repo.getOne(student_id),
+    await repo.getOne(student_id),
     `Student with id ${student_id} not found`,
   );
 };
@@ -35,29 +35,29 @@ const updateStudentService = async (
     throw new AppError("No fields provided for updating", 400);
   }
   return assertFound(
-    repo.update(student_id, data),
+    await repo.update(student_id, data),
     `Student with id ${student_id} not found`,
   );
 };
 const deleteStudentService = async (id: ExpressParamID) => {
   const student_id = parseParamID(id);
   return assertFound(
-    repo.delete(student_id),
+    await repo.delete(student_id),
     `Student with id ${student_id} not found`,
   );
 };
 const getStudentCourseService = async (id: ExpressParamID) => {
   const student_id = parseParamID(id);
   return assertFound(
-    repo.getCourse(student_id),
+    await repo.getCourse(student_id),
     `Student with id ${student_id} not found OR student hasn't applied for any courses yet`,
   );
 };
 const getStudentMajorService = async (id: ExpressParamID) => {
   const student_id = parseParamID(id);
   return assertFound(
-    repo.getMajor(student_id),
-    `Student with id ${student_id} not found OR student hasn't applied for any courses yet`,
+    await repo.getMajor(student_id),
+    `Student with id ${student_id} not found OR student hasn't registered for any majors yet`,
   );
 };
 // const enrollCourse = async (

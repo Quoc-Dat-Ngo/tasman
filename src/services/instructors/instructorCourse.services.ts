@@ -9,19 +9,19 @@ import { PoolInstructorCourseRepo } from "../../repositories/instructors/instruc
 
 const repo = new PoolInstructorCourseRepo();
 
-function registerCourseService(data: CreateInstructorCourseDTO) {
+async function registerCourseService(data: CreateInstructorCourseDTO) {
   const { course_id, instructor_id } = data;
   return assertFound(
-    repo.register(course_id, instructor_id),
+    await repo.register(course_id, instructor_id),
     `Course with id ${course_id} and/or instructor with id ${instructor_id} not found`,
   );
 }
 
-function removeRegisterCourseService(id: ExpressParamID) {
+async function removeRegisterCourseService(id: ExpressParamID) {
   const instructorCourseID = parseParamID(id);
 
   return assertFound(
-    repo.delete(instructorCourseID),
+    await repo.delete(instructorCourseID),
     `Course register for instructing with id ${instructorCourseID} not found`,
   );
 }

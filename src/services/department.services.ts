@@ -16,14 +16,14 @@ const getAllDepartmentService = () => {
 const createNewDepartmentService = (data: CreateDepartmentDTO) => {
   return repo.create(data);
 };
-const getSingleDepartmentService = (id: ExpressParamID) => {
+const getSingleDepartmentService = async (id: ExpressParamID) => {
   const departmentID = parseParamID(id);
   return assertFound(
-    repo.getOne(departmentID),
+    await repo.getOne(departmentID),
     `Department with id ${departmentID} not found`,
   );
 };
-const updateDepartmentService = (
+const updateDepartmentService = async (
   id: ExpressParamID,
   data: UpdateDepartmentDTO,
 ) => {
@@ -32,35 +32,35 @@ const updateDepartmentService = (
     throw new AppError("No updated input data on every fields", 400);
   }
   return assertFound(
-    repo.update(departmentID, data),
+    await repo.update(departmentID, data),
     `Department with id ${departmentID} not found`,
   );
 };
-const deleteDepartmentService = (id: ExpressParamID) => {
+const deleteDepartmentService = async (id: ExpressParamID) => {
   const departmentID = parseParamID(id);
   return assertFound(
-    repo.delete(departmentID),
+    await repo.delete(departmentID),
     `Department with id ${departmentID} not found`,
   );
 };
-const getDepartmentCourseService = (id: ExpressParamID) => {
+const getDepartmentCourseService = async (id: ExpressParamID) => {
   const departmentID = parseParamID(id);
   return assertFound(
-    repo.getDepartmentCourse(departmentID),
+    await repo.getDepartmentCourse(departmentID),
     `Department with id ${departmentID} not found`,
   );
 };
-const getDepartmentInstructorService = (id: ExpressParamID) => {
+const getDepartmentInstructorService = async (id: ExpressParamID) => {
   const departmentID = parseParamID(id);
   return assertFound(
-    repo.getDepartmentInstructor(departmentID),
+    await repo.getDepartmentInstructor(departmentID),
     `Department with id ${departmentID} not found`,
   );
 };
-const getDepartmentMajorService = (id: ExpressParamID) => {
+const getDepartmentMajorService = async (id: ExpressParamID) => {
   const departmentID = parseParamID(id);
   return assertFound(
-    repo.getDepartmentMajor(departmentID),
+    await repo.getDepartmentMajor(departmentID),
     `Department with id ${departmentID} not found`,
   );
 };
