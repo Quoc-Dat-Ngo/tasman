@@ -32,8 +32,8 @@ export class PoolCourseRepo implements CourseRepository {
       `
         SELECT * 
         FROM courses
-        LIMIT ${index++}
-        OFFSET ${index};
+        LIMIT $${index++}
+        OFFSET $${index};
       `,
       [limit, offset],
     );
@@ -55,8 +55,8 @@ export class PoolCourseRepo implements CourseRepository {
   async create(data: CreateCourseDTO): Promise<Course> {
     const result = await pool.query<Course>(
       `
-        INSERT INTO courses (course_title, course_code, fee, department_id)
-        VALUES ($1, $2, $3, $4)
+        INSERT INTO courses (course_title, course_code, fee, department_id, created_at, updated_at)
+        VALUES ($1, $2, $3, $4, DEFAULT, DEFAULT)
         RETURNING *;
       `,
       [data.course_title, data.course_code, data.fee, data.department_id],

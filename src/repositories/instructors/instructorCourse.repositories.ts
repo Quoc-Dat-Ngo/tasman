@@ -15,8 +15,8 @@ export class PoolInstructorCourseRepo implements InstructorCourseRepository {
   ): Promise<InstructorCourse | null> {
     const result = await pool.query<InstructorCourse>(
       `
-        INSERT INTO course_instructor (course_id, instructor_id)
-        VALUES ($1, $2)
+        INSERT INTO course_instructor (course_id, instructor_id, created_at, updated_at)
+        VALUES ($1, $2, DEFAULT, DEFAULT)
         RETURNING *;
       `,
       [courseId, instructorID],

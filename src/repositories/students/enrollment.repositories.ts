@@ -13,8 +13,8 @@ export class PoolEnrollmentRepo implements EnrollmentRepository {
   ): Promise<Enrollment | null> {
     const result = await pool.query<Enrollment>(
       `
-      INSERT INTO enrollments (student_id, course_id)
-      VALUES ($1, $2)
+      INSERT INTO enrollments (student_id, course_id, created_at, updated_at)
+      VALUES ($1, $2, DEFAULT, DEFAULT)
       RETURNING *;`,
       [studentId, courseId],
     );

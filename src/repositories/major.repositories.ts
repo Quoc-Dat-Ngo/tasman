@@ -29,8 +29,8 @@ export class PoolMajorRepo implements MajorRepository {
       `
         SELECT * 
         FROM majors
-        LIMIT ${index++}
-        OFFSET ${index};
+        LIMIT $${index++}
+        OFFSET $${index};
       `,
       [limit, offset],
     );
@@ -52,8 +52,8 @@ export class PoolMajorRepo implements MajorRepository {
   async create(data: CreateMajorDTO): Promise<Major> {
     const result = await pool.query<Major>(
       `
-        INSERT INTO majors (major_name, department_id)
-        VALUES ($1, $2)
+        INSERT INTO majors (major_name, department_id, created_at, updated_at)
+        VALUES ($1, $2, DEFAULT, DEFAULT)
         RETURNING *;
       `,
       [data.major_name, data.department_id],

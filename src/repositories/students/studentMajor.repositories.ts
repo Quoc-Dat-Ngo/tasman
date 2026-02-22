@@ -13,8 +13,8 @@ export class PoolStudentMajorRepo implements StudentMajorRepository {
   ): Promise<StudentMajor | null> {
     const result = await pool.query<StudentMajor>(
       `
-        INSERT INTO student_major (student_id, major_id)
-        VALUES ($1, $2)
+        INSERT INTO student_major (student_id, major_id, created_at, updated_at)
+        VALUES ($1, $2, DEFAULT, DEFAULT)
         RETURNING *;
       `,
       [studentId, majorId],

@@ -53,8 +53,8 @@ export class PoolDeparmentRepo implements DeparmentRepository {
     return (
       await pool.query<Department>(
         `
-          INSERT INTO departments (department_name)
-          VALUES ($1)
+          INSERT INTO departments (department_name, created_at, updated_at)
+          VALUES ($1, DEFAULT, DEFAULT)
           RETURNING *;
         `,
         [data.department_name],

@@ -121,8 +121,8 @@ export class PoolStudentRepo implements StudentRepository {
   async create(data: CreateStudentDTO): Promise<Student> {
     const result = await pool.query<Student>(
       `
-      INSERT INTO students (first_name, last_name, dob, gender) 
-      VALUES ($1, $2, $3, $4);`,
+      INSERT INTO students (first_name, last_name, dob, gender, created_at, updated_at) 
+      VALUES ($1, $2, $3, $4, DEFAULT, DEFAULT);`,
       [data.first_name, data.last_name, data.dob, data.gender],
     );
     return result.rows[0]!;
