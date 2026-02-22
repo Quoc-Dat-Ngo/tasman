@@ -1,5 +1,4 @@
 import type { Request, Response, NextFunction } from "express";
-import type { Course } from "../types/index.types";
 
 import {
   getAllCourseService,
@@ -11,67 +10,62 @@ import {
   getCourseInstructorService,
   getCourseDepartmentService,
 } from "../services/course.services";
-import { controllerHandler } from "./helpers/controllerHandler";
 
-const getAllCourseController = (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
-  controllerHandler(() => getAllCourseService(req.query), res, next);
+const getAllCourseController = async (req: Request, res: Response) => {
+  const data = await getAllCourseService(req.query);
+  res.status(200).json({
+    success: true,
+    data,
+  });
 };
-const createNewCourseController = (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
-  controllerHandler(() => createNewCourseService(req.body), res, next, 201);
+const createNewCourseController = async (req: Request, res: Response) => {
+  const data = await createNewCourseService(req.body);
+  res.status(201).json({
+    success: true,
+    data,
+  });
 };
-const getSingleCourseController = (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
-  controllerHandler(() => getSingleCourseService(req.params.id), res, next);
+const getSingleCourseController = async (req: Request, res: Response) => {
+  const data = await getSingleCourseService(req.params.id);
+  res.status(200).json({
+    success: true,
+    data,
+  });
 };
-const updateCourseController = (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
-  controllerHandler(
-    () => updateCourseService(req.params.id, req.body),
-    res,
-    next,
-  );
+const updateCourseController = async (req: Request, res: Response) => {
+  const data = await updateCourseService(req.params.id, req.body);
+  res.status(200).json({
+    success: true,
+    data,
+  });
 };
-const deleteCourseController = (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
-  controllerHandler(() => deleteCourseService(req.params.id), res, next);
+const deleteCourseController = async (req: Request, res: Response) => {
+  const data = await deleteCourseService(req.params.id);
+  res.status(200).json({
+    success: true,
+    data,
+  });
 };
-const getCourseStudentController = (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
-  controllerHandler(() => getCourseStudentService(req.params.id), res, next);
+const getCourseStudentController = async (req: Request, res: Response) => {
+  const data = await getCourseStudentService(req.params.id);
+  res.status(200).json({
+    success: true,
+    data,
+  });
 };
-const getCourseInstructorController = (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
-  controllerHandler(() => getCourseInstructorService(req.params.id), res, next);
+const getCourseInstructorController = async (req: Request, res: Response) => {
+  const data = await getCourseInstructorService(req.params.id);
+  res.status(200).json({
+    success: true,
+    data,
+  });
 };
-const getCourseDepartmentController = (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
-  controllerHandler(() => getCourseDepartmentService(req.params.id), res, next);
+const getCourseDepartmentController = async (req: Request, res: Response) => {
+  const data = await getCourseDepartmentService(req.params.id);
+  res.status(200).json({
+    success: true,
+    data,
+  });
 };
 
 export {

@@ -1,27 +1,22 @@
 import type { Response, Request, NextFunction } from "express";
-import { controllerHandler } from "../helpers/controllerHandler";
 import {
   registerCourseService,
   removeRegisterCourseService,
 } from "../../services/instructors/instructorCourse.services";
 
-const registerCourseController = (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
-  controllerHandler(() => registerCourseService(req.body), res, next, 201);
+const registerCourseController = async (req: Request, res: Response) => {
+  const data = await registerCourseService(req.body);
+  res.status(201).json({
+    success: true,
+    data,
+  });
 };
-const removeRegisterCourseController = (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
-  controllerHandler(
-    () => removeRegisterCourseService(req.params.id),
-    res,
-    next,
-  );
+const removeRegisterCourseController = async (req: Request, res: Response) => {
+  const data = await removeRegisterCourseService(req.params.id);
+  res.status(200).json({
+    success: true,
+    data,
+  });
 };
 
 export { registerCourseController, removeRegisterCourseController };

@@ -8,45 +8,42 @@ import {
   getStudentMajorService,
   updateStudentService,
 } from "../../services/students/student.services";
-import { controllerHandler } from "../helpers/controllerHandler";
 
-const getAllStudentController = (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
-  controllerHandler(() => getAllStudentService(req.query), res, next);
+const getAllStudentController = async (req: Request, res: Response) => {
+  const data = await getAllStudentService(req.query);
+  res.status(200).json({
+    success: true,
+    data,
+  });
 };
-const createNewStudentController = (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
-  controllerHandler(() => createNewStudentService(req.body), res, next, 201);
+const createNewStudentController = async (req: Request, res: Response) => {
+  const data = await createNewStudentService(req.body);
+  res.status(201).json({
+    success: true,
+    data,
+  });
 };
-const getSingleStudentController = (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
+const getSingleStudentController = async (req: Request, res: Response) => {
+  const data = await getSingleStudentService(req.params.id);
+  res.status(200).json({
+    success: true,
+    data,
+  });
+};
+const updateStudentController = async (req: Request, res: Response) => {
+  const data = await updateStudentService(req.params.id, req.body);
+  res.status(200).json({
+    success: true,
+    data,
+  });
+};
+const deleteStudentController = async (req: Request, res: Response) => {
   const { id } = req.params;
-  controllerHandler(() => getSingleStudentService(id), res, next);
-};
-const updateStudentController = (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
-  const { id } = req.params;
-  controllerHandler(() => updateStudentService(id, req.body), res, next);
-};
-const deleteStudentController = (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
-  const { id } = req.params;
-  controllerHandler(() => deleteStudentService(id), res, next);
+  const data = await deleteStudentService(req.params.id);
+  res.status(200).json({
+    success: true,
+    data,
+  });
 };
 // const enrollCourseController = (
 //   req: Request,
@@ -66,21 +63,19 @@ const deleteStudentController = (
 //     next(e);
 //   }
 // };
-const getStudentCourseController = (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
-  const { id } = req.params;
-  controllerHandler(() => getStudentCourseService(id), res, next);
+const getStudentCourseController = async (req: Request, res: Response) => {
+  const data = await getStudentCourseService(req.params.id);
+  res.status(200).json({
+    success: true,
+    data,
+  });
 };
-const getStudentMajorController = (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
-  const { id } = req.params;
-  controllerHandler(() => getStudentMajorService(id), res, next);
+const getStudentMajorController = async (req: Request, res: Response) => {
+  const data = await getStudentMajorService(req.params.id);
+  res.status(200).json({
+    success: true,
+    data,
+  });
 };
 
 // const registerMajor = (

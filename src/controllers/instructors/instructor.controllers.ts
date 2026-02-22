@@ -9,64 +9,58 @@ import {
   getInstructorCourseService,
   getInstructorDepartmentService,
 } from "../../services/instructors/instructor.services";
-import { controllerHandler } from "../helpers/controllerHandler";
 
-const getAllInstructorController = (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
-  controllerHandler(() => getAllInstructorService(req.query), res, next);
+const getAllInstructorController = async (req: Request, res: Response) => {
+  const data = await getAllInstructorService(req.query);
+  res.status(201).json({
+    success: true,
+    data,
+  });
 };
-const createNewInstructorController = (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
-  controllerHandler(() => createNewInstructorService(req.body), res, next, 201);
+const createNewInstructorController = async (req: Request, res: Response) => {
+  const data = await createNewInstructorService(req.body);
+  res.status(201).json({
+    success: true,
+    data,
+  });
 };
-const getSingleInstructorController = (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
-  controllerHandler(() => getSingleInstructorService(req.params.id), res, next);
+const getSingleInstructorController = async (req: Request, res: Response) => {
+  const data = await getSingleInstructorService(req.params.id);
+  res.status(200).json({
+    success: true,
+    data,
+  });
 };
-const updateInstructorController = (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
-  controllerHandler(
-    () => updateInstructorService(req.params.id, req.body),
-    res,
-    next,
-  );
+const updateInstructorController = async (req: Request, res: Response) => {
+  const data = await updateInstructorService(req.params.id, req.body);
+  res.status(200).json({
+    success: true,
+    data,
+  });
 };
-const deleteInstructorController = (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
-  controllerHandler(() => deleteInstructorService(req.params.id), res, next);
+const deleteInstructorController = async (req: Request, res: Response) => {
+  const data = await deleteInstructorService(req.params.id);
+  res.status(200).json({
+    success: true,
+    data,
+  });
 };
-const getInstructorCourseController = (
-  req: Request,
-  res: Response,
-  next: NextFunction,
-) => {
-  controllerHandler(() => getInstructorCourseService(req.params.id), res, next);
+const getInstructorCourseController = async (req: Request, res: Response) => {
+  const data = await getInstructorCourseService(req.params.id);
+  res.status(200).json({
+    success: true,
+    data,
+  });
 };
-const getInstructorDepartmentController = (
+const getInstructorDepartmentController = async (
   req: Request,
   res: Response,
-  next: NextFunction,
 ) => {
-  controllerHandler(
-    () => getInstructorDepartmentService(req.params.id),
-    res,
-    next,
-  );
+  const data = await getInstructorDepartmentService(req.params.id);
+  res.status(200).json({
+    success: true,
+    data,
+  });
 };
 
 export {
