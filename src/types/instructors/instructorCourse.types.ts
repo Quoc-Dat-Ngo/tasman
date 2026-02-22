@@ -1,7 +1,8 @@
 export interface InstructorCourse {
-  course_instructor_id: number;
   course_id: number;
   instructor_id: number;
+  created_at: Date;
+  updated_at: Date;
 }
 
 export interface CreateInstructorCourseDTO {

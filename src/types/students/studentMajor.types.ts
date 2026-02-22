@@ -1,7 +1,8 @@
 export interface StudentMajor {
-  student_major_id: number;
   student_id: number;
   major_id: number;
+  created_at: Date;
+  updated_at: Date;
 }
 
 export interface CreateStudentMajorDTO {

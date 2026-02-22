@@ -1,7 +1,8 @@
 export interface Enrollment {
-  enrollment_id: number;
   student_id: number;
   course_id: number;
+  created_at: Date;
+  updated_at: Date;
 }
 
 export interface CreateEnrollmentDTO {

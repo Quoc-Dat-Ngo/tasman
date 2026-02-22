@@ -6,6 +6,8 @@ export interface Student {
   last_name: string;
   dob: Date;
   gender: "M" | "F";
+  created_at: Date;
+  updated_at: Date;
 }
 
 export interface StudentMetadata {

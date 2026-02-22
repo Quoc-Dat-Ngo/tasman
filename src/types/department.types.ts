@@ -1,6 +1,8 @@
 export interface Department {
   department_id: number;
   department_name: string;
+  created_at: Date;
+  updated_at: Date;
 }
 
 export interface CreateDepartmentDTO {

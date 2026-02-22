@@ -5,6 +5,8 @@ export interface Instructor {
   dob: Date;
   gender: "M" | "F";
   department_id: number;
+  created_at: Date;
+  updated_at: Date;
 }
 
 export interface CreateInstructorDTO {

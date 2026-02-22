@@ -4,6 +4,8 @@ export interface Course {
   course_code: string;
   fee: number;
   department_id: number;
+  created_at: Date;
+  updated_at: Date;
 }
 
 export interface CreateCourseDTO {
