@@ -30,6 +30,6 @@
     "skipLibCheck": true,
     "esModuleInterop": true
   },
-  "include": ["src/**/*.ts"],
-  "exclude": ["node_modules"]
+  "include": ["src/**/*", "database/**/*.ts"],
+  "exclude": ["node_modules", "mock_records"]
 }
