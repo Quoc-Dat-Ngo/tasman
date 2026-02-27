@@ -4,7 +4,15 @@ import {
   registerCourseController,
   removeRegisterCourseController,
 } from "../../controllers/instructors/instructorCourse.controllers";
+import { authenticate } from "../../middlewares/authenticate";
+import { authorise } from "../../middlewares/authorise";
 export const instructorCourseRouter: Router = express.Router();
 
-instructorCourseRouter.route("/").post(registerCourseController);
-instructorCourseRouter.route("/:id").delete(removeRegisterCourseController);
+instructorCourseRouter.use(authenticate());
+
+instructorCourseRouter
+  .route("/")
+  .post(authorise("create:courseInstructor"), registerCourseController);
+instructorCourseRouter
+  .route("/:id")
+  .delete(authorise("create:courseInstructor"), removeRegisterCourseController);

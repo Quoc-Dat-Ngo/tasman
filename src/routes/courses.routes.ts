@@ -1,7 +1,5 @@
 import express from "express";
 import type { Router } from "express";
-export const coursesRouter: Router = express.Router();
-
 import {
   getAllCourseController,
   createNewCourseController,
@@ -12,16 +10,27 @@ import {
   getCourseInstructorController,
   getCourseDepartmentController,
 } from "../controllers/course.controllers";
+import { authenticate } from "../middlewares/authenticate";
+import { authorise } from "../middlewares/authorise";
+export const coursesRouter: Router = express.Router();
+
+coursesRouter.use(authenticate());
 
 coursesRouter
   .route("/")
-  .get(getAllCourseController)
-  .post(createNewCourseController);
+  .get(authorise("read:course"), getAllCourseController)
+  .post(authorise("create:course"), createNewCourseController);
 coursesRouter
   .route("/:id")
-  .get(getSingleCourseController)
-  .patch(updateCourseController)
-  .delete(deleteCourseController);
-coursesRouter.route("/:id/students").get(getCourseStudentController);
-coursesRouter.route("/:id/instructors").get(getCourseInstructorController); // TODO: TEST LATER WHEN IMPLEMENTING INSTRUCTOR
-coursesRouter.route("/:id/department").get(getCourseDepartmentController);
+  .get(authorise("read:course"), getSingleCourseController)
+  .patch(authorise("update:course"), updateCourseController)
+  .delete(authorise("delete:course"), deleteCourseController);
+coursesRouter
+  .route("/:id/students")
+  .get(authorise("read:student"), getCourseStudentController);
+coursesRouter
+  .route("/:id/instructors")
+  .get(authorise("read:instructor"), getCourseInstructorController);
+coursesRouter
+  .route("/:id/department")
+  .get(authorise("read:department"), getCourseDepartmentController);

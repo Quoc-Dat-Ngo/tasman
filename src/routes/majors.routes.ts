@@ -1,7 +1,5 @@
 import express from "express";
 import type { Router } from "express";
-export const majorsRouter: Router = express.Router();
-
 import {
   getAllMajorController,
   createNewMajorController,
@@ -11,15 +9,24 @@ import {
   getMajorStudentController,
   getMajorDepartmentController,
 } from "../controllers/major.controllers";
+import { authenticate } from "../middlewares/authenticate";
+import { authorise } from "../middlewares/authorise";
+export const majorsRouter: Router = express.Router();
+
+majorsRouter.use(authenticate());
 
 majorsRouter
   .route("/")
-  .get(getAllMajorController)
-  .post(createNewMajorController);
+  .get(authorise("read:major"), getAllMajorController)
+  .post(authorise("create:major"), createNewMajorController);
 majorsRouter
   .route("/:id")
-  .get(getSingleMajorController)
-  .patch(updateMajorController)
-  .delete(deleteMajorController);
-majorsRouter.route("/:id/students").get(getMajorStudentController);
-majorsRouter.route("/:id/department").get(getMajorDepartmentController);
+  .get(authorise("read:major"), getSingleMajorController)
+  .patch(authorise("update:major"), updateMajorController)
+  .delete(authorise("delete:major"), deleteMajorController);
+majorsRouter
+  .route("/:id/students")
+  .get(authorise("read:student"), getMajorStudentController);
+majorsRouter
+  .route("/:id/department")
+  .get(authorise("read:department"), getMajorDepartmentController);

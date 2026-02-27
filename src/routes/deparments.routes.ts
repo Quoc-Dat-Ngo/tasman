@@ -1,7 +1,5 @@
 import express from "express";
 import type { Router } from "express";
-export const departmentsRouter: Router = express.Router();
-
 import {
   getAllDepartmentController,
   createNewDepartmentController,
@@ -12,18 +10,27 @@ import {
   getDepartmentInstructorController,
   getDepartmentMajorController,
 } from "../controllers/department.controllers";
+import { authenticate } from "../middlewares/authenticate";
+import { authorise } from "../middlewares/authorise";
+export const departmentsRouter: Router = express.Router();
+
+departmentsRouter.use(authenticate());
 
 departmentsRouter
   .route("/")
-  .get(getAllDepartmentController)
-  .post(createNewDepartmentController);
+  .get(authorise("read:department"), getAllDepartmentController)
+  .post(authorise("create:department"), createNewDepartmentController);
 departmentsRouter
   .route("/:id")
-  .get(getSingleDepartmentController)
-  .patch(updateDepartmentController)
-  .delete(deleteDepartmentController);
-departmentsRouter.route("/:id/courses").get(getDepartmentCourseController);
+  .get(authorise("read:department"), getSingleDepartmentController)
+  .patch(authorise("read:department"), updateDepartmentController)
+  .delete(authorise("read:department"), deleteDepartmentController);
+departmentsRouter
+  .route("/:id/courses")
+  .get(authorise("read:department"), getDepartmentCourseController);
 departmentsRouter
   .route("/:id/instructors")
-  .get(getDepartmentInstructorController);
-departmentsRouter.route("/:id/majors").get(getDepartmentMajorController);
+  .get(authorise("read:department"), getDepartmentInstructorController);
+departmentsRouter
+  .route("/:id/majors")
+  .get(authorise("read:department"), getDepartmentMajorController);
