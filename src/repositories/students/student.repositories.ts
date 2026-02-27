@@ -20,6 +20,10 @@ interface StudentRepository extends EntityRepository<
 > {
   getCourse(id: string): Promise<Course[] | null>;
   getMajor(id: string): Promise<Major[] | null>;
+  checkStudentExistence(
+    first_name: string,
+    last_name: string,
+  ): Promise<Student | null>;
 }
 
 export class PoolStudentRepo implements StudentRepository {
@@ -203,5 +207,21 @@ export class PoolStudentRepo implements StudentRepository {
     );
 
     return result.rows.length ? result.rows : null;
+  }
+  async checkStudentExistence(
+    first_name: string,
+    last_name: string,
+  ): Promise<Student | null> {
+    const student = await pool.query<Student>(
+      `
+          SELECT * 
+          FROM students
+          WHERE first_name = $1 
+          AND last_name = $2;
+        `,
+      [first_name, last_name],
+    );
+
+    return student.rows[0] ?? null;
   }
 }

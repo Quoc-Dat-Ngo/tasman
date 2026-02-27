@@ -19,6 +19,10 @@ interface InstructorRepository extends EntityRepository<
 > {
   getCourse(id: string): Promise<Course[] | null>;
   getDepartment(id: string): Promise<Department | null>;
+  checkInstructorExistence(
+    first_name: string,
+    last_name: string,
+  ): Promise<Instructor | null>;
 }
 
 export class PoolInstructorRepo implements InstructorRepository {
@@ -142,5 +146,20 @@ export class PoolInstructorRepo implements InstructorRepository {
         )
       ).rows[0] ?? null
     );
+  }
+  async checkInstructorExistence(
+    first_name: string,
+    last_name: string,
+  ): Promise<Instructor | null> {
+    const instructor = await pool.query<Instructor>(
+      `
+          SELECT * 
+          FROM instructors
+          WHERE first_name = $1 
+          AND last_name = $2;
+        `,
+      [first_name, last_name],
+    );
+    return instructor.rows[0] ?? null;
   }
 }
