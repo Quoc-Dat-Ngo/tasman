@@ -2,6 +2,12 @@ import express from "express";
 import morgan from "morgan";
 import { globalErrorHandler } from "./middlewares/errorHandler";
 
+// JWT Authentication router
+import { authRouter } from "./modules/auth/auth.routes";
+
+// RBAC Authorisation router
+import { roleRouter } from "./modules/authz/roles/role.routes";
+
 import { studentsRouter } from "./routes/students/students.routes";
 import { enrollmentRouter } from "./routes/students/enrollments.routes";
 import { studentMajorsRouter } from "./routes/students/studentMajors.routes";
@@ -12,6 +18,9 @@ import { instructorCourseRouter } from "./routes/instructors/instructorCourse.ro
 import { coursesRouter } from "./routes/courses.routes";
 import { majorsRouter } from "./routes/majors.routes";
 import { departmentsRouter } from "./routes/deparments.routes";
+import { permissionRouter } from "./modules/authz/permissions/permission.routes";
+import { rolePermissionRouter } from "./modules/authz/role_permissons/rolePermission.routes";
+import { adminRouter } from "./modules/admin/admin.routes";
 
 const app = express();
 
@@ -24,22 +33,33 @@ app.get("/", (req, res) => {
 app.use(express.json());
 app.use(morgan("dev"));
 
-// Student-related routing
+// Authentication routes
+app.use("/api/v1/auth", authRouter);
+
+// Roles, permissions routes
+app.use("/api/v1/roles", roleRouter);
+app.use("/api/v1/permissions", permissionRouter);
+app.use("/api/v1/role-permissions", rolePermissionRouter);
+
+// Admin-level administration
+app.use("/api/v1/admin", adminRouter);
+
+// Student-related routes
 app.use("/api/v1/students", studentsRouter);
 app.use("/api/v1/enrollments", enrollmentRouter);
 app.use("/api/v1/student-majors", studentMajorsRouter);
 
-// Course-related routing
+// Course-related routes
 app.use("/api/v1/courses", coursesRouter);
 
-// Instructor-related routing
+// Instructor-related routes
 app.use("/api/v1/instructors", instructorsRouter);
 app.use("/api/v1/instructor-courses", instructorCourseRouter);
 
-// Major-related routing
+// Major-related routes
 app.use("/api/v1/majors", majorsRouter);
 
-// Department routing
+// Department routes
 app.use("/api/v1/departments", departmentsRouter);
 
 // Global error handler
