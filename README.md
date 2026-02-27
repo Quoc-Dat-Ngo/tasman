@@ -1,11 +1,16 @@
-# Student Course Management System (University-inspired)
+# Tasman – Production-Grade Student Course Management System
 
-A production-ready REST API for student course management built with Node.js (Typescript),
-Express, and PostgreSQL (Neon). This project demonstrates clean architechure
-principles, comprehensive testing, scalable backend development practices. This
-project primarily focuses on the relations of mutlti-table schema setup, where
-several core relational database skills are utilised such as JOIN, PAGINATION,
-FILTERING, SORTING and INDEXING.
+Tasman is a production-focused REST API inspired by real-world university systems. Built using Node.js (TypeScript), Express, and PostgreSQL, it showcases scalable backend architecture, secure authentication workflows, and advanced relational database design.
+
+### Highlights:
+-	JWT Authentication with refresh token rotation
+-	Role-Based Access Control (RBAC)
+-	Advanced relational schema with junction tables
+-	Pagination, filtering & sorting across large datasets
+-	Performance-aware indexing strategy
+-	Docker-ready and cloud deployable
+
+Tasman is designed as a SaaS-ready backend foundation for academic management platforms.
 
 ## Table of Contents
 
@@ -56,13 +61,80 @@ and promotes maintainability:
 
 ## Project Structure
 
+```
+tasman/
+├── database/
+│   ├── migrate.ts              # Migration runner
+│   └── migrations/             # Versioned SQL migrations
+│       ├── 001_init_schema.sql
+│       ├── 002_add_timestamp.sql
+│       └── ...                 # Additional schema migrations
+├── mock_records/               # CSV files for seed data
+│   └── Students.csv, Courses.csv, etc.
+├── src/
+│   ├── app.ts                 # Express application setup
+│   ├── server.ts              # Server entry point
+│   ├── pool.ts                # PostgreSQL connection pool
+│   ├── config/
+│   │   └── env.ts             # Environment variables configuration
+│   ├── controllers/            # Request/response handlers
+│   │   ├── student.controllers.ts
+│   │   ├── course.controllers.ts
+│   │   └── ...
+│   ├── errors/                 # Custom error classes
+│   │   ├── AppError.ts
+│   │   └── assertFound.ts
+│   ├── http/
+│   │   └── parseParamID.ts    # HTTP utility functions
+│   ├── middlewares/            # Express middlewares
+│   │   ├── authenticate.ts     # Bearer token validation
+│   │   ├── authorise.ts        # RBAC authorization
+│   │   └── errorHandler.ts     # Global error handling
+│   ├── modules/                # Feature modules
+│   │   ├── auth/               # Authentication module
+│   │   │   ├── auth.controllers.ts
+│   │   │   ├── auth.repositories.ts
+│   │   │   ├── auth.routes.ts
+│   │   │   └── auth.services.ts
+│   │   ├── admin/              # Admin management module
+│   │   │   └── ...
+│   │   └── authz/              # Authorization/RBAC module
+│   │       ├── permissions/
+│   │       ├── rbac_authz/
+│   │       ├── role_permissions/
+│   │       └── roles/
+│   ├── repositories/           # Data access layer
+│   │   ├── student.repositories.ts
+│   │   ├── course.repositories.ts
+│   │   ├── EntityRepository.interface.ts
+│   │   └── ...
+│   ├── routes/                 # API route definitions
+│   │   ├── students.routes.ts
+│   │   ├── courses.routes.ts
+│   │   └── ...
+│   ├── services/               # Business logic layer
+│   │   ├── student.services.ts
+│   │   ├── course.services.ts
+│   │   └── ...
+│   ├── types/                  # TypeScript type definitions
+│   │   ├── student.types.ts
+│   │   ├── course.types.ts
+│   │   ├── user.types.ts
+│   │   └── ...
+│   └── utils/                  # Utility functions
+│       └── auth.utils.ts       # Authentication utilities
+├── eslint.config.ts            # ESLint configuration
+├── tsconfig.json               # TypeScript configuration
+└── package.json                # Dependencies and scripts
+```
+
 ## Technology Stack
 
-- **Runtime**: Node.js
+- **Runtime**: Node.js (Typescript)
 - **Framework**: Express.js
 - **Database**: PostgreSQL (Neon serverless)
 - **Database Client**: pg (node-postgres)
-- **Validation**: Joi
+- **Validation**: Zod
 - **Logging**: Morgan
 - **Testing**: Jest + Supertest
 - **Environment**: dotenv
@@ -85,7 +157,7 @@ Connection is established through:
 ### Database Configuration
 
 ```typescript
-// src/database/pool.ts
+// src/pool.ts
 import { Pool } from 'pg';
 
 const pool: Pool = new Pool({
@@ -243,6 +315,42 @@ CREATE TABLE departments (
 );
 ```
 
+### User Schema
+```sql
+CREATE TABLE users (
+    user_id SERIAL PRIMARY KEY,
+    user_email VARCHAR(255) UNIQUE NOT NULL,
+    user_password VARCHAR(255) NOT NULL, /* Hashed User Password*/
+    role_id INTEGER NOT NULL REFERENCES roles(role_id),
+    linked_student_id INTEGER REFERENCES students(student_id) ON DELETE SET NULL,
+    linked_instructor_id INTEGER REFERENCES instructors(instructor_id) ON DELETE SET NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+### Role Schema
+```sql
+CREATE TABLE roles (
+    role_id SERIAL PRIMARY KEY,
+    role_name role_enum UNIQUE NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
+
+);
+```
+### Permission Schema
+```sql
+CREATE TABLE permissions (
+    permission_id SERIAL PRIMARY KEY,
+    action TEXT NOT NULL, 
+    resource TEXT NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
+    UNIQUE (action, resource)
+);
+```
+
 ### Student-Course (Enrollment) Schema
 
 ```sql
@@ -271,6 +379,17 @@ CREATE TABLE course_instructor (
     instructor_id INTEGER NOT NULL REFERENCES instructors(instructor_id) ON DELETE CASCADE,
     PRIMARY KEY (course_id, instructor_id)
 );
+```
+
+### Role-Permission Schema
+```sql
+CREATE TABLE role_permissions (
+    role_id INTEGER REFERENCES roles(role_id) ON DELETE CASCADE,
+    permission_id INTEGER REFERENCES permissions(permission_id) ON DELETE CASCADE,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
+    PRIMARY KEY (role_id, permission_id)
+);  
 ```
 
 ## API Endpoints
@@ -343,6 +462,33 @@ http://localhost:3004/api/v1/
 | GET | `/departments/:id/courses` | Get all courses part of the department |
 | GET | `/departments/:id/majors` | Get all majors part of the department |
 
+**User (Admin Only):**
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/admin` | Get all active and inactive users |
+| POST | `/admin` | Create a new user |
+| GET | `/admin/:id` | Retrieve a specific user |
+| PATCH | `/admin/:id` | Update a specific user |
+| DELETE | `/admin/:id` | Delete a specific user |
+
+**Role:**
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/roles` | Get all registered roles |
+| POST | `/roles` | Create a new role |
+| GET | `/roles/:id` | Retrieve a specific role |
+| PATCH | `/roles/:id` | Update a specific role |
+| DELETE | `/roles/:id` | Delete a specific role |
+
+**Permission:**
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/permissions` | Get all registered permissions |
+| POST | `/permissions` | Create a new permission |
+| GET | `/permissions/:id` | Retrieve a specific permission |
+| PATCH | `/permissions/:id` | Update a specific permission |
+| DELETE | `/permissions/:id` | Delete a specific permission |
+
 ### Relationship Management (Join Tables):
 
 **Enrollments:**
@@ -363,9 +509,127 @@ http://localhost:3004/api/v1/
 | POST | `/instructor-courses` | Assign an instructor to a course |
 | DELETE | `/instructor-courses` | Remove an instructor from a course |
 
+**Role-Permissions:**
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| POST | `/role-permissions` | Allow a specific permission for target role |
+| DELETE | `/role-permissions/:id` | Delete existing permission for target role |
+
+
 
 ## Features
 ## Authentication & Authorization
+
+### Advanced RBAC Schema
+The application implements a production-grade Role-Based Access Control (RBAC) system using a scalable, normalized database design:
+
+**Core Components:**
+- **Roles Table**: Stores role definitions (admin, student, instructor) using PostgreSQL ENUMs for type safety
+- **Permissions Table**: Fine-grained permission definitions with action-resource pairs (e.g., "create:course", "read:student")
+- **Role-Permissions Junction Table**: Maps roles to permissions, allowing flexible permission assignment
+
+**Database Schema:**
+```sql
+CREATE TABLE roles (
+    role_id SERIAL PRIMARY KEY,
+    role_name role_enum UNIQUE NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE permissions (
+    permission_id SERIAL PRIMARY KEY,
+    action TEXT NOT NULL,
+    resource TEXT NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    UNIQUE (action, resource)
+);
+
+CREATE TABLE role_permissions (
+    role_id INTEGER REFERENCES roles(role_id) ON DELETE CASCADE,
+    permission_id INTEGER REFERENCES permissions(permission_id) ON DELETE CASCADE,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (role_id, permission_id)
+);
+```
+
+**Benefits:**
+- Supports hierarchical permission models
+- Easy to add new permissions without schema changes
+- Enforces data integrity through foreign keys and constraints
+- Enables dynamic permission assignment at runtime
+
+**Implementation:**
+- Authorization middleware: [src/middlewares/authorise.ts](src/middlewares/authorise.ts)
+- RBAC module: [src/modules/authz/](src/modules/authz/)
+
+### Permission Normalization Strategy
+Permissions are normalized using an action-resource model, separating authorization concerns from business logic:
+
+**Format:** `{action}:{resource}`
+
+**Examples:**
+- `create:student` - Permission to create students
+- `read:course` - Permission to view courses
+- `delete:enrollment` - Permission to remove enrollments
+- `update:major` - Permission to modify majors
+
+**Design Advantages:**
+- Single table for all permissions (horizontally scalable)
+- Clear permission hierarchy through naming conventions
+- Eliminates permission duplication across roles
+- Supports fine-grained access control (FGAC) patterns
+- Simplifies audit logging and permission reporting
+
+**Implementation Architecture:**
+- Centralized permission definitions in `src/modules/authz/permissions/`
+- Role-permission associations in `role_permissions` table
+- Runtime permission checking via `src/middlewares/authorise.ts`
+- Supports both endpoint-level and resource-level authorization
+
+### JWT Authentication
+The application uses JSON Web Tokens (JWT) for stateless, secure authentication:
+
+**Supported Operations:**
+- **Register**: Create new user accounts with email and password
+- **Login**: Authenticate users and issue JWT tokens
+- **Logout**: (Placeholder, to be implemented)
+- **Refresh Token**: (Placeholder, to be implemented)
+
+**Token Management:**
+- Access tokens (short-lived) included in Bearer authorization header
+- Refresh tokens (long-lived) stored securely in `refresh_tokens` table
+- Automatic token validation on protected endpoints
+
+**Implementation:**
+- Authentication module: [src/modules/auth/](src/modules/auth/)
+  - `auth.controllers.ts` - Login/register endpoints
+  - `auth.services.ts` - Token generation and validation
+  - `auth.repositories.ts` - User and refresh token persistence
+- Middleware: [src/middlewares/authenticate.ts](src/middlewares/authenticate.ts)
+  - Validates Bearer tokens in `Authorization` header
+  - Attaches user context to request object
+  - Rejects expired or malformed tokens
+
+**Bearer Token Usage:**
+```
+Authorization: Bearer <jwt_access_token>
+```
+
+**Database Schema:**
+```sql
+CREATE TABLE refresh_tokens (
+    token_id SERIAL PRIMARY KEY,
+    user_id INTEGER NOT NULL REFERENCES users(user_id) ON DELETE CASCADE,
+    token_hash VARCHAR(255) NOT NULL,
+    expires_at TIMESTAMPTZ NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    revoked_at TIMESTAMPTZ,
+    revoked BOOLEAN DEFAULT FALSE
+);
+``` 
 
 ## Error Handling Strategy
 The application implements a centralized error handling strategy using a custom AppError class and a global Express error-handling middleware.
@@ -597,6 +861,10 @@ The project uses a PostgreSQL ENUM type for gender instead of a string-based con
 CREATE TYPE gender_enum AS ENUM ('M', 'F');
 ```
 
+```sql
+CREATE TYPE role_enum AS ENUM ('admin','student','instructor');
+```
+
 #### Benefits:
 - Enforces strict domain-level validation
 - Prevents invalid gender values at the database layer
@@ -638,6 +906,97 @@ Example use cases may include:
 Views will help maintain separation between write models and read-optimised query models.
 
 ## Environment Variables
+
+Environment-specific configuration is managed through a centralized configuration module:
+
+**Configuration File:** [src/config/env.ts](src/config/env.ts)
+
+This module exports validated environment variables used throughout the application:
+- Database connection URL (with SSL for Neon)
+- Server port and API version
+- JWT secret keys
+- Node environment (development/production)
+- CORS and security settings
+
+**Setup:**
+Create a `.env` file in the project root with the required variables. Use `.env.example` as a template.
+
 ## Running Locally
+
+### Prerequisites
+- Node.js (v18 or higher)
+- npm or yarn
+- PostgreSQL database (Neon or local)
+
+### Setup Steps
+
+**1. Install Dependencies**
+```bash
+npm i
+```
+
+**2. Start Development Server**
+```bash
+npm run dev
+```
+
+The server will start on the configured port (default: `http://localhost:3004`) and automatically reload on file changes.
+
+**3. Run Database Migrations**
+```bash
+npm run migrate
+```
+
+This executes all pending migrations in the `database/migrations/` directory.
+
+### Environment Setup
+1. Create `.env` file from `.env.example`
+2. Configure `DATABASE_URL` pointing to your PostgreSQL instance
+3. Set `JWT_SECRET` and other security keys
+4. Ensure `NODE_ENV` is set to `development`
+
 ## Testing Strategy
+
+### Overview
+The project employs a comprehensive testing strategy combining unit tests and integration tests to ensure code quality and reliability.
+
+### Unit Testing
+**Framework:** Jest
+
+- Fast, isolated tests for individual functions and methods
+- Tests business logic in services and repositories
+- Mocked dependencies to avoid external service calls
+- Focus on edge cases and error handling
+
+### Integration Testing
+**Framework:** Supertest
+
+- Tests complete HTTP request/response cycles
+- Validates API endpoints with a real or test database
+- Tests middleware chains and error handling
+- Ensures database operations work correctly in context
+
+### Test Organization
+- Unit tests co-located with source code or in `__tests__` directories
+- Integration tests in dedicated test directories
+- Test data and fixtures in `mock_records/` or test setup files
+
+### Running Tests
+```bash
+# Run all tests
+npm test
+
+# Run tests in watch mode
+npm test -- --watch
+
+# Run tests with coverage
+npm test -- --coverage
+```
+
+**Future Enhancements:**
+- Increased test coverage targets (>80%)
+- E2E tests for critical user workflows
+- Performance/load testing
+- Security testing (OWASP compliance)
+
 ## Future Improvements
