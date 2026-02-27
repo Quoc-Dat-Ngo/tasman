@@ -1,7 +1,8 @@
+import { env } from "./config/env";
 import app from "./app";
 import { pool } from "./pool";
 
-const PORT = 3004;
+const PORT = env.PORT;
 const server = app.listen(PORT);
 
 process.on("SIGINT", async () => {

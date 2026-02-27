@@ -1,3 +1,4 @@
+import "../src/config/env";
 import fs from "fs";
 import { resolve, join } from "path";
 import { pool } from "../src/pool";
