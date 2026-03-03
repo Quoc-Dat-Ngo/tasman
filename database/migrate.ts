@@ -24,8 +24,6 @@ async function executeMigrationFiles() {
     .sort(); // ensure deterministic order (001, 002, 003...)
 
   for (const file of migrationFiles) {
-    console.log("Processing migration:", file);
-
     const check = await pool.query(
       `
         SELECT 1
@@ -36,7 +34,6 @@ async function executeMigrationFiles() {
     );
 
     if (check.rowCount && check.rowCount > 0) {
-      console.log("Already executed, skipping:", file);
       continue;
     }
 
@@ -54,11 +51,8 @@ async function executeMigrationFiles() {
         [file],
       );
       await pool.query("COMMIT");
-
-      console.log("Successfully executed:", file);
     } catch (error) {
       await pool.query("ROLLBACK");
-      console.error("Failed migration:", file);
       throw error;
     }
   }
@@ -70,7 +64,6 @@ async function runMigrations() {
   process.exit(0);
 }
 
-runMigrations().catch((err) => {
-  console.error("Migration runner failed:", err);
+runMigrations().catch((_err) => {
   process.exit(1);
 });

@@ -23,7 +23,7 @@ interface MajorRepository extends EntityRepository<
 
 export class PoolMajorRepo implements MajorRepository {
   async getAll(query: BaseQuery): Promise<Major[]> {
-    const { limit = 10, offset = 0, sort } = query;
+    const { limit = 10, offset = 0 } = query;
     let index = 1;
     const result = await pool.query<Major>(
       `

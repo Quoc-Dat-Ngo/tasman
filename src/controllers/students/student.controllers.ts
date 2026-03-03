@@ -1,4 +1,4 @@
-import type { Request, Response, NextFunction } from "express";
+import type { Request, Response } from "express";
 import {
   createNewStudentService,
   deleteStudentService,
@@ -38,7 +38,6 @@ const updateStudentController = async (req: Request, res: Response) => {
   });
 };
 const deleteStudentController = async (req: Request, res: Response) => {
-  const { id } = req.params;
   const data = await deleteStudentService(req.params.id);
   res.status(200).json({
     success: true,

@@ -1,9 +1,8 @@
 import argon2 from "argon2";
-import jwt from "jsonwebtoken";
 import type { LoginDTO, RegisterDTO } from "./jwt_auth/auth.types";
 import { PoolAuthRepo } from "./auth.repositories";
 import AppError from "../../errors/AppError";
-import type { CreateUserDTO, User } from "../../types/user.types";
+import type { CreateUserDTO } from "../../types/user.types";
 import { createAccessToken, createRefreshToken } from "../../utils/auth.utils";
 import { PoolRoleRepo } from "../authz/roles/role.repositories";
 import { PoolPermissionRepo } from "../authz/permissions/permission.repositories";

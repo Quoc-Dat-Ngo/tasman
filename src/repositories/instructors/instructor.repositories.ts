@@ -27,7 +27,7 @@ interface InstructorRepository extends EntityRepository<
 
 export class PoolInstructorRepo implements InstructorRepository {
   async getAll(query?: BaseQuery | undefined): Promise<Instructor[]> {
-    const { limit = 10, offset = 0, sort } = query!;
+    const { limit = 10, offset = 0 } = query!;
     let index = 1;
     return (
       await pool.query<Instructor>(

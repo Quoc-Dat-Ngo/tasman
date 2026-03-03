@@ -1,6 +1,5 @@
 import { pool } from "../pool";
 import type {
-  BaseQuery,
   Course,
   CreateDepartmentDTO,
   Department,

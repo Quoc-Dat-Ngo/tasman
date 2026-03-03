@@ -1,4 +1,3 @@
-import { parse } from "dotenv";
 import { assertFound } from "../../errors/assertFound";
 import type {
   CreateInstructorCourseDTO,

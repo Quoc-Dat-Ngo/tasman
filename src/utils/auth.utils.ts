@@ -2,7 +2,6 @@ import type { Response } from "express";
 import { env } from "../config/env";
 import jwt from "jsonwebtoken";
 import type { PermissionString } from "../modules/authz/rbac_authz/permission.types";
-import type { JWTPayload } from "../modules/auth/jwt_auth/jwtPayload.types";
 
 function createAccessToken(
   user_id: number,

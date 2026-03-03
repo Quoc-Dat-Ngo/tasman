@@ -3,11 +3,10 @@ import AppError from "../errors/AppError";
 
 export const globalErrorHandler = (
   err: AppError,
-  req: Request,
+  _req: Request,
   res: Response,
-  next: NextFunction,
+  _next: NextFunction,
 ): void => {
-  console.log(err);
   if (err instanceof AppError && err.isOperational) {
     // Expected Error
     // Safe to send to client

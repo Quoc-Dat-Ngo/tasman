@@ -1,4 +1,4 @@
-import type { Response, Request, NextFunction } from "express";
+import type { Response, Request } from "express";
 
 import {
   getAllInstructorService,

@@ -25,7 +25,7 @@ interface CourseRepository extends EntityRepository<
 
 export class PoolCourseRepo implements CourseRepository {
   async getAll(query: BaseQuery): Promise<Course[]> {
-    const { limit = 10, offset = 0, sort } = query;
+    const { limit = 10, offset = 0 } = query;
     let index = 1;
 
     const result = await pool.query<Course>(

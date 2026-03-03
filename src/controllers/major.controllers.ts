@@ -1,5 +1,4 @@
-import type { Request, Response, NextFunction } from "express";
-import type { Department, Major, Student } from "../types/index.types";
+import type { Request, Response } from "express";
 import {
   getAllMajorService,
   getSingleMajorService,
