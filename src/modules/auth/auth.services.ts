@@ -19,7 +19,6 @@ const instructorRepo = new PoolInstructorRepo();
 const adminRepo = new PoolAdminRepo();
 
 async function loginService(data: LoginDTO) {
-  console.log(data);
   const user = await adminRepo.checkUserExistence(data.email);
   if (!user) {
     throw new AppError("User does not exist. Please register", 404);

@@ -16,7 +16,6 @@ export function authenticate() {
     const user = jwt.verify(accessToken, env.ACCESS_KEY);
 
     // Manual type assertion for now, put later will use Zod
-    console.log(user);
     if (
       typeof user !== "object" ||
       !("sub" in user) ||

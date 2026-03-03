@@ -17,7 +17,7 @@ import { instructorCourseRouter } from "./routes/instructors/instructorCourse.ro
 
 import { coursesRouter } from "./routes/courses.routes";
 import { majorsRouter } from "./routes/majors.routes";
-import { departmentsRouter } from "./routes/deparments.routes";
+import { departmentsRouter } from "./routes/departments.routes";
 import { permissionRouter } from "./modules/authz/permissions/permission.routes";
 import { rolePermissionRouter } from "./modules/authz/role_permissons/rolePermission.routes";
 import { adminRouter } from "./modules/admin/admin.routes";

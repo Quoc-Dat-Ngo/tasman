@@ -19,7 +19,7 @@ export const globalErrorHandler = (
     // Unexpected error
     res.status(500).json({
       status: "error",
-      message: err,
+      message: "Internal server error",
     });
   }
 };

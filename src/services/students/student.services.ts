@@ -60,30 +60,6 @@ const getStudentMajorService = async (id: ExpressParamID) => {
     `Student with id ${student_id} not found OR student hasn't registered for any majors yet`,
   );
 };
-// const enrollCourse = async (
-//   studentId: IDType,
-//   courseId: IDType,
-// ): Promise<Enrollment[]> => {
-//   const result = await pool.query<Enrollment>(
-//     `
-//       INSERT INTO enrollments (student_id, course_id)
-//       VALUES ($1, $2)
-//       RETURNING *;`,
-//     [studentId, courseId],
-//   );
-//   return result.rows;
-// };
-// const majorRegistration = async (studentId: IDType, majorId: IDType) => {
-//   const result = await pool.query<StudentMajor>(
-//     `
-//     INSERT INTO student_major (student_id, major_id)
-//     VALUES ($1, $2)
-//     RETURNING *;
-//     `,
-//     [studentId, majorId],
-//   );
-//   return result.rows;
-// };
 
 export {
   createNewStudentService,
