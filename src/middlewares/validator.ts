@@ -1,5 +1,5 @@
 import type { NextFunction, Request, Response } from "express";
-import { ZodType, z } from "zod";
+import { ZodType } from "zod";
 import AppError from "../errors/AppError";
 
 export function controllerValidator<
@@ -21,7 +21,7 @@ export function controllerValidator<
 
       next();
     } catch (error) {
-      throw new AppError("Invalid input data " + error, 400);
+      next(new AppError("Invalid input data", 400));
     }
   };
 }
