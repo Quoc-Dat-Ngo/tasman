@@ -1,10 +1,9 @@
 import type { ExpressParamID } from "../types/index.types";
-import AppError from "../errors/AppError";
+import { z } from "zod";
 
-export function parseParamID(id: ExpressParamID): string {
-  if (!id || Array.isArray(id)) {
-    throw new AppError("Invalid request ID when parsing", 400);
-  }
+const ParamsSchema = z.string().trim().min(1);
 
-  return id;
+export function parseParamID(id: ExpressParamID) {
+  const returnId = ParamsSchema.parse(id);
+  return returnId;
 }
