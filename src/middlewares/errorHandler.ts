@@ -7,6 +7,7 @@ export const globalErrorHandler = (
   res: Response,
   _next: NextFunction,
 ): void => {
+  console.log(err);
   if (err instanceof AppError && err.isOperational) {
     // Expected Error
     // Safe to send to client
