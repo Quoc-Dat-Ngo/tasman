@@ -1,6 +1,18 @@
 import type { NextFunction, Request, Response } from "express";
-import { ZodType } from "zod";
+import { ZodType, z } from "zod";
 import AppError from "../errors/AppError";
+
+export type ValidatedRequest<
+  B extends ZodType<any, any, any>,
+  P extends ZodType<any, any, any> | undefined = undefined,
+  Q extends ZodType<any, any, any> | undefined = undefined,
+> = Request & {
+  validated: {
+    body: z.infer<B>;
+    params: P extends ZodType ? z.infer<P> : undefined;
+    query: Q extends ZodType ? z.infer<Q> : undefined;
+  };
+};
 
 export function controllerValidator<
   B extends ZodType<any, any, any>,
