@@ -14,9 +14,10 @@ import { authorise } from "../../middlewares/authorise";
 import { controllerValidator } from "../../middlewares/validator";
 import {
   CreateStudentSchema,
-  ParamsSchema,
+  StudentQuerySchema,
   UpdateStudentSchema,
 } from "../../schema/student.schemas";
+import { ParamsSchema } from "../../schema/common.schemas";
 
 export const studentsRouter: Router = express.Router();
 
@@ -24,7 +25,11 @@ studentsRouter.use(authenticate());
 
 studentsRouter
   .route("/")
-  .get(authorise("read:student"), getAllStudentController)
+  .get(
+    authorise("read:student"),
+    controllerValidator(StudentQuerySchema),
+    getAllStudentController,
+  )
   .post(
     authorise("create:student"),
     controllerValidator(CreateStudentSchema),

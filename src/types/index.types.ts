@@ -36,7 +36,7 @@ export type {
 
 export type ExpressParamID = string | string[] | undefined;
 export interface BaseQuery {
-  limit?: string;
-  offset?: string;
-  sort?: string;
+  limit?: string | undefined;
+  offset?: string | undefined;
+  sort?: string | undefined;
 }

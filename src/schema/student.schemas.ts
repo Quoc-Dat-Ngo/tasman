@@ -1,8 +1,15 @@
 import * as z from "zod";
+import {
+  IDSchema,
+  ParamsSchema,
+  PaginationQuerySchema,
+} from "./common.schemas";
 
-const IDSchema = z.string().trim().min(1);
-export const ParamsSchema = z.object({
-  id: IDSchema,
+export const StudentQuerySchema = PaginationQuerySchema.extend({
+  first_name: z.string().trim().min(1).optional(),
+  last_name: z.string().trim().min(1).optional(),
+  dob: z.string().trim().min(1).optional(),
+  gender: z.enum(["M", "F"]).optional(),
 });
 
 const StudentBaseSchema = z.object({

@@ -11,10 +11,16 @@ import {
 import type { ValidatedRequest } from "../../middlewares/validator";
 import type {
   CreateStudentSchema,
-  ParamsSchema,
+  StudentQuerySchema,
   UpdateStudentSchema,
 } from "../../schema/student.schemas";
+import type { ParamsSchema } from "../../schema/common.schemas";
 
+type GetAllStudentRequest = ValidatedRequest<
+  undefined,
+  undefined,
+  typeof StudentQuerySchema
+>;
 type CreateStudentRequest = ValidatedRequest<typeof CreateStudentSchema>;
 type UpdateStudentRequest = ValidatedRequest<
   typeof UpdateStudentSchema,
@@ -26,7 +32,9 @@ type GetStudentCourseRequest = ValidatedRequest<undefined, typeof ParamsSchema>;
 type GetStudentMajorRequest = ValidatedRequest<undefined, typeof ParamsSchema>;
 
 const getAllStudentController = async (req: Request, res: Response) => {
-  const data = await getAllStudentService(req.query);
+  const { query } = (req as GetAllStudentRequest).validated;
+
+  const data = await getAllStudentService(query);
   res.status(200).json({
     success: true,
     data,
