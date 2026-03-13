@@ -27,10 +27,10 @@ export interface CreateStudentDTO {
 }
 
 export interface UpdateStudentDTO {
-  first_name?: string;
-  last_name?: string;
-  dob?: Date;
-  gender?: "M" | "F";
+  first_name?: string | undefined;
+  last_name?: string | undefined;
+  dob?: Date | undefined;
+  gender?: "M" | "F" | undefined;
 }
 
 export interface StudentQueryDTO extends BaseQuery {

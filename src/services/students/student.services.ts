@@ -4,7 +4,6 @@ import type {
   StudentQueryDTO,
   ExpressParamID,
 } from "../../types/index.types";
-import AppError from "../../errors/AppError";
 import { PoolStudentRepo } from "../../repositories/students/student.repositories";
 import { assertFound } from "../../errors/assertFound";
 import { parseParamID } from "../../http/parseParamID";
@@ -15,7 +14,6 @@ const getAllStudentService = (query: StudentQueryDTO) => {
   return repo.getAll(query);
 };
 const createNewStudentService = (data: CreateStudentDTO) => {
-  // TODO: Perform input validation and password hashing for student account
   return repo.create(data);
 };
 const getSingleStudentService = async (id: ExpressParamID) => {
@@ -31,9 +29,6 @@ const updateStudentService = async (
   data: UpdateStudentDTO,
 ) => {
   const student_id = parseParamID(id);
-  if (Object.values(data).every((v) => v === undefined)) {
-    throw new AppError("No fields provided for updating", 400);
-  }
   return assertFound(
     await repo.update(student_id, data),
     `Student with id ${student_id} not found`,

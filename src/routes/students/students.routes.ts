@@ -11,6 +11,12 @@ import {
 } from "../../controllers/students/student.controllers";
 import { authenticate } from "../../middlewares/authenticate";
 import { authorise } from "../../middlewares/authorise";
+import { controllerValidator } from "../../middlewares/validator";
+import {
+  CreateStudentSchema,
+  ParamsSchema,
+  UpdateStudentSchema,
+} from "../../schema/student.schemas";
 
 export const studentsRouter: Router = express.Router();
 
@@ -19,17 +25,41 @@ studentsRouter.use(authenticate());
 studentsRouter
   .route("/")
   .get(authorise("read:student"), getAllStudentController)
-  .post(authorise("create:student"), createNewStudentController);
+  .post(
+    authorise("create:student"),
+    controllerValidator(CreateStudentSchema),
+    createNewStudentController,
+  );
 
 studentsRouter
   .route("/:id")
-  .get(authorise("read:student"), getSingleStudentController)
-  .patch(authorise("update:student"), updateStudentController)
-  .delete(authorise("delete:student"), deleteStudentController);
+  .get(
+    authorise("read:student"),
+    controllerValidator(ParamsSchema),
+    getSingleStudentController,
+  )
+  .patch(
+    authorise("update:student"),
+    controllerValidator(UpdateStudentSchema, ParamsSchema),
+    updateStudentController,
+  )
+  .delete(
+    authorise("delete:student"),
+    controllerValidator(ParamsSchema),
+    deleteStudentController,
+  );
 
 studentsRouter
   .route("/:id/courses")
-  .get(authorise("read:course"), getStudentCourseController);
+  .get(
+    authorise("read:course"),
+    controllerValidator(ParamsSchema),
+    getStudentCourseController,
+  );
 studentsRouter
   .route("/:id/majors")
-  .get(authorise("read:major"), getStudentMajorController);
+  .get(
+    authorise("read:major"),
+    controllerValidator(ParamsSchema),
+    getStudentMajorController,
+  );
