@@ -3,37 +3,48 @@ import { ZodType, z } from "zod";
 import AppError from "../errors/AppError";
 
 export type ValidatedRequest<
-  B extends ZodType<any, any, any>,
+  B extends ZodType<any, any, any> | undefined = undefined,
   P extends ZodType<any, any, any> | undefined = undefined,
   Q extends ZodType<any, any, any> | undefined = undefined,
 > = Request & {
   validated: {
-    body: z.infer<B>;
+    body: B extends ZodType ? z.infer<B> : undefined;
     params: P extends ZodType ? z.infer<P> : undefined;
     query: Q extends ZodType ? z.infer<Q> : undefined;
   };
 };
 
 export function controllerValidator<
-  B extends ZodType<any, any, any>,
-  P extends ZodType<any, any, any>,
-  Q extends ZodType<any, any, any>,
+  B extends ZodType<any, any, any> | undefined = undefined,
+  P extends ZodType<any, any, any> | undefined = undefined,
+  Q extends ZodType<any, any, any> | undefined = undefined,
 >(bodySchema: B, idSchema?: P, querySchema?: Q) {
   return (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const validatedBody = bodySchema.parse(req.body);
-      const validatedParams = idSchema?.parse(req.params);
-      const validatedQuery = querySchema?.parse(req.query);
+    if (bodySchema) {
+      const bodyResult = bodySchema.safeParse(req.body);
+      if (!bodyResult.success) {
+        return next(new AppError(z.prettifyError(bodyResult.error), 400));
+      }
 
-      req.validated = {
-        body: validatedBody,
-        params: validatedParams,
-        query: validatedQuery,
-      };
-
-      next();
-    } catch (error) {
-      next(new AppError("Invalid input data", 400));
+      req.validated!.body = bodyResult.data;
     }
+
+    if (idSchema) {
+      const paramsResult = idSchema.safeParse(req.params);
+      if (!paramsResult.success) {
+        return next(new AppError(z.prettifyError(paramsResult!.error), 400));
+      }
+      req.validated!.params = paramsResult.data;
+    }
+
+    if (querySchema) {
+      const queryResult = querySchema.safeParse(req.query);
+      if (!queryResult?.success) {
+        return next(new AppError(z.prettifyError(queryResult!.error), 400));
+      }
+      req.validated!.query = queryResult.data;
+    }
+
+    next();
   };
 }
