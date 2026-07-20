@@ -27,7 +27,7 @@ studentsRouter
   .route("/")
   .get(
     authorise("read:student"),
-    controllerValidator(StudentQuerySchema),
+    controllerValidator(undefined, undefined, StudentQuerySchema),
     getAllStudentController,
   )
   .post(
@@ -40,7 +40,7 @@ studentsRouter
   .route("/:id")
   .get(
     authorise("read:student"),
-    controllerValidator(ParamsSchema),
+    controllerValidator(undefined, ParamsSchema),
     getSingleStudentController,
   )
   .patch(
@@ -50,7 +50,7 @@ studentsRouter
   )
   .delete(
     authorise("delete:student"),
-    controllerValidator(ParamsSchema),
+    controllerValidator(undefined, ParamsSchema),
     deleteStudentController,
   );
 
@@ -58,13 +58,13 @@ studentsRouter
   .route("/:id/courses")
   .get(
     authorise("read:course"),
-    controllerValidator(ParamsSchema),
+    controllerValidator(undefined, ParamsSchema),
     getStudentCourseController,
   );
 studentsRouter
   .route("/:id/majors")
   .get(
     authorise("read:major"),
-    controllerValidator(ParamsSchema),
+    controllerValidator(undefined, ParamsSchema),
     getStudentMajorController,
   );

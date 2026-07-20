@@ -9,7 +9,7 @@ export function authenticate() {
   return (req: Request, res: Response, next: NextFunction) => {
     const authorisation = req.headers["authorization"];
     if (!authorisation)
-      next(new AppError("Please log in to access our service", 401));
+      return next(new AppError("Please log in to access our service", 401));
 
     const accessToken = authorisation!.split(" ")[1];
     if (!accessToken)

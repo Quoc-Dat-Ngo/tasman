@@ -20,13 +20,20 @@ export function controllerValidator<
   Q extends ZodType<any, any, any> | undefined = undefined,
 >(bodySchema: B, idSchema?: P, querySchema?: Q) {
   return (req: Request, res: Response, next: NextFunction) => {
+    const v = req as ValidatedRequest<B, P, Q>;
+    v.validated = {
+      body: undefined as any,
+      params: undefined as any,
+      query: undefined as any,
+    };
+
     if (bodySchema) {
       const bodyResult = bodySchema.safeParse(req.body);
       if (!bodyResult.success) {
         return next(new AppError(z.prettifyError(bodyResult.error), 400));
       }
 
-      req.validated!.body = bodyResult.data;
+      v.validated.body = bodyResult.data;
     }
 
     if (idSchema) {
@@ -34,7 +41,7 @@ export function controllerValidator<
       if (!paramsResult.success) {
         return next(new AppError(z.prettifyError(paramsResult!.error), 400));
       }
-      req.validated!.params = paramsResult.data;
+      v.validated.params = paramsResult.data;
     }
 
     if (querySchema) {
@@ -42,7 +49,7 @@ export function controllerValidator<
       if (!queryResult?.success) {
         return next(new AppError(z.prettifyError(queryResult!.error), 400));
       }
-      req.validated!.query = queryResult.data;
+      v.validated.query = queryResult.data;
     }
 
     next();

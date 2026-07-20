@@ -1,5 +1,7 @@
 import express from "express";
 import morgan from "morgan";
+import cookieParser from "cookie-parser";
+import cors from "cors";
 import { globalErrorHandler } from "./middlewares/errorHandler";
 
 // JWT Authentication router
@@ -24,14 +26,28 @@ import { adminRouter } from "./modules/admin/admin.routes";
 
 const app = express();
 
-// Sanity check
-app.get("/", (req, res) => {
-  res.status(200).send("Server is still alive");
-});
+// Middleware to parse cookie request
+app.use(cookieParser());
+
+// For connecting with a frontend (if we end up having one :)
+app.use(
+  cors({
+    origin: "http://localhost:3030",
+    credentials: true,
+  }),
+);
 
 // Middleware
 app.use(express.json());
 app.use(morgan("dev"));
+
+// For URL-encoded body (possibly query for filter/search/sort)
+app.use(express.urlencoded({ extended: true }));
+
+// Sanity check
+app.get("/", (req, res) => {
+  res.status(200).send("Server is still alive");
+});
 
 // Authentication routes
 app.use("/api/v1/auth", authRouter);
