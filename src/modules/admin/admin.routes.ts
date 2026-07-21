@@ -1,8 +1,8 @@
 import express from "express";
 import type { Router } from "express";
-import { createUserController } from "./admin.controllers";
-import { controllerValidator } from "../../middlewares/validator";
-import { AdminBodySchema } from "./admin.schema";
+import { createUserController } from "./admin.controllers.js";
+import { controllerValidator } from "../../middlewares/validator.js";
+import { AdminBodySchema } from "./admin.schema.js";
 
 export const adminRouter: Router = express.Router();
 

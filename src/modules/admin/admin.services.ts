@@ -1,5 +1,5 @@
-import type { CreateUserDTO } from "../../types/user.types";
-import { PoolAdminRepo } from "./admin.repositories";
+import type { CreateUserDTO } from "../../types/user.types.js";
+import { PoolAdminRepo } from "./admin.repositories.js";
 import argon2 from "argon2";
 
 const repo = new PoolAdminRepo();

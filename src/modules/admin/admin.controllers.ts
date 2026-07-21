@@ -1,7 +1,7 @@
 import type { Request, Response } from "express";
-import { createUserService } from "./admin.services";
-import type { AdminBodySchema } from "./admin.schema";
-import type { ValidatedRequest } from "../../middlewares/validator";
+import { createUserService } from "./admin.services.js";
+import type { AdminBodySchema } from "./admin.schema.js";
+import type { ValidatedRequest } from "../../middlewares/validator.js";
 
 type CreateUserRequest = ValidatedRequest<typeof AdminBodySchema>;
 

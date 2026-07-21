@@ -1,9 +1,10 @@
-import { pool } from "../../pool";
-import type { CreateUserDTO, User } from "../../types/user.types";
+import { pool } from "../../pool.js";
+import type { CreateUserDTO, User } from "../../types/user.types.js";
 
 interface AdminRepository {
   create(data: CreateUserDTO): Promise<User>;
   checkUserExistence(email: string): Promise<User | null>;
+  findUserById(id: number): Promise<User | null>;
 }
 
 export class PoolAdminRepo implements AdminRepository {
@@ -35,6 +36,20 @@ export class PoolAdminRepo implements AdminRepository {
         WHERE user_email = $1;
       `,
           [email],
+        )
+      ).rows[0] ?? null
+    );
+  }
+  async findUserById(id: number): Promise<User | null> {
+    return (
+      (
+        await pool.query<User>(
+          `
+        SELECT * 
+        FROM users
+        WHERE  user_id = $1;
+      `,
+          [id],
         )
       ).rows[0] ?? null
     );
