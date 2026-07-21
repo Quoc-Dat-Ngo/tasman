@@ -1,10 +1,10 @@
-import { parseParamID } from "../../http/parseParamID";
+import { parseParamID } from "../../http/parseParamID.js";
 import type {
   CreateStudentMajorDTO,
   ExpressParamID,
-} from "../../types/index.types";
-import { assertFound } from "../../errors/assertFound";
-import { PoolStudentMajorRepo } from "../../repositories/students/studentMajor.repositories";
+} from "../../types/index.types.js";
+import { assertFound } from "../../errors/assertFound.js";
+import { PoolStudentMajorRepo } from "../../repositories/students/studentMajor.repositories.js";
 
 const repo = new PoolStudentMajorRepo();
 

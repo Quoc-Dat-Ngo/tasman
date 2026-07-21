@@ -1,4 +1,4 @@
-import type { ExpressParamID } from "../types/index.types";
+import type { ExpressParamID } from "../types/index.types.js";
 import { z } from "zod";
 
 const ParamsSchema = z.string().trim().min(1);

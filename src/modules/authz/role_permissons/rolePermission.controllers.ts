@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import { createRolePermissionService } from "./rolePermission.services";
+import { createRolePermissionService } from "./rolePermission.services.js";
 
 export async function createRolePermissionController(
   req: Request,

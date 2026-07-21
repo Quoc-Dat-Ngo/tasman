@@ -1,5 +1,5 @@
-import { pool } from "../../pool";
-import type { StudentMajor } from "../../types/index.types";
+import { pool } from "../../pool.js";
+import type { StudentMajor } from "../../types/index.types.js";
 
 interface StudentMajorRepository {
   register(studentId: string, majorId: string): Promise<StudentMajor | null>;

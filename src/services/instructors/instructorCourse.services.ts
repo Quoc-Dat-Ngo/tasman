@@ -1,10 +1,10 @@
-import { assertFound } from "../../errors/assertFound";
+import { assertFound } from "../../errors/assertFound.js";
 import type {
   CreateInstructorCourseDTO,
   ExpressParamID,
-} from "../../types/index.types";
-import { parseParamID } from "../../http/parseParamID";
-import { PoolInstructorCourseRepo } from "../../repositories/instructors/instructorCourse.repositories";
+} from "../../types/index.types.js";
+import { parseParamID } from "../../http/parseParamID.js";
+import { PoolInstructorCourseRepo } from "../../repositories/instructors/instructorCourse.repositories.js";
 
 const repo = new PoolInstructorCourseRepo();
 

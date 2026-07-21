@@ -1,9 +1,9 @@
 import jwt from "jsonwebtoken";
 import type { NextFunction, Request, Response } from "express";
-import AppError from "../errors/AppError";
-import { env } from "../config/env";
-import type { JWTPayload } from "../modules/auth/jwt_auth/jwtPayload.types";
-import { JWTPayloadBodySchema } from "../modules/auth/auth.schema";
+import AppError from "../errors/AppError.js";
+import { env } from "../config/env.js";
+import type { JWTPayload } from "../modules/auth/jwt_auth/jwtPayload.types.js";
+import { JWTPayloadBodySchema } from "../modules/auth/auth.schema.js";
 
 export function authenticate() {
   return (req: Request, res: Response, next: NextFunction) => {

@@ -1,5 +1,5 @@
-import type { CreatePermissionDTO } from "../rbac_authz/permission.types";
-import { PoolPermissionRepo } from "./permission.repositories";
+import type { CreatePermissionDTO } from "../rbac_authz/permission.types.js";
+import { PoolPermissionRepo } from "./permission.repositories.js";
 
 const repo = new PoolPermissionRepo();
 

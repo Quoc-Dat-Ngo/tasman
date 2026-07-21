@@ -9,9 +9,9 @@ import {
   getDepartmentCourseController,
   getDepartmentInstructorController,
   getDepartmentMajorController,
-} from "../controllers/department.controllers";
-import { authenticate } from "../middlewares/authenticate";
-import { authorise } from "../middlewares/authorise";
+} from "../controllers/department.controllers.js";
+import { authenticate } from "../middlewares/authenticate.js";
+import { authorise } from "../middlewares/authorise.js";
 export const departmentsRouter: Router = express.Router();
 
 departmentsRouter.use(authenticate());

@@ -1,4 +1,4 @@
-import { PoolRoleRepo } from "./role.repositories";
+import { PoolRoleRepo } from "./role.repositories.js";
 
 const repo = new PoolRoleRepo();
 

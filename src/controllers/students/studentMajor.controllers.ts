@@ -2,7 +2,7 @@ import type { Request, Response } from "express";
 import {
   registerMajorService,
   removeRegisterMajorService,
-} from "../../services/students/studentMajor.services";
+} from "../../services/students/studentMajor.services.js";
 
 async function registerMajorController(req: Request, res: Response) {
   const data = await registerMajorService(req.body);

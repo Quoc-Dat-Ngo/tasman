@@ -1,13 +1,13 @@
-import AppError from "../errors/AppError";
-import { assertFound } from "../errors/assertFound";
-import { parseParamID } from "../http/parseParamID";
-import { PoolCourseRepo } from "../repositories/course.repositories";
+import AppError from "../errors/AppError.js";
+import { assertFound } from "../errors/assertFound.js";
+import { parseParamID } from "../http/parseParamID.js";
+import { PoolCourseRepo } from "../repositories/course.repositories.js";
 import type {
   CreateCourseDTO,
   BaseQuery,
   UpdateCourseDTO,
   ExpressParamID,
-} from "../types/index.types";
+} from "../types/index.types.js";
 
 const repo = new PoolCourseRepo();
 

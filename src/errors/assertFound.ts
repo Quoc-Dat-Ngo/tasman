@@ -1,4 +1,4 @@
-import AppError from "./AppError";
+import AppError from "./AppError.js";
 
 export function assertFound<T>(
   value: T | null,

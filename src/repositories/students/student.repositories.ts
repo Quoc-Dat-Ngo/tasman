@@ -1,4 +1,4 @@
-import { pool } from "../../pool";
+import { pool } from "../../pool.js";
 import type {
   Course,
   CreateStudentDTO,
@@ -7,9 +7,9 @@ import type {
   Student,
   StudentQueryDTO,
   UpdateStudentDTO,
-} from "../../types/index.types";
-import type { EntityRepository } from "../EntityRepository.interface";
-import { updateQueryBuilder } from "../helpers/updateQueryBuilder";
+} from "../../types/index.types.js";
+import type { EntityRepository } from "../EntityRepository.interface.js";
+import { updateQueryBuilder } from "../helpers/updateQueryBuilder.js";
 
 interface StudentRepository extends EntityRepository<
   Student,
@@ -54,7 +54,7 @@ export class PoolStudentRepo implements StudentRepository {
     });
 
     const whereString =
-      whereClauses.length > 0 ? `WHERE ${whereClauses.join(" AND ")}` : "";
+      whereClauses.length > 0 ? `WHERE ${whereClauses.join(" AND ")}` : ".js";
 
     sort?.split(",").forEach((field) => {
       if (!field.startsWith("-")) {
@@ -66,7 +66,7 @@ export class PoolStudentRepo implements StudentRepository {
 
     const orderByString = orderByClauses.length
       ? `ORDER BY ${orderByClauses.join(", ")}`
-      : "";
+      : ".js";
 
     /** This is to specify dob to show only the date not the timezone
         * 

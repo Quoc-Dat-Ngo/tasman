@@ -8,7 +8,7 @@ import {
   deleteInstructorService,
   getInstructorCourseService,
   getInstructorDepartmentService,
-} from "../../services/instructors/instructor.services";
+} from "../../services/instructors/instructor.services.js";
 
 const getAllInstructorController = async (req: Request, res: Response) => {
   const data = await getAllInstructorService(req.query);

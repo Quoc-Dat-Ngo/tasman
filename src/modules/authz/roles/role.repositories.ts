@@ -1,5 +1,5 @@
-import { pool } from "../../../pool";
-import type { Role } from "../rbac_authz/role.types";
+import { pool } from "../../../pool.js";
+import type { Role } from "../rbac_authz/role.types.js";
 
 interface RoleRepository {
   create(name: string): Promise<Role>;

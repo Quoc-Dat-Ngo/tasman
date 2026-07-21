@@ -7,7 +7,7 @@ import {
   deleteMajorService,
   getMajorStudentService,
   getMajorDepartmentService,
-} from "../services/major.services";
+} from "../services/major.services.js";
 
 const getAllMajorController = async (req: Request, res: Response) => {
   const data = await getAllMajorService(req.query);

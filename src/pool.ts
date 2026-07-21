@@ -1,5 +1,5 @@
 import { Pool, types } from "pg";
-import { env } from "./config/env";
+import { env } from "./config/env.js";
 
 // 1082 is the OID for the PostgreSQL 'DATE' type
 // This tells node-postgres to return the raw string from the DB

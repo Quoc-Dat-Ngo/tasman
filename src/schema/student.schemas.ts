@@ -3,7 +3,7 @@ import {
   IDSchema,
   ParamsSchema,
   PaginationQuerySchema,
-} from "./common.schemas";
+} from "./common.schemas.js";
 
 export const StudentQuerySchema = PaginationQuerySchema.extend({
   first_name: z.string().trim().min(1).optional(),

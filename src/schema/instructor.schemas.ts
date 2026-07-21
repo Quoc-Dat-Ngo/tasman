@@ -3,7 +3,7 @@ import {
   IDSchema,
   ParamsSchema,
   PaginationQuerySchema,
-} from "./common.schemas";
+} from "./common.schemas.js";
 
 export { ParamsSchema, PaginationQuerySchema };
 

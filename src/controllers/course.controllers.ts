@@ -9,7 +9,7 @@ import {
   getCourseStudentService,
   getCourseInstructorService,
   getCourseDepartmentService,
-} from "../services/course.services";
+} from "../services/course.services.js";
 
 const getAllCourseController = async (req: Request, res: Response) => {
   const data = await getAllCourseService(req.query);

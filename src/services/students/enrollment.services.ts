@@ -1,10 +1,10 @@
-import { PoolEnrollmentRepo } from "../../repositories/students/enrollment.repositories";
-import { parseParamID } from "../../http/parseParamID";
+import { PoolEnrollmentRepo } from "../../repositories/students/enrollment.repositories.js";
+import { parseParamID } from "../../http/parseParamID.js";
 import type {
   CreateEnrollmentDTO,
   ExpressParamID,
-} from "../../types/index.types";
-import { assertFound } from "../../errors/assertFound";
+} from "../../types/index.types.js";
+import { assertFound } from "../../errors/assertFound.js";
 
 const repo = new PoolEnrollmentRepo();
 

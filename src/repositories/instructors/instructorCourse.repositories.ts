@@ -1,5 +1,5 @@
-import { pool } from "../../pool";
-import type { InstructorCourse } from "../../types/index.types";
+import { pool } from "../../pool.js";
+import type { InstructorCourse } from "../../types/index.types.js";
 
 interface InstructorCourseRepository {
   register(

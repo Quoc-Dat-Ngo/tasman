@@ -8,9 +8,9 @@ import {
   deleteInstructorController,
   getInstructorCourseController,
   getInstructorDepartmentController,
-} from "../../controllers/instructors/instructor.controllers";
-import { authenticate } from "../../middlewares/authenticate";
-import { authorise } from "../../middlewares/authorise";
+} from "../../controllers/instructors/instructor.controllers.js";
+import { authenticate } from "../../middlewares/authenticate.js";
+import { authorise } from "../../middlewares/authorise.js";
 
 export const instructorsRouter: Router = express.Router();
 

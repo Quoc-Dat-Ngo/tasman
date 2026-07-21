@@ -3,9 +3,9 @@ import type { Router } from "express";
 import {
   registerCourseController,
   removeRegisterCourseController,
-} from "../../controllers/instructors/instructorCourse.controllers";
-import { authenticate } from "../../middlewares/authenticate";
-import { authorise } from "../../middlewares/authorise";
+} from "../../controllers/instructors/instructorCourse.controllers.js";
+import { authenticate } from "../../middlewares/authenticate.js";
+import { authorise } from "../../middlewares/authorise.js";
 export const instructorCourseRouter: Router = express.Router();
 
 instructorCourseRouter.use(authenticate());

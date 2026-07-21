@@ -1,12 +1,12 @@
-import AppError from "../errors/AppError";
-import { assertFound } from "../errors/assertFound";
-import { parseParamID } from "../http/parseParamID";
-import { PoolDeparmentRepo } from "../repositories/department.repositories";
+import AppError from "../errors/AppError.js";
+import { assertFound } from "../errors/assertFound.js";
+import { parseParamID } from "../http/parseParamID.js";
+import { PoolDeparmentRepo } from "../repositories/department.repositories.js";
 import type {
   CreateDepartmentDTO,
   UpdateDepartmentDTO,
   ExpressParamID,
-} from "../types/index.types";
+} from "../types/index.types.js";
 
 const repo = new PoolDeparmentRepo();
 

@@ -1,4 +1,4 @@
-import { pool } from "../pool";
+import { pool } from "../pool.js";
 import type {
   Course,
   CreateDepartmentDTO,
@@ -6,9 +6,9 @@ import type {
   Instructor,
   Major,
   UpdateDepartmentDTO,
-} from "../types/index.types";
-import type { EntityRepository } from "./EntityRepository.interface";
-import { updateQueryBuilder } from "./helpers/updateQueryBuilder";
+} from "../types/index.types.js";
+import type { EntityRepository } from "./EntityRepository.interface.js";
+import { updateQueryBuilder } from "./helpers/updateQueryBuilder.js";
 
 interface DeparmentRepository extends EntityRepository<
   Department,

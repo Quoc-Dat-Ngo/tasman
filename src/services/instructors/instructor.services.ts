@@ -1,13 +1,13 @@
-import AppError from "../../errors/AppError";
-import { assertFound } from "../../errors/assertFound";
-import { parseParamID } from "../../http/parseParamID";
-import { PoolInstructorRepo } from "../../repositories/instructors/instructor.repositories";
+import AppError from "../../errors/AppError.js";
+import { assertFound } from "../../errors/assertFound.js";
+import { parseParamID } from "../../http/parseParamID.js";
+import { PoolInstructorRepo } from "../../repositories/instructors/instructor.repositories.js";
 import type {
   BaseQuery,
   CreateInstructorDTO,
   ExpressParamID,
   UpdateInstructorDTO,
-} from "../../types/index.types";
+} from "../../types/index.types.js";
 
 const repo = new PoolInstructorRepo();
 

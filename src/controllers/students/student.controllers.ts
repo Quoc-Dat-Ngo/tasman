@@ -7,14 +7,14 @@ import {
   getStudentCourseService,
   getStudentMajorService,
   updateStudentService,
-} from "../../services/students/student.services";
-import type { ValidatedRequest } from "../../middlewares/validator";
+} from "../../services/students/student.services.js";
+import type { ValidatedRequest } from "../../middlewares/validator.js";
 import type {
   CreateStudentSchema,
   StudentQuerySchema,
   UpdateStudentSchema,
-} from "../../schema/student.schemas";
-import type { ParamsSchema } from "../../schema/common.schemas";
+} from "../../schema/student.schemas.js";
+import type { ParamsSchema } from "../../schema/common.schemas.js";
 
 type GetAllStudentRequest = ValidatedRequest<
   undefined,

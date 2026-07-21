@@ -1,6 +1,6 @@
 import type { NextFunction, Request, Response } from "express";
-import type { PermissionString } from "../modules/authz/rbac_authz/permission.types";
-import AppError from "../errors/AppError";
+import type { PermissionString } from "../modules/authz/rbac_authz/permission.types.js";
+import AppError from "../errors/AppError.js";
 
 export function authorise(permission: PermissionString) {
   return (req: Request, res: Response, next: NextFunction) => {

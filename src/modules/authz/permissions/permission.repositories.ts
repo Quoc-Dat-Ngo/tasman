@@ -1,9 +1,9 @@
-import { pool } from "../../../pool";
+import { pool } from "../../../pool.js";
 import type {
   CreatePermissionDTO,
   Permission,
   PermissionList,
-} from "../rbac_authz/permission.types";
+} from "../rbac_authz/permission.types.js";
 
 interface PermissionRepository {
   create(data: CreatePermissionDTO): Promise<Permission>;

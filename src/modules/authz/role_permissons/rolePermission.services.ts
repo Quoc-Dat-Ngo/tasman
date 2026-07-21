@@ -1,5 +1,5 @@
-import type { CreateRolePermissionDTO } from "../rbac_authz/rolePermission.types";
-import { PoolRolePermission } from "./rolePermission.repositories";
+import type { CreateRolePermissionDTO } from "../rbac_authz/rolePermission.types.js";
+import { PoolRolePermission } from "./rolePermission.repositories.js";
 
 const repo = new PoolRolePermission();
 

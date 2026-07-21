@@ -1,7 +1,7 @@
-import "../src/config/env";
+import "../src/config/env.js";
 import fs from "fs";
 import { resolve, join } from "path";
-import { pool } from "../src/pool";
+import { pool } from "../src/pool.js";
 
 const pathToMigration = resolve("database/migrations");
 

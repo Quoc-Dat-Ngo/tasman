@@ -1,8 +1,8 @@
-import { pool } from "../../../pool";
+import { pool } from "../../../pool.js";
 import type {
   CreateRolePermissionDTO,
   RolePermission,
-} from "../rbac_authz/rolePermission.types";
+} from "../rbac_authz/rolePermission.types.js";
 
 interface RolePermissionRepository {
   create(data: CreateRolePermissionDTO): Promise<RolePermission>;

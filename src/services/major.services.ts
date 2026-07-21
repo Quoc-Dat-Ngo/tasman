@@ -3,11 +3,11 @@ import type {
   UpdateMajorDTO,
   BaseQuery,
   ExpressParamID,
-} from "../types/index.types";
-import AppError from "../errors/AppError";
-import { PoolMajorRepo } from "../repositories/major.repositories";
-import { parseParamID } from "../http/parseParamID";
-import { assertFound } from "../errors/assertFound";
+} from "../types/index.types.js";
+import AppError from "../errors/AppError.js";
+import { PoolMajorRepo } from "../repositories/major.repositories.js";
+import { parseParamID } from "../http/parseParamID.js";
+import { assertFound } from "../errors/assertFound.js";
 
 const repo = new PoolMajorRepo();
 

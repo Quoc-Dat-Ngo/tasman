@@ -1,6 +1,6 @@
-import { env } from "./config/env";
-import app from "./app";
-import { pool } from "./pool";
+import { env } from "./config/env.js";
+import app from "./app.js";
+import { pool } from "./pool.js";
 
 const PORT = env.PORT;
 const server = app.listen(PORT);

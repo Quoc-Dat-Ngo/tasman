@@ -8,9 +8,9 @@ import {
   deleteMajorController,
   getMajorStudentController,
   getMajorDepartmentController,
-} from "../controllers/major.controllers";
-import { authenticate } from "../middlewares/authenticate";
-import { authorise } from "../middlewares/authorise";
+} from "../controllers/major.controllers.js";
+import { authenticate } from "../middlewares/authenticate.js";
+import { authorise } from "../middlewares/authorise.js";
 export const majorsRouter: Router = express.Router();
 
 majorsRouter.use(authenticate());

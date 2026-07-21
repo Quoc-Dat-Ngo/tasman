@@ -8,7 +8,7 @@ import {
   getDepartmentCourseService,
   getDepartmentInstructorService,
   getDepartmentMajorService,
-} from "../services/department.services";
+} from "../services/department.services.js";
 
 const getAllDepartmentController = async (res: Response) => {
   const data = await getAllDepartmentService();

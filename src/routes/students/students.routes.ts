@@ -8,16 +8,16 @@ import {
   deleteStudentController,
   getStudentCourseController,
   getStudentMajorController,
-} from "../../controllers/students/student.controllers";
-import { authenticate } from "../../middlewares/authenticate";
-import { authorise } from "../../middlewares/authorise";
-import { controllerValidator } from "../../middlewares/validator";
+} from "../../controllers/students/student.controllers.js";
+import { authenticate } from "../../middlewares/authenticate.js";
+import { authorise } from "../../middlewares/authorise.js";
+import { controllerValidator } from "../../middlewares/validator.js";
 import {
   CreateStudentSchema,
   StudentQuerySchema,
   UpdateStudentSchema,
-} from "../../schema/student.schemas";
-import { ParamsSchema } from "../../schema/common.schemas";
+} from "../../schema/student.schemas.js";
+import { ParamsSchema } from "../../schema/common.schemas.js";
 
 export const studentsRouter: Router = express.Router();
 

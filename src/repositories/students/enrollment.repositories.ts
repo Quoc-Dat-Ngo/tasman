@@ -1,5 +1,5 @@
-import { pool } from "../../pool";
-import type { Enrollment } from "../../types/index.types";
+import { pool } from "../../pool.js";
+import type { Enrollment } from "../../types/index.types.js";
 
 interface EnrollmentRepository {
   enroll(studentId: string, courseId: string): Promise<Enrollment | null>;

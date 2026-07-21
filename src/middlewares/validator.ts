@@ -1,6 +1,6 @@
 import type { NextFunction, Request, Response } from "express";
 import { ZodType, z } from "zod";
-import AppError from "../errors/AppError";
+import AppError from "../errors/AppError.js";
 
 export type ValidatedRequest<
   B extends ZodType<any, any, any> | undefined = undefined,

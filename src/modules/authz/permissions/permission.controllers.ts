@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import { createNewPermissionService } from "./permission.services";
+import { createNewPermissionService } from "./permission.services.js";
 
 async function createNewPermissionController(req: Request, res: Response) {
   const permission = await createNewPermissionService(req.body);

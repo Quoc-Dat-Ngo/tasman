@@ -9,9 +9,9 @@ import {
   getCourseStudentController,
   getCourseInstructorController,
   getCourseDepartmentController,
-} from "../controllers/course.controllers";
-import { authenticate } from "../middlewares/authenticate";
-import { authorise } from "../middlewares/authorise";
+} from "../controllers/course.controllers.js";
+import { authenticate } from "../middlewares/authenticate.js";
+import { authorise } from "../middlewares/authorise.js";
 export const coursesRouter: Router = express.Router();
 
 coursesRouter.use(authenticate());

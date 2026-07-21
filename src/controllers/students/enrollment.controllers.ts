@@ -2,7 +2,7 @@ import type { Request, Response } from "express";
 import {
   enrollCourseService,
   removeEnrollCourseService,
-} from "../../services/students/enrollment.services";
+} from "../../services/students/enrollment.services.js";
 
 async function enrollCourseController(req: Request, res: Response) {
   const data = await enrollCourseService(req.body);

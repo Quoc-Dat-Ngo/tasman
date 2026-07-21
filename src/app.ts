@@ -2,27 +2,27 @@ import express from "express";
 import morgan from "morgan";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import { globalErrorHandler } from "./middlewares/errorHandler";
+import { globalErrorHandler } from "./middlewares/errorHandler.js";
 
 // JWT Authentication router
-import { authRouter } from "./modules/auth/auth.routes";
+import { authRouter } from "./modules/auth/auth.routes.js";
 
 // RBAC Authorisation router
-import { roleRouter } from "./modules/authz/roles/role.routes";
+import { roleRouter } from "./modules/authz/roles/role.routes.js";
 
-import { studentsRouter } from "./routes/students/students.routes";
-import { enrollmentRouter } from "./routes/students/enrollments.routes";
-import { studentMajorsRouter } from "./routes/students/studentMajors.routes";
+import { studentsRouter } from "./routes/students/students.routes.js";
+import { enrollmentRouter } from "./routes/students/enrollments.routes.js";
+import { studentMajorsRouter } from "./routes/students/studentMajors.routes.js";
 
-import { instructorsRouter } from "./routes/instructors/instructors.routes";
-import { instructorCourseRouter } from "./routes/instructors/instructorCourse.routes";
+import { instructorsRouter } from "./routes/instructors/instructors.routes.js";
+import { instructorCourseRouter } from "./routes/instructors/instructorCourse.routes.js";
 
-import { coursesRouter } from "./routes/courses.routes";
-import { majorsRouter } from "./routes/majors.routes";
-import { departmentsRouter } from "./routes/departments.routes";
-import { permissionRouter } from "./modules/authz/permissions/permission.routes";
-import { rolePermissionRouter } from "./modules/authz/role_permissons/rolePermission.routes";
-import { adminRouter } from "./modules/admin/admin.routes";
+import { coursesRouter } from "./routes/courses.routes.js";
+import { majorsRouter } from "./routes/majors.routes.js";
+import { departmentsRouter } from "./routes/departments.routes.js";
+import { permissionRouter } from "./modules/authz/permissions/permission.routes.js";
+import { rolePermissionRouter } from "./modules/authz/role_permissons/rolePermission.routes.js";
+import { adminRouter } from "./modules/admin/admin.routes.js";
 
 const app = express();
 

@@ -2,7 +2,7 @@ import type { Response, Request } from "express";
 import {
   registerCourseService,
   removeRegisterCourseService,
-} from "../../services/instructors/instructorCourse.services";
+} from "../../services/instructors/instructorCourse.services.js";
 
 const registerCourseController = async (req: Request, res: Response) => {
   const data = await registerCourseService(req.body);

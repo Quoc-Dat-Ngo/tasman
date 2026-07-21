@@ -4,35 +4,35 @@ export type {
   UpdateStudentDTO,
   StudentQueryDTO,
   StudentMetadata,
-} from "./students/student.types";
+} from "./students/student.types.js";
 export type {
   Enrollment,
   CreateEnrollmentDTO,
-} from "./students/enrollment.types";
+} from "./students/enrollment.types.js";
 export type {
   StudentMajor,
   CreateStudentMajorDTO,
-} from "./students/studentMajor.types";
+} from "./students/studentMajor.types.js";
 
 export type {
   Instructor,
   CreateInstructorDTO,
   UpdateInstructorDTO,
-} from "./instructors/instructor.types";
+} from "./instructors/instructor.types.js";
 export type {
   InstructorCourse,
   CreateInstructorCourseDTO,
-} from "./instructors/instructorCourse.types";
+} from "./instructors/instructorCourse.types.js";
 
-export type { Course, CreateCourseDTO, UpdateCourseDTO } from "./course.types";
+export type { Course, CreateCourseDTO, UpdateCourseDTO } from "./course.types.js";
 
-export type { Major, CreateMajorDTO, UpdateMajorDTO } from "./major.types";
+export type { Major, CreateMajorDTO, UpdateMajorDTO } from "./major.types.js";
 
 export type {
   Department,
   CreateDepartmentDTO,
   UpdateDepartmentDTO,
-} from "./department.types";
+} from "./department.types.js";
 
 export type ExpressParamID = string | string[] | undefined;
 export interface BaseQuery {

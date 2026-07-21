@@ -1,4 +1,4 @@
-import type { BaseQuery } from "../index.types";
+import type { BaseQuery } from "../index.types.js";
 
 export interface Student {
   student_id: number;

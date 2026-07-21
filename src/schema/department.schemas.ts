@@ -1,5 +1,5 @@
 import * as z from "zod";
-import { ParamsSchema } from "./common.schemas";
+import { ParamsSchema } from "./common.schemas.js";
 
 export { ParamsSchema };
 
