@@ -1,10 +1,15 @@
 import express from "express";
 import type { Router } from "express";
-export const authRouter: Router = express.Router();
+import {
+  loginController,
+  registerController,
+  logoutController,
+  refreshTokenController,
+} from "./auth.controllers.js";
+import { controllerValidator } from "../../middlewares/validator.js";
+import { LoginBodySchema, RegisterBodySchema } from "./auth.schema.js";
 
-import { loginController, registerController } from "./auth.controllers";
-import { controllerValidator } from "../../middlewares/validator";
-import { LoginBodySchema, RegisterBodySchema } from "./auth.schema";
+export const authRouter: Router = express.Router();
 
 authRouter
   .route("/login")
@@ -12,5 +17,5 @@ authRouter
 authRouter
   .route("/register")
   .post(controllerValidator(RegisterBodySchema), registerController);
-// authRouter.route("/logout").post();
-// authRouter.route("/refresh-token").post();
+authRouter.route("/logout").post(logoutController);
+authRouter.route("/refresh-token").post(refreshTokenController);

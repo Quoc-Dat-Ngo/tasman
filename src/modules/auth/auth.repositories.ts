@@ -1,6 +1,6 @@
-import { pool } from "../../pool";
-import type { User, CreateUserDTO } from "../../types/user.types";
-import type { RefreshToken } from "./jwt_auth/token.types";
+import { pool } from "../../pool.js";
+import type { User, CreateUserDTO } from "../../types/user.types.js";
+import type { RefreshToken } from "./jwt_auth/token.types.js";
 
 interface AuthRepository {
   // login(): Promise<TODO ADD SOON>;
@@ -9,6 +9,13 @@ interface AuthRepository {
   insertRefreshToken(
     id: number,
     token: string,
+    expiry: Date,
+  ): Promise<RefreshToken>;
+
+  findRefreshTokenByUserId(userId: number): Promise<RefreshToken | null>;
+  updateRefreshToken(
+    id: number,
+    hashed_token: string,
     expiry: Date,
   ): Promise<RefreshToken>;
 }
@@ -46,6 +53,39 @@ export class PoolAuthRepo implements AuthRepository {
           RETURNING *;
         `,
         [id, token, expiry],
+      )
+    ).rows[0]!;
+  }
+
+  async findRefreshTokenByUserId(userId: number): Promise<RefreshToken | null> {
+    return (
+      (
+        await pool.query<RefreshToken>(
+          `
+          SELECT *
+          FROM refresh_tokens
+          WHERE user_id = $1;
+        `,
+          [userId],
+        )
+      ).rows[0] ?? null
+    );
+  }
+
+  async updateRefreshToken(
+    id: number,
+    hashed_token: string,
+    expiry: Date,
+  ): Promise<RefreshToken> {
+    return (
+      await pool.query<RefreshToken>(
+        `
+          UPDATE refresh_tokens
+          SET hashed_token = $1, expires_at = $2
+          WHERE token_id = $3
+          RETURNING *;
+        `,
+        [hashed_token, expiry, id],
       )
     ).rows[0]!;
   }

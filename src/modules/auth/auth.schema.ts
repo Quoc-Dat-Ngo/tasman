@@ -1,5 +1,5 @@
 import * as z from "zod";
-import type { PermissionString } from "../authz/rbac_authz/permission.types";
+import type { PermissionString } from "../authz/rbac_authz/permission.types.js";
 
 export const LoginBodySchema = z.object({
   email: z.email(),

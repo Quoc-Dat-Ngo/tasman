@@ -1,14 +1,21 @@
+import type { LoginDTO, RegisterDTO } from "./jwt_auth/auth.types.js";
+import type { CreateUserDTO } from "../../types/user.types.js";
+import type { Request, Response } from "express";
 import argon2 from "argon2";
-import type { LoginDTO, RegisterDTO } from "./jwt_auth/auth.types";
-import { PoolAuthRepo } from "./auth.repositories";
-import AppError from "../../errors/AppError";
-import type { CreateUserDTO } from "../../types/user.types";
-import { createAccessToken, createRefreshToken } from "../../utils/auth.utils";
-import { PoolRoleRepo } from "../authz/roles/role.repositories";
-import { PoolPermissionRepo } from "../authz/permissions/permission.repositories";
-import { PoolStudentRepo } from "../../repositories/students/student.repositories";
-import { PoolInstructorRepo } from "../../repositories/instructors/instructor.repositories";
-import { PoolAdminRepo } from "../admin/admin.repositories";
+import jwt from "jsonwebtoken";
+import { PoolAuthRepo } from "./auth.repositories.js";
+import AppError from "../../errors/AppError.js";
+import {
+  createAccessToken,
+  createRefreshToken,
+} from "../../utils/auth.utils.js";
+import { PoolRoleRepo } from "../authz/roles/role.repositories.js";
+import { PoolPermissionRepo } from "../authz/permissions/permission.repositories.js";
+import { PoolStudentRepo } from "../../repositories/students/student.repositories.js";
+import { PoolInstructorRepo } from "../../repositories/instructors/instructor.repositories.js";
+import { PoolAdminRepo } from "../admin/admin.repositories.js";
+import { env } from "../../config/env.js";
+import type { JWTPayload } from "./jwt_auth/jwtPayload.types.js";
 
 const authRepo = new PoolAuthRepo();
 const roleRepo = new PoolRoleRepo();
@@ -105,4 +112,82 @@ async function registerService(data: RegisterDTO) {
   return await authRepo.register(newUser);
 }
 
-export { loginService, registerService };
+function logoutService(res: Response) {
+  res.clearCookie("refreshToken");
+}
+
+async function refreshTokenService(req: Request) {
+  const token = req.cookies.refreshToken;
+
+  // Check if there's no token exists
+  if (!token) {
+    throw new AppError("No refresh token found, access denied", 401);
+  }
+
+  let payload: JWTPayload;
+
+  try {
+    payload = jwt.verify(token, env.REFRESH_KEY) as unknown as JWTPayload;
+  } catch (err) {
+    throw new AppError(
+      "Refresh token found but does not match internal credential",
+      401,
+    );
+  }
+
+  // Check if user exists
+  const user = await adminRepo.findUserById(payload.sub);
+  if (!user) {
+    throw new AppError(`User not found with ${payload.sub}`, 404);
+  }
+
+  const userRefreshToken = await authRepo.findRefreshTokenByUserId(
+    user.user_id,
+  );
+  if (!userRefreshToken) {
+    throw new AppError(
+      "Refresh token associated with this user not found",
+      404,
+    );
+  }
+
+  const isRefreshTokenMatch = await argon2.verify(
+    userRefreshToken.hashed_token,
+    token,
+  );
+  if (!isRefreshTokenMatch) {
+    throw new AppError(
+      "Refresh token associated with this user found but does not match internal credential",
+      401,
+    );
+  }
+
+  // Token exists and valid
+  const accessToken = createAccessToken(
+    user.user_id,
+    payload.role,
+    payload.permissions,
+  );
+  const refreshToken = createRefreshToken(
+    user.user_id,
+    payload.role,
+    payload.permissions,
+  );
+
+  // Hash refreshToken to ensure security
+  const hashed_token = await argon2.hash(refreshToken);
+
+  // Set default expiry date for refreshToken is 7-day
+  const sevenDays = 7 * 24 * 60 * 60 * 1000;
+  const expiry = new Date(Date.now() + sevenDays);
+
+  await authRepo.updateRefreshToken(
+    userRefreshToken.token_id,
+    hashed_token,
+    expiry,
+  );
+
+  return { accessToken, refreshToken };
+}
+
+export { loginService, registerService, logoutService, refreshTokenService };

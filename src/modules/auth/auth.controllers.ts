@@ -1,8 +1,13 @@
 import type { Request, Response } from "express";
-import { loginService, registerService } from "./auth.services";
-import { sendRefreshToken } from "../../utils/auth.utils";
-import type { LoginBodySchema, RegisterBodySchema } from "./auth.schema";
-import type { ValidatedRequest } from "../../middlewares/validator";
+import {
+  loginService,
+  registerService,
+  logoutService,
+  refreshTokenService,
+} from "./auth.services.js";
+import { sendRefreshToken } from "../../utils/auth.utils.js";
+import type { LoginBodySchema, RegisterBodySchema } from "./auth.schema.js";
+import type { ValidatedRequest } from "../../middlewares/validator.js";
 
 type LoginRequest = ValidatedRequest<typeof LoginBodySchema>;
 type RegisterRequest = ValidatedRequest<typeof RegisterBodySchema>;
@@ -26,4 +31,26 @@ async function registerController(req: Request, res: Response) {
   });
 }
 
-export { loginController, registerController };
+function logoutController(req: Request, res: Response) {
+  logoutService(res);
+  res.status(200).json({
+    status: "Success",
+    message: "Logged out",
+  });
+}
+
+async function refreshTokenController(req: Request, res: Response) {
+  const { accessToken, refreshToken } = await refreshTokenService(req);
+  sendRefreshToken(res, refreshToken);
+  res.status(200).json({
+    message: "New refresh token generated",
+    accessToken,
+  });
+}
+
+export {
+  loginController,
+  registerController,
+  logoutController,
+  refreshTokenController,
+};
