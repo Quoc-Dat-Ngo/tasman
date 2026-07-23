@@ -1,7 +1,9 @@
-import "../src/config/env.js";
+import { env } from "../src/config/env.js";
 import fs from "fs";
 import { resolve, join } from "path";
 import { pool } from "../src/pool.js";
+
+console.log(env.DATABASE_URL);
 
 const pathToMigration = resolve("database/migrations");
 
@@ -51,16 +53,23 @@ async function executeMigrationFiles() {
         [file],
       );
       await pool.query("COMMIT");
+      console.log("Success");
     } catch (error) {
       await pool.query("ROLLBACK");
+      console.error(error);
       throw error;
     }
   }
 }
 
 async function runMigrations() {
+  console.log("Starting migrations...");
   await ensureMigrationTable();
+
+  console.log("Migration table checked");
   await executeMigrationFiles();
+
+  console.log("Migration execution completed");
   process.exit(0);
 }
 
