@@ -54,7 +54,7 @@ export class PoolStudentRepo implements StudentRepository {
     });
 
     const whereString =
-      whereClauses.length > 0 ? `WHERE ${whereClauses.join(" AND ")}` : ".js";
+      whereClauses.length > 0 ? `WHERE ${whereClauses.join(" AND ")}` : "";
 
     sort?.split(",").forEach((field) => {
       if (!field.startsWith("-")) {
@@ -66,7 +66,7 @@ export class PoolStudentRepo implements StudentRepository {
 
     const orderByString = orderByClauses.length
       ? `ORDER BY ${orderByClauses.join(", ")}`
-      : ".js";
+      : "";
 
     /** This is to specify dob to show only the date not the timezone
         * 

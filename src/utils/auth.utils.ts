@@ -37,10 +37,11 @@ function createRefreshToken(
 
 function sendRefreshToken(res: Response, token: string) {
   res.cookie("refreshToken", token, {
-    path: "/refresh-token",
+    path: "/",
     httpOnly: true,
     secure: true,
     sameSite: "none",
+    maxAge: 7 * 24 * 60 * 60 * 1000,
   });
 }
 

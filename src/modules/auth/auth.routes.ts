@@ -8,8 +8,11 @@ import {
 } from "./auth.controllers.js";
 import { controllerValidator } from "../../middlewares/validator.js";
 import { LoginBodySchema, RegisterBodySchema } from "./auth.schema.js";
+import { limiter } from "../../middlewares/rateLimiter.js";
 
 export const authRouter: Router = express.Router();
+
+authRouter.use(limiter);
 
 authRouter
   .route("/login")

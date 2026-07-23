@@ -57,8 +57,9 @@ async function loginService(data: LoginDTO) {
   // Set default expiry date for refreshToken is 7-day
   const sevenDays = 7 * 24 * 60 * 60 * 1000;
   const expiry = new Date(Date.now() + sevenDays);
+
   // Store refreshToken in refresh_tokens table
-  await authRepo.insertRefreshToken(user.user_id, hashed_token, expiry);
+  await authRepo.login(user.user_id, hashed_token, expiry);
 
   return { email: data.email, accessToken, refreshToken };
 }
@@ -112,8 +113,38 @@ async function registerService(data: RegisterDTO) {
   return await authRepo.register(newUser);
 }
 
-function logoutService(res: Response) {
-  res.clearCookie("refreshToken");
+async function logoutService(req: Request, res: Response) {
+  const token = req.cookies.refreshToken;
+
+  // Check if there's no token exists
+  if (!token) {
+    throw new AppError("No refresh token found, access denied", 401);
+  }
+
+  // Clear cookie, matching upon creation
+  res.clearCookie("refreshToken", {
+    path: "/",
+    httpOnly: true,
+    secure: true,
+    sameSite: "none",
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+  });
+
+  try {
+    const payload = jwt.verify(token, env.REFRESH_KEY) as unknown as JWTPayload;
+
+    await authRepo.deleteRefreshToken(payload.sub);
+  } catch (err) {
+    if (err instanceof jwt.TokenExpiredError) {
+      const payload = jwt.decode(token) as unknown as JWTPayload;
+      if (payload && payload.sub) {
+        await authRepo.deleteRefreshToken(payload.sub);
+      }
+      return; // Graceful exit, user is logged out
+    }
+
+    throw new AppError("Invalid credentials", 401);
+  }
 }
 
 async function refreshTokenService(req: Request) {
@@ -160,6 +191,10 @@ async function refreshTokenService(req: Request) {
       "Refresh token associated with this user found but does not match internal credential",
       401,
     );
+  }
+
+  if (userRefreshToken.expires_at < new Date()) {
+    throw new AppError("Refresh token expired. Please logged in again", 401);
   }
 
   // Token exists and valid
