@@ -3,14 +3,14 @@ import type { PermissionString } from "../authz/rbac_authz/permission.types.js";
 
 export const LoginBodySchema = z.object({
   email: z.email(),
-  password: z.string().trim().min(9),
+  password: z.string().trim().min(3),
 });
 
 export const RegisterBodySchema = z.object({
   first_name: z.string().trim().min(1),
   last_name: z.string().trim().min(1),
   email: z.email(),
-  password: z.string().trim().min(9),
+  password: z.string().trim().min(3),
 });
 
 const actions = ["read", "create", "update", "delete"] as const;

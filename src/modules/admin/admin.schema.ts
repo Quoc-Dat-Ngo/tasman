@@ -2,7 +2,7 @@ import * as z from "zod";
 
 export const AdminBodySchema = z.object({
   user_email: z.email(),
-  user_password: z.coerce.string().trim().min(9),
+  user_password: z.coerce.string().trim().min(3),
   role_id: z.coerce.number().int().min(1),
   linked_student_id: z.coerce
     .number()
