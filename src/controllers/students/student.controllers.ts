@@ -43,10 +43,9 @@ const getAllStudentController = async (req: Request, res: Response) => {
 const createNewStudentController = async (req: Request, res: Response) => {
   const { body } = (req as CreateStudentRequest).validated;
 
-  const data = await createNewStudentService(body);
   res.status(201).json({
     success: true,
-    data,
+    data: await createNewStudentService(body),
   });
 };
 const getSingleStudentController = async (req: Request, res: Response) => {

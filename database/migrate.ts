@@ -1,13 +1,11 @@
 import { env } from "../src/config/env.js";
 import fs from "fs";
 import { resolve, join } from "path";
-import { pool } from "../src/pool.js";
-
-console.log(env.DATABASE_URL);
+import type { Pool } from "pg";
 
 const pathToMigration = resolve("database/migrations");
 
-async function ensureMigrationTable() {
+async function ensureMigrationTable(pool: Pool) {
   await pool.query(
     `
       CREATE TABLE IF NOT EXISTS schema_migrations (
@@ -19,7 +17,7 @@ async function ensureMigrationTable() {
   );
 }
 
-async function executeMigrationFiles() {
+async function executeMigrationFiles(pool: Pool) {
   const migrationFiles = fs
     .readdirSync(pathToMigration)
     .filter((file) => file.endsWith(".sql"))
@@ -62,17 +60,9 @@ async function executeMigrationFiles() {
   }
 }
 
-async function runMigrations() {
+export async function runMigrations(pool: Pool) {
   console.log("Starting migrations...");
-  await ensureMigrationTable();
-
-  console.log("Migration table checked");
-  await executeMigrationFiles();
-
+  await ensureMigrationTable(pool);
+  await executeMigrationFiles(pool);
   console.log("Migration execution completed");
-  process.exit(0);
 }
-
-runMigrations().catch((_err) => {
-  process.exit(1);
-});

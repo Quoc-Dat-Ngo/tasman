@@ -7,7 +7,7 @@ async function createNewRoleController(req: Request, res: Response) {
   const role = await createNewRoleService(role_name);
 
   res.status(201).json({
-    sucess: true,
+    success: true,
     data: role,
   });
 }
