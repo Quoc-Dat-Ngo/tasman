@@ -17,7 +17,8 @@
     "test:integration": "npm run migrate:test && NODE_OPTIONS=--experimental-vm-modules jest --runInBand tests/integration",
     "container:up": "docker compose -f docker-compose.test.yml up -d",
     "container:down": "docker compose -f docker-compose.test.yml down",
-    "container:remove": "docker compose -f docker-compose.test.yml down -v"
+    "container:remove": "docker compose -f docker-compose.test.yml down -v",
+    "start:prod": "npm build && npm run migrate && npm start"
   },
   "repository": {
     "type": "git",
