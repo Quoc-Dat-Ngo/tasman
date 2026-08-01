@@ -9,6 +9,7 @@ import {
 import { controllerValidator } from "../../middlewares/validator.js";
 import { LoginBodySchema, RegisterBodySchema } from "./auth.schema.js";
 import { limiter } from "../../middlewares/rateLimiter.js";
+import { authenticate } from "../../middlewares/authenticate.js";
 
 export const authRouter: Router = express.Router();
 
@@ -20,5 +21,5 @@ authRouter
 authRouter
   .route("/register")
   .post(controllerValidator(RegisterBodySchema), registerController);
-authRouter.route("/logout").post(logoutController);
+authRouter.route("/logout").post(authenticate(), logoutController);
 authRouter.route("/refresh-token").post(refreshTokenController);

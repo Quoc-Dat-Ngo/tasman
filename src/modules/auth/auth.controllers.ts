@@ -31,8 +31,9 @@ async function registerController(req: Request, res: Response) {
   });
 }
 
-function logoutController(req: Request, res: Response) {
-  logoutService(req, res);
+async function logoutController(req: Request, res: Response) {
+  console.log("logout Controller");
+  await logoutService(req, res);
   res.status(200).json({
     status: "Success",
     message: "Logged out",

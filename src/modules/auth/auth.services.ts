@@ -116,6 +116,8 @@ async function registerService(data: RegisterDTO) {
 async function logoutService(req: Request, res: Response) {
   const token = req.cookies.refreshToken;
 
+  console.log("logout Service");
+
   // Check if there's no token exists
   if (!token) {
     throw new AppError("No refresh token found, access denied", 401);
@@ -152,7 +154,7 @@ async function refreshTokenService(req: Request) {
 
   // Check if there's no token exists
   if (!token) {
-    throw new AppError("No refresh token found, access denied", 401);
+    throw new AppError("Session expired or invalid. Please log in again", 401);
   }
 
   let payload: JWTPayload;
@@ -160,26 +162,20 @@ async function refreshTokenService(req: Request) {
   try {
     payload = jwt.verify(token, env.REFRESH_KEY) as unknown as JWTPayload;
   } catch (err) {
-    throw new AppError(
-      "Refresh token found but does not match internal credential",
-      401,
-    );
+    throw new AppError("Session expired or invalid. Please log in again", 401);
   }
 
   // Check if user exists
   const user = await adminRepo.findUserById(payload.sub);
   if (!user) {
-    throw new AppError(`User not found with ${payload.sub}`, 404);
+    throw new AppError(`Authentication failed. Access denied`, 401);
   }
 
   const userRefreshToken = await authRepo.findRefreshTokenByUserId(
     user.user_id,
   );
   if (!userRefreshToken) {
-    throw new AppError(
-      "Refresh token associated with this user not found",
-      404,
-    );
+    throw new AppError("Session expired or invalid. Please log in again", 401);
   }
 
   const isRefreshTokenMatch = await argon2.verify(
@@ -187,14 +183,11 @@ async function refreshTokenService(req: Request) {
     token,
   );
   if (!isRefreshTokenMatch) {
-    throw new AppError(
-      "Refresh token associated with this user found but does not match internal credential",
-      401,
-    );
+    throw new AppError("Authentication failed. Access denied", 401);
   }
 
   if (userRefreshToken.expires_at < new Date()) {
-    throw new AppError("Refresh token expired. Please logged in again", 401);
+    throw new AppError("Session expired. Please log in again", 401);
   }
 
   // Token exists and valid
