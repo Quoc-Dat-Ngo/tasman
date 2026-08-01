@@ -1,13 +1,10 @@
 import request from "supertest";
 import app from "../../src/app.js";
 import { clearDatabase } from "../helpers/truncate.js";
-import { createSingleAdmin } from "./admin.test.js";
 import {
   rolePermissionLinkForAdmin,
   rolePermissionLinkForStudent,
 } from "./roleAndPermissions.test.js";
-import { adminRole, studentRole } from "./roles.test.js";
-import { createStudentPermssion } from "./permissions.test.js";
 
 describe("Authentication + Authorisation Flow", () => {
   describe("Log in existing user", () => {

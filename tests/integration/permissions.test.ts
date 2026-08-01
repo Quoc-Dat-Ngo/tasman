@@ -2,10 +2,6 @@ import request from "supertest";
 import app from "../../src/app.js";
 import { clearDatabase } from "../helpers/truncate.js";
 
-// beforeAll(async () => {
-//   await clearDatabase();
-// });
-
 export const createStudentPermssion = async () => {
   return await request(app).post("/api/v1/permissions").send({
     action: "create",

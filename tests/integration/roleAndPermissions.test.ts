@@ -9,10 +9,6 @@ import {
 import { createSingleAdmin } from "./admin.test.js";
 import { adminRole, studentRole } from "./roles.test.js";
 
-// beforeAll(async () => {
-//   await clearDatabase();
-// });
-
 export async function rolePermissionLinkForAdmin() {
   await adminRole();
   const admin = await createSingleAdmin();

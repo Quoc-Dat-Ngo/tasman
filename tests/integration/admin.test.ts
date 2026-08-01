@@ -3,10 +3,6 @@ import app from "../../src/app.js";
 import { clearDatabase } from "../helpers/truncate.js";
 import { adminRole } from "./roles.test.js";
 
-// beforeAll(async () => {
-//   await clearDatabase();
-// });
-
 export async function createSingleAdmin() {
   return await request(app).post("/api/v1/admin").send({
     user_email: "qngo203@gmail.com",
