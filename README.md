@@ -2,7 +2,7 @@
 
 A backend REST API for a university course management system, built with Node.js (TypeScript), Express, and PostgreSQL. The project focuses on backend architecture fundamentals: layered design, a complete JWT auth flow with refresh token rotation, database-backed RBAC, and integration-tested endpoints.
 
-**Live API:** `https://your-railway-url.railway.app` *(update after deploy)*  
+**Live API:** `tasman-production.up.railway.app` *(update after deploy)*  
 **ER Diagram:** [View on Lucidchart](https://lucid.app/lucidchart/58de6dd1-7030-4c6c-abe0-e53aaa9c1b43/edit?viewport_loc=-1491%2C-606%2C2932%2C1465%2C0_0&invitationId=inv_39190bf5-33fd-4512-80eb-05ed6e48241a)
 
 ---
