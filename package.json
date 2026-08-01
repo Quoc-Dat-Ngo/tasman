@@ -18,7 +18,7 @@
     "container:up": "docker compose -f docker-compose.test.yml up -d",
     "container:down": "docker compose -f docker-compose.test.yml down",
     "container:remove": "docker compose -f docker-compose.test.yml down -v",
-    "start:prod": "npm build && npm run migrate && npm start"
+    "start:prod": "npm run build && npm run migrate && npm start"
   },
   "repository": {
     "type": "git",
