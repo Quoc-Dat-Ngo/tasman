@@ -8,17 +8,25 @@ import { JWTPayloadBodySchema } from "../modules/auth/auth.schema.js";
 export function authenticate() {
   return (req: Request, res: Response, next: NextFunction) => {
     const authorisation = req.headers["authorization"];
-    if (!authorisation)
+    if (!authorisation) {
       return next(new AppError("Please log in to access our service", 401));
+    }
 
-    const accessToken = authorisation!.split(" ")[1];
-    if (!accessToken)
-      next(new AppError("Missing token or not a valid one", 401));
-    const user = jwt.verify(accessToken!, env.ACCESS_KEY);
+    const accessToken = authorisation.split(" ")[1] ?? "";
+    if (!accessToken) {
+      return next(new AppError("Missing token or not a valid one", 401));
+    }
 
-    const validatedPayload: JWTPayload = JWTPayloadBodySchema.parse(user);
+    try {
+      const user = jwt.verify(accessToken, env.ACCESS_KEY);
 
-    req.user = validatedPayload as unknown as JWTPayload;
-    next();
+      const validatedPayload: JWTPayload = JWTPayloadBodySchema.parse(user);
+
+      req.user = validatedPayload as unknown as JWTPayload;
+      next();
+    } catch (error) {
+      // Catch expired/invalid JWT tokens or Zod parsing errors safely
+      return next(new AppError("Invalid or expired token session", 401));
+    }
   };
 }
