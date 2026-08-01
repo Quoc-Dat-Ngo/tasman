@@ -14,4 +14,5 @@ export default {
   },
 
   setupFiles: ["./tests/helpers/setup.ts"],
+  setupFilesAfterEnv: ["./tests/helpers/teardown.ts"],
 };
