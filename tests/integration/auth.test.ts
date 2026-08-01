@@ -1,151 +1,202 @@
 import request from "supertest";
 import app from "../../src/app.js";
 import { clearDatabase } from "../helpers/truncate.js";
-import { pool } from "../helpers/db.js";
+import { createSingleAdmin } from "./admin.test.js";
+import {
+  rolePermissionLinkForAdmin,
+  rolePermissionLinkForStudent,
+} from "./roleAndPermissions.test.js";
+import { adminRole, studentRole } from "./roles.test.js";
+import { createStudentPermssion } from "./permissions.test.js";
 
-beforeAll(async () => {
-  await setUpRoleAndPermission();
-  await createSingleAdmin();
-});
-
-afterAll(async () => {
-  await clearDatabase();
-  await pool.end();
-});
-
-async function setUpRoleAndPermission() {
-  const adminRole = await request(app).post("/api/v1/roles").send({
-    role_name: "admin",
-  });
-
-  expect(adminRole.statusCode).toBe(201);
-  expect(adminRole.body.success).toBe(true);
-  expect(adminRole.body.data).toStrictEqual(
-    expect.objectContaining({
-      role_id: 1,
-      role_name: "admin",
-    }),
-  );
-
-  const studentRole = await request(app).post("/api/v1/roles").send({
-    role_name: "student",
-  });
-  expect(studentRole.statusCode).toBe(201);
-  expect(studentRole.body.success).toBe(true);
-  expect(studentRole.body.data).toStrictEqual(
-    expect.objectContaining({
-      role_id: 2,
-      role_name: "student",
-    }),
-  );
-
-  const instructorRole = await request(app).post("/api/v1/roles").send({
-    role_name: "instructor",
-  });
-  expect(instructorRole.statusCode).toBe(201);
-  expect(instructorRole.body.success).toBe(true);
-  expect(instructorRole.body.data).toStrictEqual(
-    expect.objectContaining({
-      role_id: 3,
-      role_name: "instructor",
-    }),
-  );
-
-  const permssion = await request(app).post("/api/v1/permissions").send({
-    action: "create",
-    resource: "student",
-  });
-
-  expect(permssion.statusCode).toBe(201);
-  expect(permssion.body.success).toBe(true);
-  expect(permssion.body.data).toStrictEqual(
-    expect.objectContaining({
-      action: "create",
-      resource: "student",
-    }),
-  );
-
-  const rolePermissionLink = await request(app)
-    .post("/api/v1/role-permissions")
-    .send({
-      role_id: String(adminRole.body.data.role_id),
-      permission_id: String(permssion.body.data.permission_id),
+describe("Authentication + Authorisation Flow", () => {
+  describe("Log in existing user", () => {
+    beforeEach(async () => {
+      await clearDatabase();
+      await rolePermissionLinkForAdmin();
     });
 
-  expect(rolePermissionLink.statusCode).toBe(201);
-  expect(rolePermissionLink.body.success).toBe(true);
-  expect(rolePermissionLink.body.data).toStrictEqual(
-    expect.objectContaining({
-      permission_id: adminRole.body.data.role_id,
-      role_id: permssion.body.data.permission_id,
-    }),
-  );
-}
-
-async function createSingleAdmin() {
-  const admin = await request(app).post("/api/v1/admin").send({
-    user_email: "qngo203@gmail.com",
-    user_password: "dat123",
-    role_id: 1,
-    linked_student_id: null,
-    linked_instructor_id: null,
-  });
-  expect(admin.statusCode).toBe(201);
-  expect(admin.body.success).toBe(true);
-  expect(admin.body.data).toStrictEqual(
-    expect.objectContaining({
-      user_id: 1,
-      user_email: "qngo203@gmail.com",
-      role_id: 1,
-      linked_student_id: null,
-      linked_instructor_id: null,
-    }),
-  );
-}
-
-describe("POST /auth/register", () => {
-  it("Register new user", async () => {
-    // Log in via existing single admin that has the permission to create new student
-    let res = await request(app).post("/api/v1/auth/login").send({
-      email: "qngo203@gmail.com",
-      password: "dat123",
+    afterEach(async () => {
+      await clearDatabase();
     });
-
-    expect(res.statusCode).toBe(200);
-    expect(res.body.status).toEqual("success");
-    expect(res.body.email).toEqual("qngo203@gmail.com");
-
-    const newStudent = await request(app)
-      .post("/api/v1/students")
-      .set("Authorization", `Bearer ${res.body.accessToken}`)
-      .send({
-        first_name: "Lucas",
-        last_name: "Ngo",
-        dob: "2004-09-22",
-        gender: "M",
+    it("POST /auth/login", async () => {
+      // Log in via existing single admin that has the permission to create new student
+      const res = await request(app).post("/api/v1/auth/login").send({
+        email: "qngo203@gmail.com",
+        password: "dat123",
       });
 
-    expect(newStudent.statusCode).toBe(201);
-    expect(newStudent.body.success).toBe(true);
+      expect(res.statusCode).toBe(200);
+      expect(res.body.status).toEqual("success");
+      expect(res.body.email).toEqual("qngo203@gmail.com");
+    });
+  });
 
-    const newUser = await request(app).post("/api/v1/auth/register").send({
-      first_name: "Lucas",
-      last_name: "Ngo",
-      email: "duckie@gmail.com",
-      password: "duc123",
+  describe("Accessing a protected endpoint", () => {
+    beforeEach(async () => {
+      await clearDatabase();
+      await rolePermissionLinkForAdmin();
     });
 
-    expect(newUser.status).toBe(201);
-    expect(newUser.body.status).toEqual("success");
+    afterEach(async () => {
+      await clearDatabase();
+    });
+    it("Unauthenticated user - return 401", async () => {
+      const res = await request(app).get("/api/v1/courses");
 
-    // New user can log in as well
-    res = await request(app).post("/api/v1/auth/login").send({
-      email: "duckie@gmail.com",
-      password: "duc123",
+      expect(res.statusCode).toBe(401);
+      expect(res.body.status).toEqual("error");
+      expect(res.body.message).toEqual("Please log in to access our service");
     });
 
-    expect(res.statusCode).toBe(200);
-    expect(res.body.status).toEqual("success");
-    expect(res.body.email).toEqual("duckie@gmail.com");
+    it("Authenticated user but insuffient permission - return 403", async () => {
+      let res = await request(app).post("/api/v1/auth/login").send({
+        email: "qngo203@gmail.com",
+        password: "dat123",
+      });
+
+      expect(res.statusCode).toBe(200);
+      expect(res.body.status).toEqual("success");
+      expect(res.body.email).toEqual("qngo203@gmail.com");
+
+      res = await request(app)
+        .get("/api/v1/courses")
+        .set("Authorization", `Bearer ${res.body.accessToken}`);
+
+      expect(res.statusCode).toBe(403);
+      expect(res.body.status).toEqual("error");
+      expect(res.body.message).toEqual(
+        "Permission is not sufficient to make request",
+      );
+    });
+
+    it("Authenticated request and authorised user - return 200", async () => {
+      const res = await request(app).post("/api/v1/auth/login").send({
+        email: "qngo203@gmail.com",
+        password: "dat123",
+      });
+
+      expect(res.statusCode).toBe(200);
+      expect(res.body.status).toEqual("success");
+      expect(res.body.email).toEqual("qngo203@gmail.com");
+
+      const readStudentsResponse = await request(app)
+        .get("/api/v1/students")
+        .set("Authorization", `Bearer ${res.body.accessToken}`);
+
+      expect(readStudentsResponse.statusCode).toBe(200);
+      expect(readStudentsResponse.body.success).toBe(true);
+      expect(readStudentsResponse.body).toStrictEqual({
+        data: {
+          data: expect.any(Array),
+          metadata: expect.any(Object),
+        },
+        success: true,
+      });
+    });
+  });
+
+  describe("Entire authentication + authorisation flow", () => {
+    beforeEach(async () => {
+      await clearDatabase();
+      await rolePermissionLinkForAdmin();
+      await rolePermissionLinkForStudent();
+    });
+
+    afterEach(async () => {
+      await clearDatabase();
+    });
+    it("register -> login -> accessing protected route -> refresh token -> logout", async () => {
+      const res = await request(app).post("/api/v1/auth/login").send({
+        email: "qngo203@gmail.com",
+        password: "dat123",
+      });
+
+      const newStudent = await request(app)
+        .post("/api/v1/students")
+        .set("Authorization", `Bearer ${res.body.accessToken}`)
+        .send({
+          first_name: "Lucas",
+          last_name: "Ngo",
+          dob: "2004-09-22",
+          gender: "M",
+        });
+
+      expect(newStudent.statusCode).toBe(201);
+      expect(newStudent.body.success).toBe(true);
+
+      const newUser = await request(app).post("/api/v1/auth/register").send({
+        first_name: "Lucas",
+        last_name: "Ngo",
+        email: "duckie@gmail.com",
+        password: "duc123",
+      });
+
+      expect(newUser.status).toBe(201);
+      expect(newUser.body.status).toEqual("success");
+
+      // New user can log in as well
+      const login = await request(app).post("/api/v1/auth/login").send({
+        email: "duckie@gmail.com",
+        password: "duc123",
+      });
+
+      expect(login.statusCode).toBe(200);
+      expect(login.body.status).toEqual("success");
+      expect(login.body.email).toEqual("duckie@gmail.com");
+      expect(login.body.accessToken).toEqual(expect.any(String));
+
+      const cookieHeader = login.get("Set-Cookie") ?? [];
+
+      // A student can view all available courses (which is a protected route) after logging in
+      const readCourseResponse = await request(app)
+        .get("/api/v1/courses")
+        .set("Authorization", `Bearer ${login.body.accessToken}`);
+      expect(readCourseResponse.statusCode).toBe(200);
+      expect(readCourseResponse.body.success).toBe(true);
+      expect(readCourseResponse.body).toStrictEqual({
+        data: expect.any(Array),
+        success: true,
+      });
+
+      const refreshTokenResponse = await request(app)
+        .post("/api/v1/auth/refresh-token")
+        .set("Cookie", cookieHeader);
+      expect(refreshTokenResponse.statusCode).toBe(200);
+      expect(refreshTokenResponse.body.message).toEqual(
+        "New refresh token generated",
+      );
+      expect(refreshTokenResponse.body.accessToken).toEqual(expect.any(String));
+
+      console.log(login.body.accessToken);
+
+      const logoutResponse = await request(app)
+        .post("/api/v1/auth/logout")
+        .set("Authorization", `Bearer ${login.body.accessToken}`)
+        .set("Cookie", cookieHeader);
+      expect(logoutResponse.statusCode).toBe(200);
+      expect(logoutResponse.body).toStrictEqual({
+        status: "Success",
+        message: "Logged out",
+      });
+
+      // Still technically work before expiration (15m)
+      const read = await request(app)
+        .get("/api/v1/courses")
+        .set("Authorization", `Bearer ${login.body.accessToken}`);
+      expect(read.statusCode).toBe(200);
+
+      // But on refresh will fail
+      const failedRefresh = await request(app)
+        .post("/api/v1/auth/refresh-token")
+        .set("Cookie", cookieHeader); // This cookie session should now be invalidated on the backend
+
+      // This should fail because the backend deleted or invalidated the refresh session
+      expect(failedRefresh.statusCode).toBe(401);
+      expect(failedRefresh.body).toEqual({
+        status: "error",
+        message: "Session expired or invalid. Please log in again",
+      });
+    });
   });
 });
