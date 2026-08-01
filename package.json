@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "tsx watch --clear-screen=false src/server.ts",
     "build": "tsc",
-    "start": "node dist/server.js",
+    "start": "node dist/src/server.js",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "migrate": "tsx database/migrate.cli.ts",
